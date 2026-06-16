@@ -16,7 +16,7 @@ gdsdir = PATH.gds_chp
 
 N_FIBERS = 22
 PITCH = 127.0  # um
-DIE_SIZE = (7400, 3000)
+DIE_SIZE = (7500, 3100)
 
 
 @gf.cell
@@ -35,11 +35,11 @@ def ECL2() -> gf.Component:
     pad_cell = pdk.get_component("pad")
 
     pads = []
-    x_start = die.xmin + 150  #die.x - (N_PADS - 1) * PAD_PITCH / 2 + 1400
+    x_start = die.xmin + 200  #die.x - (N_PADS - 1) * PAD_PITCH / 2 + 1400
     for i in range(N_PADS):
         p = c.add_ref(pad_cell)
         p.x = x_start + i * PAD_PITCH
-        p.ymax = die.ymax - 50
+        p.ymax = die.ymax - 100
         pads.append(p)
 
     # Access individual pads as: pads[0], pads[1], ..., pads[37]
@@ -70,8 +70,8 @@ def ECL2() -> gf.Component:
     ecl2.add_port(name="e8", center=(-303.29, 20.07), width=20, orientation=0,  layer="MT2", port_type="electrical")
 
     ecl2 = c.add_ref(ecl2)
-    ecl2.xmin = die.xmin - 6
-    ecl2.movey(180)
+    ecl2.xmin = die.xmin + 44
+    ecl2.movey(0)
 
     #----- Heaters Electrical Routing----------
     first_pad = 18 # the firs pad on the left

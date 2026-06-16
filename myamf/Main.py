@@ -28,7 +28,7 @@ gdsdir = PATH.gds_chp
 
 N_FIBERS = 22
 PITCH = 127.0  # um
-DIE_SIZE = (7400, 3000)
+DIE_SIZE = (7500, 3100)
 
 
 @gf.cell
@@ -44,13 +44,13 @@ def Main() -> gf.Component:
     # Place 20 copies on the right (east) side, vertically centered on the die
     # Array spans (N_FIBERS - 1) * PITCH; center it vertically
     array_height = (N_FIBERS - 1) * PITCH
-    y_start = die.ymin + (DIE_SIZE[1] - array_height) / 2
+    y_start = die.ymin + (DIE_SIZE[1] - array_height) / 2 + 25
 
     refs = []
     for i in range(N_FIBERS):
         ec = c.add_ref(sin_ec)
         # opt_2_sin (fiber port, East) flush to die right edge
-        ec.xmax = die.xmax
+        ec.xmax = die.xmax - 50
         ec.y = y_start + i * PITCH
         refs.append(ec)
         # Expose on-chip port (o1, West) as e1..e20
@@ -101,11 +101,11 @@ def Main() -> gf.Component:
     pad_cell = pdk.get_component("pad")
 
     pads = []
-    x_start = die.xmin + 150  #die.x - (N_PADS - 1) * PAD_PITCH / 2 + 1400
+    x_start = die.xmin + 200  #die.x - (N_PADS - 1) * PAD_PITCH / 2 + 1400
     for i in range(N_PADS):
         p = c.add_ref(pad_cell)
         p.x = x_start + i * PAD_PITCH
-        p.ymax = die.ymax - 50
+        p.ymax = die.ymax - 100
         pads.append(p)
 
     # Access individual pads as: pads[0], pads[1], ..., pads[37]
@@ -117,19 +117,19 @@ def Main() -> gf.Component:
     pad_cell = pdk.get_component("pad")
 
     bpads = []
-    x_start = die.xmin + 150  #die.x - (N_PADS - 1) * PAD_PITCH / 2 + 1400
+    x_start = die.xmin + 200  #die.x - (N_PADS - 1) * PAD_PITCH / 2 + 1400
     for i in range(N_bPADS):
         p = c.add_ref(pad_cell)
         p.x = x_start + i * bPAD_PITCH
-        p.ymin = die.ymin + 50
+        p.ymin = die.ymin + 100
         bpads.append(p)
 
     #---------------------------------------------------------------------------------------
     # ECL to WL
     #---------------------------------------------------------------------------------------
     ecl2wl = c.add_ref(ECL_to_WL())
-    ecl2wl.ymin = die.ymin +300
-    ecl2wl.xmin = die.xmin + 1700
+    ecl2wl.ymin = die.ymin +350
+    ecl2wl.xmin = die.xmin + 1750
 
     #----------- Electrical routings--------
     gf.routing.route_bundle(
@@ -194,7 +194,7 @@ def Main() -> gf.Component:
     #---------------------------------------------------------------------------------------
     spiral = c.add_ref(Delay_Spiral(width = 3, taper_length = 200, min_bend_radius=270, separation=6.5, number_of_loops=48, npoints=20000,))
     spiral.mirror_y()
-    spiral.move((400 , die.ymin - spiral.ymin + 450))  # 200 µm from left edge, vertically centered
+    spiral.move((400 , die.ymin - spiral.ymin + 500))  # 200 µm from left edge, vertically centered
     
     gf.routing.route_single(
         c,
@@ -203,8 +203,8 @@ def Main() -> gf.Component:
         cross_section = 'strip',
         waypoints = [
             (float(ecl2wl.ports['o4'].center[0] + 10), float(ecl2wl.ports['o4'].center[1])),
-            (float(ecl2wl.ports['o4'].center[0] + 10), float(die.ymin + 160)),
-            (float(ecl2wl.ports['o4'].center[0] + 900), float(die.ymin + 160)),
+            (float(ecl2wl.ports['o4'].center[0] + 10), float(die.ymin + 210)),
+            (float(ecl2wl.ports['o4'].center[0] + 900), float(die.ymin + 210)),
             (float(ecl2wl.ports['o4'].center[0] + 900), float(spiral.ports['o1'].center[1] -60)),
             (float(spiral.ports['o1'].center[0] -10), float(spiral.ports['o1'].center[1] -60)),
             (float(spiral.ports['o1'].center[0] -10), float(spiral.ports['o1'].center[1])),
@@ -263,7 +263,7 @@ def Main() -> gf.Component:
     # WL with Ring
     #---------------------------------------------------------------------------------------
     wl_ring = c.add_ref(MZI_Ring(l = 580, gap = 0.35, coupling_length = 30, coupling_radius = 50, wg_width = 1.25, taper_length = 50, separation = 5.25, min_bend_radius= 100, htr_length = 100, number_of_loops = 43, npoints = 20000,))
-    wl_ring.move((-1400 , die.ymin - wl_ring.ymin + 420))
+    wl_ring.move((-1400 , die.ymin - wl_ring.ymin + 470))
 
     gf.routing.route_single(
         c,
@@ -344,8 +344,8 @@ def Main() -> gf.Component:
     # Wavemeter
     #---------------------------------------------------------------------------------------
     wavemeter = c.add_ref(Wavemeter())
-    wavemeter.ymax = die.ymax - 50
-    wavemeter.xmin = die.x + 150
+    wavemeter.ymax = die.ymax - 100
+    wavemeter.xmin = die.x + 175
 
     #---------------------------------------------------------------------------------------
     # MZIs
@@ -475,6 +475,6 @@ def Main() -> gf.Component:
     logo_gds = gf.import_gds("/workspace/myamf/gds/quiet_logo.gds")
     logo_gds.remap_layers({(1, 0): (10, 0)})  # move to RIB (silicon) layer
     logo = c.add_ref(logo_gds)
-    logo.xmax =  0
+    logo.xmax =  250
     logo.ymax = die.ymax - 400
     return c

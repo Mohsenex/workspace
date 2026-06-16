@@ -14,7 +14,7 @@ gdsdir = PATH.gds_chp
 
 N_FIBERS = 22
 PITCH = 127.0
-DIE_SIZE = (7400, 3000)
+DIE_SIZE = (7500, 3100)
 
 
 @gf.cell
@@ -29,11 +29,11 @@ def ECL3() -> gf.Component:
     pad_cell = pdk.get_component("pad")
 
     bpads = []
-    x_start = die.xmin + 150
+    x_start = die.xmin + 200
     for i in range(N_bPADS):
         p = c.add_ref(pad_cell)
         p.x = x_start + i * bPAD_PITCH
-        p.ymin = die.ymin + 50
+        p.ymin = die.ymin + 100
         bpads.append(p)
 
     #---------------------------------------------------------------------------------------
@@ -60,8 +60,8 @@ def ECL3() -> gf.Component:
     ecl3.add_port(name="e10", center=(-122.141,  415.645), width=20, orientation=90, layer="MT2", port_type="electrical")
 
     ecl3 = c.add_ref(ecl3)
-    ecl3.xmin = die.xmin - 6
-    ecl3.ymin = die.ymin + 350
+    ecl3.xmin = die.xmin + 44
+    ecl3.ymin = die.ymin + 400
 
     #---------------------------------------------------------------------------------------
     # Electrical Routing
