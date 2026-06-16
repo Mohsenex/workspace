@@ -1,0 +1,23 @@
+# yaml-language-server: $schema=../build/schemas/test.json
+instances:
+  ? ''
+  : component: Wavemeter
+    settings: {}
+  instance1:
+    component: Ring_Master
+    settings: {}
+connections: {}
+routes: {}
+nets: []
+ports: {}
+placements:
+  ? ''
+  : x: 0.0
+    y: 0.0
+    dx: -98.653
+    dy: 16.358
+  instance1:
+    x: 0.0
+    y: 0.0
+    dx: 99.989
+    dy: 1.476

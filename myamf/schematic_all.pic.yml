@@ -1,0 +1,2034 @@
+connections: {}
+info: {}
+instances:
+  AMF_300LSOI_LSiN2SOISSC_Cband_v5p0:
+    array: null
+    component: AMF_300LSOI_LSiN2SOISSC_Cband_v5p0
+    settings: {}
+    virtual: false
+  AMF_300LSOI_LSiNEdgeCoupler_Cband_v5p0:
+    array: null
+    component: AMF_300LSOI_LSiNEdgeCoupler_Cband_v5p0
+    settings: {}
+    virtual: false
+  AMF_300LSOI_MOD200SPP_Cband_Cell_v5p0:
+    array: null
+    component: AMF_300LSOI_MOD200SPP_Cband_Cell_v5p0
+    settings: {}
+    virtual: false
+  AMF_300LSOI_MOD200SPP_Cband_IO_v5p0:
+    array: null
+    component: AMF_300LSOI_MOD200SPP_Cband_IO_v5p0
+    settings: {}
+    virtual: false
+  AMF_300LSOI_MOD53GHz_Cband_Cell_v5p0:
+    array: null
+    component: AMF_300LSOI_MOD53GHz_Cband_Cell_v5p0
+    settings: {}
+    virtual: false
+  AMF_300LSOI_MOD53GHz_Cband_v5p0:
+    array: null
+    component: AMF_300LSOI_MOD53GHz_Cband_v5p0
+    settings: {}
+    virtual: false
+  AMF_300LSOI_MODDFAC57GHz_Cband_Cell_v5p0:
+    array: null
+    component: AMF_300LSOI_MODDFAC57GHz_Cband_Cell_v5p0
+    settings: {}
+    virtual: false
+  AMF_300LSOI_MODDFAC57GHz_Cband_Input_v5p0:
+    array: null
+    component: AMF_300LSOI_MODDFAC57GHz_Cband_Input_v5p0
+    settings: {}
+    virtual: false
+  AMF_300LSOI_MODDFAC57GHz_Cband_Output_v5p0:
+    array: null
+    component: AMF_300LSOI_MODDFAC57GHz_Cband_Output_v5p0
+    settings: {}
+    virtual: false
+  AMF_300LSOI_MODDFAC57GHz_Cband_v5p0:
+    array: null
+    component: AMF_300LSOI_MODDFAC57GHz_Cband_v5p0
+    settings: {}
+    virtual: false
+  AMF_300LSOI_PD62GHz_Cband_Cell_v5p0:
+    array: null
+    component: AMF_300LSOI_PD62GHz_Cband_Cell_v5p0
+    settings: {}
+    virtual: false
+  AMF_300LSOI_PD62GHz_Cband_v5p0:
+    array: null
+    component: AMF_300LSOI_PD62GHz_Cband_v5p0
+    settings: {}
+    virtual: false
+  AMF_300LSOI_PD82GHz_Cband_v5p0:
+    array: null
+    component: AMF_300LSOI_PD82GHz_Cband_v5p0
+    settings: {}
+    virtual: false
+  AMF_300LSOI_PowMonitor_Cband_Cell_v5p0:
+    array: null
+    component: AMF_300LSOI_PowMonitor_Cband_Cell_v5p0
+    settings: {}
+    virtual: false
+  AMF_300LSOI_PowMonitor_Cband_v5p0:
+    array: null
+    component: AMF_300LSOI_PowMonitor_Cband_v5p0
+    settings: {}
+    virtual: false
+  AMF_300LSOI_Si1X2MMI_Cband_v5p0:
+    array: null
+    component: AMF_300LSOI_Si1X2MMI_Cband_v5p0
+    settings: {}
+    virtual: false
+  AMF_300LSOI_Si2X2MMI_Cband_v5p0:
+    array: null
+    component: AMF_300LSOI_Si2X2MMI_Cband_v5p0
+    settings: {}
+    virtual: false
+  AMF_300LSOI_SiCrossing_Cband_v5p0:
+    array: null
+    component: AMF_300LSOI_SiCrossing_Cband_v5p0
+    settings: {}
+    virtual: false
+  AMF_300LSOI_SiGC1D_Cband_v5p0:
+    array: null
+    component: AMF_300LSOI_SiGC1D_Cband_v5p0
+    settings: {}
+    virtual: false
+  AMF_300LSOI_SiPBRC_Cband_v5p0:
+    array: null
+    component: AMF_300LSOI_SiPBRC_Cband_v5p0
+    settings: {}
+    virtual: false
+  AMF_300LSOI_SiPBRS_Cband_v5p0:
+    array: null
+    component: AMF_300LSOI_SiPBRS_Cband_v5p0
+    settings: {}
+    virtual: false
+  AMF_300LSOI_SiPBS_Cband_v5p0:
+    array: null
+    component: AMF_300LSOI_SiPBS_Cband_v5p0
+    settings: {}
+    virtual: false
+  AMF_300LSOI_SiTOPhaseShifter_Cband_v5p0:
+    array: null
+    component: AMF_300LSOI_SiTOPhaseShifter_Cband_v5p0
+    settings: {}
+    virtual: false
+  AMF_300LSOI_SiVOA_Cband_v5p0:
+    array: null
+    component: AMF_300LSOI_SiVOA_Cband_v5p0
+    settings: {}
+    virtual: false
+  add_fiber_array:
+    array: null
+    component: add_fiber_array
+    settings:
+      component: straight_strip
+      cross_section: strip
+      end_straight_length: 0
+      gc_port_name: o1
+      grating_coupler: AMF_300LSOI_SiGC1D_Cband_v5p0
+      radius_loopback: 12
+      start_straight_length: 0
+    virtual: false
+  add_fiber_single_strip:
+    array: null
+    component: add_fiber_single_strip
+    settings:
+      component: straight_strip
+      cross_section: strip
+      gc_port_name: o1
+      grating_coupler: AMF_300LSOI_SiGC1D_Cband_v5p0
+      loopback_spacing: 100.0
+      pitch: 70
+      with_loopback: true
+    virtual: false
+  add_pads_bot:
+    array: null
+    component: add_pads_bot
+    settings:
+      allow_width_mismatch: true
+      avoid_component_bbox: false
+      component: wire_corner45
+      fanout_length: 80
+      pad: pad
+      pad_pitch: 150
+      route_width: 0
+      straight_separation: 15
+    virtual: false
+  add_pads_top:
+    array: null
+    component: add_pads_top
+    settings:
+      allow_width_mismatch: true
+      avoid_component_bbox: false
+      component: wire_corner45
+      fanout_length: 80
+      pad: pad
+      pad_pitch: 150
+      route_width: 0
+      straight_separation: 15
+    virtual: false
+  bend_euler:
+    array: null
+    component: bend_euler
+    settings:
+      allow_min_radius_violation: false
+      angle: 90
+      cross_section: strip
+      p: 0.5
+    virtual: false
+  bend_metal1:
+    array: null
+    component: bend_metal1
+    settings:
+      angle: 90
+      cross_section: metal1
+    virtual: false
+  bend_metal2:
+    array: null
+    component: bend_metal2
+    settings:
+      angle: 90
+      cross_section: metal_routing
+    virtual: false
+  bend_s:
+    array: null
+    component: bend_s
+    settings:
+      allow_min_radius_violation: false
+      cross_section: strip
+      size:
+      - 11
+      - 1.8
+    virtual: false
+  bend_s_metal1:
+    array: null
+    component: bend_s_metal1
+    settings:
+      cross_section: metal1
+      size:
+      - 11
+      - 1.8
+    virtual: false
+  bend_s_metal2:
+    array: null
+    component: bend_s_metal2
+    settings:
+      cross_section: metal_routing
+      size:
+      - 11
+      - 1.8
+    virtual: false
+  compass:
+    array: null
+    component: compass
+    settings:
+      auto_rename_ports: true
+      layer: MT2
+      port_inclusion: 0.0
+      port_orientations:
+      - 180
+      - 90
+      - 0
+      - -90
+      size:
+      - 3
+      - 6
+    virtual: false
+  coupler:
+    array: null
+    component: coupler
+    settings:
+      gap: 0.2
+      length: 20
+    virtual: false
+  coupler_nitride:
+    array: null
+    component: coupler_nitride
+    settings:
+      gap: 0.4
+      length: 20
+    virtual: false
+  coupler_rib:
+    array: null
+    component: coupler_rib
+    settings:
+      gap: 0.4
+      length: 20
+    virtual: false
+  coupler_ring:
+    array: null
+    component: coupler_ring
+    settings:
+      bend: bend_euler
+      cross_section: strip
+      gap: 0.2
+      length_extension: 3
+      length_x: 4
+      radius: 10
+      straight: straight
+    virtual: false
+  die:
+    array: null
+    component: die
+    settings:
+      size:
+      - 12500.0
+      - 3750.0
+      street_width: 50.0
+    virtual: false
+  die_frame_full:
+    array: null
+    component: die_frame_full
+    settings:
+      size:
+      - 25000.0
+      - 30000.0
+      street_width: 50.0
+    virtual: false
+  die_phix_dc:
+    array: null
+    component: die_phix_dc
+    settings:
+      cross_section: strip
+      edge_coupler: AMF_300LSOI_LSiN2SOISSC_Cband_v5p0
+      edge_coupler_keepout: 1200.0
+      edge_to_pad_distance: 200.0
+      fiber_coupler_xoffset: -50
+      fiber_pitch: 127.0
+      layer_fiducial: MT2
+      layer_ruler: WG
+      nfibers: 26
+      pad: pad
+      pad_gsg: pad_gsg
+      pad_pitch: 150.0
+      pad_pitch_gsg: 720.0
+      pad_port_name_bot: e2
+      pad_port_name_top: e4
+      ruler_xoffset: 51
+      ruler_yoffset: 200
+      text: text_rectangular
+      text_offset:
+      - -60
+      - 21
+      xsize: 12500.0
+      ysize: 3750.0
+    virtual: false
+  die_phix_rf:
+    array: null
+    component: die_phix_rf
+    settings:
+      cross_section: strip
+      edge_coupler: AMF_300LSOI_LSiN2SOISSC_Cband_v5p0
+      edge_coupler_keepout: 1200.0
+      edge_to_pad_distance: 200.0
+      fiber_coupler_xoffset: -50
+      fiber_pitch: 127.0
+      layer_fiducial: MT2
+      layer_ruler: WG
+      nfibers: 26
+      npads_rf: 4
+      pad: pad
+      pad_gsg: pad_gsg
+      pad_pitch: 150.0
+      pad_pitch_gsg: 720.0
+      pad_port_name_bot: e2
+      pad_port_name_top: e4
+      ruler_xoffset: 51
+      ruler_yoffset: 200
+      text: text_rectangular
+      text_offset:
+      - -60
+      - 21
+      xoffset_rf_pads: 150
+      xsize: 12500.0
+      ysize: 3750.0
+    virtual: false
+  die_with_pads:
+    array: null
+    component: die_with_pads
+    settings:
+      cross_section: strip
+      edge_to_grating_distance: 150.0
+      edge_to_pad_distance: 150.0
+      gc_port_name: o1
+      grating_coupler: AMF_300LSOI_SiGC1D_Cband_v5p0
+      grating_pitch: 127.0
+      loopback_radius: 12.0
+      ngratings: 14
+      npads: 60
+      pad: pad
+      pad_pitch: 150.0
+      size:
+      - 12500.0
+      - 3750.0
+      with_loopback: true
+    virtual: false
+  edge_coupler_array:
+    array: null
+    component: edge_coupler_array
+    settings:
+      cross_section: strip
+      edge_coupler: edge_coupler_silicon
+      n: 5
+      pitch: 127.0
+      text: text_rectangular
+      text_offset:
+      - 0
+      - 50
+      text_rotation: 0
+    virtual: false
+  edge_coupler_nitride:
+    array: null
+    component: edge_coupler_nitride
+    settings:
+      angle: 0
+      cross_section: nitride
+      length: 100
+      width1: 1.0
+      width2: 0.25
+      with_two_ports: true
+    virtual: false
+  edge_coupler_silicon:
+    array: null
+    component: edge_coupler_silicon
+    settings:
+      angle: 0
+      cross_section: strip
+      length: 100
+      width1: 0.5
+      width2: 0.14
+      with_two_ports: true
+    virtual: false
+  greek_cross:
+    array: null
+    component: greek_cross
+    settings:
+      layer_index: 0
+      layers:
+      - WG
+      - NIM
+      length: 30
+      via_stack: via_stack_npp_slab_mtop
+      widths:
+      - 2.0
+      - 3.0
+    virtual: false
+  greek_cross_with_pads:
+    array: null
+    component: greek_cross_with_pads
+    settings:
+      greek_cross_component: greek_cross
+      pad: pad
+      pad_pitch: 150.0
+    virtual: false
+  mzi:
+    array: null
+    component: mzi
+    settings:
+      bend: bend_euler
+      combiner: coupler
+      cross_section: strip
+      delta_length: 10
+      port_e0_combiner: o4
+      port_e0_splitter: o4
+      port_e1_combiner: o3
+      port_e1_splitter: o3
+      splitter: coupler
+      straight: straight
+    virtual: false
+  pad:
+    array: null
+    component: pad
+    settings:
+      bbox_layers:
+      - PAD
+      bbox_offsets:
+      - -2
+      layer: MT2
+      port_inclusion: 0
+      port_orientation: 0
+      port_orientations:
+      - 180
+      - 90
+      - 0
+      - -90
+      size:
+      - 90.0
+      - 90.0
+    virtual: false
+  pad_array:
+    array: null
+    component: pad_array
+    settings:
+      auto_rename_ports: false
+      centered_ports: false
+      column_pitch: 150.0
+      columns: 6
+      pad: pad
+      port_orientation: 270
+      row_pitch: 150.0
+      rows: 1
+    virtual: false
+  pad_gs:
+    array: null
+    component: pad_gs
+    settings:
+      length: 100
+    virtual: false
+  pad_gsg:
+    array: null
+    component: pad_gsg
+    settings:
+      length: 100
+    virtual: false
+  pad_gsg_open:
+    array: null
+    component: pad_gsg_short
+    settings:
+      layer_metal: MT2
+      metal_spacing: 5.0
+      pad: pad
+      pad_pitch: 150
+      route_xsize: 50
+      short: false
+      size:
+      - 22
+      - 7
+    virtual: false
+  pad_gsg_short:
+    array: null
+    component: pad_gsg_short
+    settings:
+      layer_metal: MT2
+      metal_spacing: 5.0
+      pad: pad
+      pad_pitch: 150
+      route_xsize: 50
+      short: true
+      size:
+      - 22
+      - 7
+    virtual: false
+  rectangle:
+    array: null
+    component: rectangle
+    settings:
+      centered: false
+      layer: MT2
+      port_orientations:
+      - 180
+      - 90
+      - 0
+      - -90
+      size:
+      - 3
+      - 6
+    virtual: false
+  ring_double:
+    array: null
+    component: ring_double
+    settings:
+      cross_section: strip
+      gap: 0.2
+      length_x: 0.01
+      length_y: 0.01
+      radius: 10.0
+    virtual: false
+  ring_double_heater:
+    array: null
+    component: ring_double_heater
+    settings:
+      bend: bend_euler
+      coupler_ring: coupler_ring
+      cross_section: strip
+      cross_section_heater: heater_metal
+      cross_section_waveguide_heater: strip_heater_metal
+      gap: 0.2
+      length_x: 2.0
+      length_y: 0.01
+      port_orientation: 90
+      radius: 10.0
+      straight: straight
+      via_stack: via_stack_heater_mtop
+      via_stack_offset:
+      - 1
+      - 0
+      via_stack_size:
+      - 4
+      - 4
+    virtual: false
+  ring_single:
+    array: null
+    component: ring_single
+    settings:
+      bend: bend_euler
+      cross_section: strip
+      gap: 0.2
+      length_x: 4.0
+      length_y: 0.6
+      p: 0
+      radius: 10.0
+    virtual: false
+  ring_single_heater:
+    array: null
+    component: ring_single_heater
+    settings:
+      bend: bend_euler
+      coupler_ring: coupler_ring
+      cross_section: strip
+      cross_section_heater: heater_metal
+      cross_section_waveguide_heater: strip_heater_metal
+      gap: 0.2
+      length_x: 2.0
+      length_y: 0.01
+      port_orientation: 90
+      radius: 10.0
+      straight: straight
+      via_stack: via_stack_heater_mtop
+      via_stack_offset:
+      - 1
+      - 0
+      via_stack_size:
+      - 4
+      - 4
+    virtual: false
+  spiral:
+    array: null
+    component: spiral
+    settings:
+      cross_section: strip
+      length: 100
+      n_loops: 6
+      spacing: 3
+    virtual: false
+  spiral_racetrack:
+    array: null
+    component: spiral_racetrack
+    settings:
+      allow_min_radius_violation: false
+      bend: bend_euler
+      bend_s: bend_s
+      cross_section: strip
+      extra_90_deg_bend: false
+      spacings:
+      - 2
+      - 2
+      - 3
+      - 3
+      - 2
+      - 2
+      straight: straight
+      straight_length: 20.0
+    virtual: false
+  spiral_racetrack_heater:
+    array: null
+    component: spiral_racetrack_heater
+    settings:
+      cross_section: strip
+      num: 8
+      spacing: 4.0
+      straight_length: 100
+    virtual: false
+  straight:
+    array: null
+    component: straight
+    settings:
+      cross_section: strip
+      length: 10
+      npoints: 2
+    virtual: false
+  straight_heater_meander:
+    array: null
+    component: straight_heater_meander
+    settings:
+      cross_section: strip
+      heater_width: 2.5
+      layer_heater: HTR
+      length: 320.0
+      n: 3
+      port_orientation1: 90
+      port_orientation2: 90
+      spacing: 2
+      via_stack: via_stack_heater_mtop
+    virtual: false
+  straight_heater_meander_nitride:
+    array: null
+    component: straight_heater_meander
+    settings:
+      cross_section: nitride
+      heater_width: 2.5
+      layer_heater: HTR
+      length: 320.0
+      n: 3
+      port_orientation1: 90
+      port_orientation2: 90
+      spacing: 4
+      via_stack: via_stack_heater_mtop
+    virtual: false
+  straight_heater_metal:
+    array: null
+    component: straight_heater_metal_undercut
+    settings:
+      length: 320.0
+      length_straight: 0.1
+      length_straight_input: 15.0
+      length_undercut: 30.0
+      length_undercut_spacing: 6.0
+      port_orientation1: 90
+      port_orientation2: 90
+      with_undercut: false
+    virtual: false
+  straight_heater_metal_nitride:
+    array: null
+    component: straight_heater_metal_undercut_nitride
+    settings:
+      length: 320.0
+      length_straight: 0.1
+      length_straight_input: 15.0
+      length_undercut: 30.0
+      length_undercut_spacing: 6.0
+      port_orientation1: 90
+      port_orientation2: 90
+      with_undercut: false
+    virtual: false
+  straight_heater_metal_undercut:
+    array: null
+    component: straight_heater_metal_undercut
+    settings:
+      length: 320.0
+      length_straight: 0.1
+      length_straight_input: 15.0
+      length_undercut: 30.0
+      length_undercut_spacing: 6.0
+      port_orientation1: 90
+      port_orientation2: 90
+      with_undercut: true
+    virtual: false
+  straight_heater_metal_undercut_nitride:
+    array: null
+    component: straight_heater_metal_undercut_nitride
+    settings:
+      length: 320.0
+      length_straight: 0.1
+      length_straight_input: 15.0
+      length_undercut: 30.0
+      length_undercut_spacing: 6.0
+      port_orientation1: 90
+      port_orientation2: 90
+      with_undercut: true
+    virtual: false
+  straight_metal1:
+    array: null
+    component: straight_metal1
+    settings:
+      cross_section: metal1
+      length: 10
+    virtual: false
+  straight_metal2:
+    array: null
+    component: straight_metal2
+    settings:
+      cross_section: metal_routing
+      length: 10
+    virtual: false
+  straight_nitride:
+    array: null
+    component: straight_nitride
+    settings:
+      cross_section: nitride
+      length: 10
+    virtual: false
+  straight_rib:
+    array: null
+    component: straight_rib
+    settings:
+      cross_section: rib
+      length: 10
+    virtual: false
+  straight_strip:
+    array: null
+    component: straight_strip
+    settings:
+      cross_section: strip
+      length: 10
+    virtual: false
+  taper:
+    array: null
+    component: taper
+    settings:
+      cross_section: strip
+      length: 10.0
+      width1: 0.5
+    virtual: false
+  taper_m1:
+    array: null
+    component: taper_m1
+    settings:
+      cross_section: metal1
+      length: 10.0
+      width1: 5
+    virtual: false
+  taper_m2:
+    array: null
+    component: taper_m2
+    settings:
+      cross_section: metal2
+      length: 10.0
+      width1: 5
+    virtual: false
+  taper_nitride_strip:
+    array: null
+    component: taper_nitride_strip
+    settings:
+      cross_section: strip
+      layer_nitride: WG_SIN
+      layer_wg: WG
+      length: 20.0
+      width1: 1.0
+      width2: 0.5
+      width_tip_nitride: 0.25
+      width_tip_silicon: 0.14
+    virtual: false
+  taper_strip_nitride:
+    array: null
+    component: taper_strip_nitride
+    settings:
+      cross_section: nitride
+      layer_nitride: WG_SIN
+      layer_wg: WG
+      length: 20.0
+      width1: 0.5
+      width2: 1.0
+      width_tip_nitride: 0.25
+      width_tip_silicon: 0.14
+    virtual: false
+  taper_strip_to_ridge:
+    array: null
+    component: taper_strip_to_ridge
+    settings:
+      cross_section: strip
+      layer_slab: SLAB
+      layer_wg: WG
+      length: 10.0
+      slab_port_layer: SLAB
+      use_slab_port: false
+      w_slab1: 0.3
+      w_slab2: 6.0
+      width1: 0.5
+      width2: 0.5
+    virtual: false
+  text_rectangular:
+    array: null
+    component: text_rectangular
+    settings:
+      justify: left
+      layer: MT2
+      size: 3
+      text: abc
+    virtual: false
+  text_rectangular_multi_layer:
+    array: null
+    component: text_rectangular_multi_layer
+    settings:
+      layers:
+      - WG
+      - MT1
+      - MT2
+      text: abc
+      text_factory: text_rectangular
+    virtual: false
+  via_stack_heater_mtop:
+    array: null
+    component: via_stack_heater_mtop
+    settings:
+      size:
+      - 20.0
+      - 20.0
+    virtual: false
+  via_stack_m1_m2:
+    array: null
+    component: via_stack_m1_m2
+    settings:
+      size:
+      - 20.0
+      - 20.0
+    virtual: false
+  via_stack_npp_mtop:
+    array: null
+    component: via_stack_npp_mtop
+    settings:
+      size:
+      - 20.0
+      - 20.0
+    virtual: false
+  via_stack_npp_slab_mtop:
+    array: null
+    component: via_stack_npp_slab_mtop
+    settings:
+      size:
+      - 20.0
+      - 20.0
+    virtual: false
+  via_stack_ppp_mtop:
+    array: null
+    component: via_stack_ppp_mtop
+    settings:
+      size:
+      - 20.0
+      - 20.0
+    virtual: false
+  via_stack_ppp_slab_mtop:
+    array: null
+    component: via_stack_ppp_slab_mtop
+    settings:
+      size:
+      - 20.0
+      - 20.0
+    virtual: false
+  wire_corner:
+    array: null
+    component: wire_corner
+    settings:
+      cross_section: metal_routing
+    virtual: false
+  wire_corner45:
+    array: null
+    component: wire_corner45
+    settings:
+      cross_section: metal_routing
+      radius: 10
+      with_corner90_ports: true
+    virtual: false
+  wire_corner45_straight:
+    array: null
+    component: wire_corner45_straight
+    settings:
+      cross_section: metal_routing
+    virtual: false
+name: null
+nets: []
+pdk: ''
+placements:
+  AMF_300LSOI_LSiN2SOISSC_Cband_v5p0:
+    dx: 0
+    dy: 0
+    mirror: false
+    port: null
+    rotation: 0
+    x: 0.0
+    xmax: null
+    xmin: null
+    y: 0.0
+    ymax: null
+    ymin: null
+  AMF_300LSOI_LSiNEdgeCoupler_Cband_v5p0:
+    dx: 0
+    dy: 0
+    mirror: false
+    port: null
+    rotation: 0
+    x: 1000.0
+    xmax: null
+    xmin: null
+    y: 0.0
+    ymax: null
+    ymin: null
+  AMF_300LSOI_MOD200SPP_Cband_Cell_v5p0:
+    dx: 0
+    dy: 0
+    mirror: false
+    port: null
+    rotation: 0
+    x: 2000.0
+    xmax: null
+    xmin: null
+    y: 0.0
+    ymax: null
+    ymin: null
+  AMF_300LSOI_MOD200SPP_Cband_IO_v5p0:
+    dx: 0
+    dy: 0
+    mirror: false
+    port: null
+    rotation: 0
+    x: 3000.0
+    xmax: null
+    xmin: null
+    y: 0.0
+    ymax: null
+    ymin: null
+  AMF_300LSOI_MOD53GHz_Cband_Cell_v5p0:
+    dx: 0
+    dy: 0
+    mirror: false
+    port: null
+    rotation: 0
+    x: 4000.0
+    xmax: null
+    xmin: null
+    y: 0.0
+    ymax: null
+    ymin: null
+  AMF_300LSOI_MOD53GHz_Cband_v5p0:
+    dx: 0
+    dy: 0
+    mirror: false
+    port: null
+    rotation: 0
+    x: 5000.0
+    xmax: null
+    xmin: null
+    y: 0.0
+    ymax: null
+    ymin: null
+  AMF_300LSOI_MODDFAC57GHz_Cband_Cell_v5p0:
+    dx: 0
+    dy: 0
+    mirror: false
+    port: null
+    rotation: 0
+    x: 6000.0
+    xmax: null
+    xmin: null
+    y: 0.0
+    ymax: null
+    ymin: null
+  AMF_300LSOI_MODDFAC57GHz_Cband_Input_v5p0:
+    dx: 0
+    dy: 0
+    mirror: false
+    port: null
+    rotation: 0
+    x: 7000.0
+    xmax: null
+    xmin: null
+    y: 0.0
+    ymax: null
+    ymin: null
+  AMF_300LSOI_MODDFAC57GHz_Cband_Output_v5p0:
+    dx: 0
+    dy: 0
+    mirror: false
+    port: null
+    rotation: 0
+    x: 8000.0
+    xmax: null
+    xmin: null
+    y: 0.0
+    ymax: null
+    ymin: null
+  AMF_300LSOI_MODDFAC57GHz_Cband_v5p0:
+    dx: 0
+    dy: 0
+    mirror: false
+    port: null
+    rotation: 0
+    x: 9000.0
+    xmax: null
+    xmin: null
+    y: 0.0
+    ymax: null
+    ymin: null
+  AMF_300LSOI_PD62GHz_Cband_Cell_v5p0:
+    dx: 0
+    dy: 0
+    mirror: false
+    port: null
+    rotation: 0
+    x: 10000.0
+    xmax: null
+    xmin: null
+    y: 0.0
+    ymax: null
+    ymin: null
+  AMF_300LSOI_PD62GHz_Cband_v5p0:
+    dx: 0
+    dy: 0
+    mirror: false
+    port: null
+    rotation: 0
+    x: 0.0
+    xmax: null
+    xmin: null
+    y: 1000.0
+    ymax: null
+    ymin: null
+  AMF_300LSOI_PD82GHz_Cband_v5p0:
+    dx: 0
+    dy: 0
+    mirror: false
+    port: null
+    rotation: 0
+    x: 1000.0
+    xmax: null
+    xmin: null
+    y: 1000.0
+    ymax: null
+    ymin: null
+  AMF_300LSOI_PowMonitor_Cband_Cell_v5p0:
+    dx: 0
+    dy: 0
+    mirror: false
+    port: null
+    rotation: 0
+    x: 2000.0
+    xmax: null
+    xmin: null
+    y: 1000.0
+    ymax: null
+    ymin: null
+  AMF_300LSOI_PowMonitor_Cband_v5p0:
+    dx: 0
+    dy: 0
+    mirror: false
+    port: null
+    rotation: 0
+    x: 3000.0
+    xmax: null
+    xmin: null
+    y: 1000.0
+    ymax: null
+    ymin: null
+  AMF_300LSOI_Si1X2MMI_Cband_v5p0:
+    dx: 0
+    dy: 0
+    mirror: false
+    port: null
+    rotation: 0
+    x: 4000.0
+    xmax: null
+    xmin: null
+    y: 1000.0
+    ymax: null
+    ymin: null
+  AMF_300LSOI_Si2X2MMI_Cband_v5p0:
+    dx: 0
+    dy: 0
+    mirror: false
+    port: null
+    rotation: 0
+    x: 5000.0
+    xmax: null
+    xmin: null
+    y: 1000.0
+    ymax: null
+    ymin: null
+  AMF_300LSOI_SiCrossing_Cband_v5p0:
+    dx: 0
+    dy: 0
+    mirror: false
+    port: null
+    rotation: 0
+    x: 6000.0
+    xmax: null
+    xmin: null
+    y: 1000.0
+    ymax: null
+    ymin: null
+  AMF_300LSOI_SiGC1D_Cband_v5p0:
+    dx: 0
+    dy: 0
+    mirror: false
+    port: null
+    rotation: 0
+    x: 7000.0
+    xmax: null
+    xmin: null
+    y: 1000.0
+    ymax: null
+    ymin: null
+  AMF_300LSOI_SiPBRC_Cband_v5p0:
+    dx: 0
+    dy: 0
+    mirror: false
+    port: null
+    rotation: 0
+    x: 8000.0
+    xmax: null
+    xmin: null
+    y: 1000.0
+    ymax: null
+    ymin: null
+  AMF_300LSOI_SiPBRS_Cband_v5p0:
+    dx: 0
+    dy: 0
+    mirror: false
+    port: null
+    rotation: 0
+    x: 9000.0
+    xmax: null
+    xmin: null
+    y: 1000.0
+    ymax: null
+    ymin: null
+  AMF_300LSOI_SiPBS_Cband_v5p0:
+    dx: 0
+    dy: 0
+    mirror: false
+    port: null
+    rotation: 0
+    x: 10000.0
+    xmax: null
+    xmin: null
+    y: 1000.0
+    ymax: null
+    ymin: null
+  AMF_300LSOI_SiTOPhaseShifter_Cband_v5p0:
+    dx: 0
+    dy: 0
+    mirror: false
+    port: null
+    rotation: 0
+    x: 0.0
+    xmax: null
+    xmin: null
+    y: 2000.0
+    ymax: null
+    ymin: null
+  AMF_300LSOI_SiVOA_Cband_v5p0:
+    dx: 0
+    dy: 0
+    mirror: false
+    port: null
+    rotation: 0
+    x: 1000.0
+    xmax: null
+    xmin: null
+    y: 2000.0
+    ymax: null
+    ymin: null
+  add_fiber_array:
+    dx: 0
+    dy: 0
+    mirror: false
+    port: null
+    rotation: 0
+    x: 2000.0
+    xmax: null
+    xmin: null
+    y: 2000.0
+    ymax: null
+    ymin: null
+  add_fiber_single_strip:
+    dx: 0
+    dy: 0
+    mirror: false
+    port: null
+    rotation: 0
+    x: 3000.0
+    xmax: null
+    xmin: null
+    y: 2000.0
+    ymax: null
+    ymin: null
+  add_pads_bot:
+    dx: 0
+    dy: 0
+    mirror: false
+    port: null
+    rotation: 0
+    x: 4000.0
+    xmax: null
+    xmin: null
+    y: 2000.0
+    ymax: null
+    ymin: null
+  add_pads_top:
+    dx: 0
+    dy: 0
+    mirror: false
+    port: null
+    rotation: 0
+    x: 5000.0
+    xmax: null
+    xmin: null
+    y: 2000.0
+    ymax: null
+    ymin: null
+  bend_euler:
+    dx: 0
+    dy: 0
+    mirror: false
+    port: null
+    rotation: 0
+    x: 6000.0
+    xmax: null
+    xmin: null
+    y: 2000.0
+    ymax: null
+    ymin: null
+  bend_metal1:
+    dx: 0
+    dy: 0
+    mirror: false
+    port: null
+    rotation: 0
+    x: 8000.0
+    xmax: null
+    xmin: null
+    y: 2000.0
+    ymax: null
+    ymin: null
+  bend_metal2:
+    dx: 0
+    dy: 0
+    mirror: false
+    port: null
+    rotation: 0
+    x: 9000.0
+    xmax: null
+    xmin: null
+    y: 2000.0
+    ymax: null
+    ymin: null
+  bend_s:
+    dx: 0
+    dy: 0
+    mirror: false
+    port: null
+    rotation: 0
+    x: 10000.0
+    xmax: null
+    xmin: null
+    y: 2000.0
+    ymax: null
+    ymin: null
+  bend_s_metal1:
+    dx: 0
+    dy: 0
+    mirror: false
+    port: null
+    rotation: 0
+    x: 0.0
+    xmax: null
+    xmin: null
+    y: 3000.0
+    ymax: null
+    ymin: null
+  bend_s_metal2:
+    dx: 0
+    dy: 0
+    mirror: false
+    port: null
+    rotation: 0
+    x: 1000.0
+    xmax: null
+    xmin: null
+    y: 3000.0
+    ymax: null
+    ymin: null
+  compass:
+    dx: 0
+    dy: 0
+    mirror: false
+    port: null
+    rotation: 0
+    x: 2000.0
+    xmax: null
+    xmin: null
+    y: 3000.0
+    ymax: null
+    ymin: null
+  coupler:
+    dx: 0
+    dy: 0
+    mirror: false
+    port: null
+    rotation: 0
+    x: 3000.0
+    xmax: null
+    xmin: null
+    y: 3000.0
+    ymax: null
+    ymin: null
+  coupler_nitride:
+    dx: 0
+    dy: 0
+    mirror: false
+    port: null
+    rotation: 0
+    x: 4000.0
+    xmax: null
+    xmin: null
+    y: 3000.0
+    ymax: null
+    ymin: null
+  coupler_rib:
+    dx: 0
+    dy: 0
+    mirror: false
+    port: null
+    rotation: 0
+    x: 5000.0
+    xmax: null
+    xmin: null
+    y: 3000.0
+    ymax: null
+    ymin: null
+  coupler_ring:
+    dx: 0
+    dy: 0
+    mirror: false
+    port: null
+    rotation: 0
+    x: 6000.0
+    xmax: null
+    xmin: null
+    y: 3000.0
+    ymax: null
+    ymin: null
+  die:
+    dx: 0
+    dy: 0
+    mirror: false
+    port: null
+    rotation: 0
+    x: 7000.0
+    xmax: null
+    xmin: null
+    y: 3000.0
+    ymax: null
+    ymin: null
+  die_frame_full:
+    dx: 0
+    dy: 0
+    mirror: false
+    port: null
+    rotation: 0
+    x: 8000.0
+    xmax: null
+    xmin: null
+    y: 3000.0
+    ymax: null
+    ymin: null
+  die_phix_dc:
+    dx: 0
+    dy: 0
+    mirror: false
+    port: null
+    rotation: 0
+    x: 9000.0
+    xmax: null
+    xmin: null
+    y: 3000.0
+    ymax: null
+    ymin: null
+  die_phix_rf:
+    dx: 0
+    dy: 0
+    mirror: false
+    port: null
+    rotation: 0
+    x: 10000.0
+    xmax: null
+    xmin: null
+    y: 3000.0
+    ymax: null
+    ymin: null
+  die_with_pads:
+    dx: 0
+    dy: 0
+    mirror: false
+    port: null
+    rotation: 0
+    x: 0.0
+    xmax: null
+    xmin: null
+    y: 4000.0
+    ymax: null
+    ymin: null
+  edge_coupler_array:
+    dx: 0
+    dy: 0
+    mirror: false
+    port: null
+    rotation: 0
+    x: 1000.0
+    xmax: null
+    xmin: null
+    y: 4000.0
+    ymax: null
+    ymin: null
+  edge_coupler_nitride:
+    dx: 0
+    dy: 0
+    mirror: false
+    port: null
+    rotation: 0
+    x: 2000.0
+    xmax: null
+    xmin: null
+    y: 4000.0
+    ymax: null
+    ymin: null
+  edge_coupler_silicon:
+    dx: 0
+    dy: 0
+    mirror: false
+    port: null
+    rotation: 0
+    x: 3000.0
+    xmax: null
+    xmin: null
+    y: 4000.0
+    ymax: null
+    ymin: null
+  greek_cross:
+    dx: 0
+    dy: 0
+    mirror: false
+    port: null
+    rotation: 0
+    x: 4000.0
+    xmax: null
+    xmin: null
+    y: 4000.0
+    ymax: null
+    ymin: null
+  greek_cross_with_pads:
+    dx: 0
+    dy: 0
+    mirror: false
+    port: null
+    rotation: 0
+    x: 5000.0
+    xmax: null
+    xmin: null
+    y: 4000.0
+    ymax: null
+    ymin: null
+  mzi:
+    dx: 0
+    dy: 0
+    mirror: false
+    port: null
+    rotation: 0
+    x: 7000.0
+    xmax: null
+    xmin: null
+    y: 4000.0
+    ymax: null
+    ymin: null
+  pad:
+    dx: 0
+    dy: 0
+    mirror: false
+    port: null
+    rotation: 0
+    x: 10000.0
+    xmax: null
+    xmin: null
+    y: 4000.0
+    ymax: null
+    ymin: null
+  pad_array:
+    dx: 0
+    dy: 0
+    mirror: false
+    port: null
+    rotation: 0
+    x: 0.0
+    xmax: null
+    xmin: null
+    y: 5000.0
+    ymax: null
+    ymin: null
+  pad_gs:
+    dx: 0
+    dy: 0
+    mirror: false
+    port: null
+    rotation: 0
+    x: 1000.0
+    xmax: null
+    xmin: null
+    y: 5000.0
+    ymax: null
+    ymin: null
+  pad_gsg:
+    dx: 0
+    dy: 0
+    mirror: false
+    port: null
+    rotation: 0
+    x: 2000.0
+    xmax: null
+    xmin: null
+    y: 5000.0
+    ymax: null
+    ymin: null
+  pad_gsg_open:
+    dx: 0
+    dy: 0
+    mirror: false
+    port: null
+    rotation: 0
+    x: 3000.0
+    xmax: null
+    xmin: null
+    y: 5000.0
+    ymax: null
+    ymin: null
+  pad_gsg_short:
+    dx: 0
+    dy: 0
+    mirror: false
+    port: null
+    rotation: 0
+    x: 4000.0
+    xmax: null
+    xmin: null
+    y: 5000.0
+    ymax: null
+    ymin: null
+  rectangle:
+    dx: 0
+    dy: 0
+    mirror: false
+    port: null
+    rotation: 0
+    x: 5000.0
+    xmax: null
+    xmin: null
+    y: 5000.0
+    ymax: null
+    ymin: null
+  ring_double:
+    dx: 0
+    dy: 0
+    mirror: false
+    port: null
+    rotation: 0
+    x: 6000.0
+    xmax: null
+    xmin: null
+    y: 5000.0
+    ymax: null
+    ymin: null
+  ring_double_heater:
+    dx: 0
+    dy: 0
+    mirror: false
+    port: null
+    rotation: 0
+    x: 7000.0
+    xmax: null
+    xmin: null
+    y: 5000.0
+    ymax: null
+    ymin: null
+  ring_single:
+    dx: 0
+    dy: 0
+    mirror: false
+    port: null
+    rotation: 0
+    x: 8000.0
+    xmax: null
+    xmin: null
+    y: 5000.0
+    ymax: null
+    ymin: null
+  ring_single_heater:
+    dx: 0
+    dy: 0
+    mirror: false
+    port: null
+    rotation: 0
+    x: 9000.0
+    xmax: null
+    xmin: null
+    y: 5000.0
+    ymax: null
+    ymin: null
+  spiral:
+    dx: 0
+    dy: 0
+    mirror: false
+    port: null
+    rotation: 0
+    x: 10000.0
+    xmax: null
+    xmin: null
+    y: 5000.0
+    ymax: null
+    ymin: null
+  spiral_racetrack:
+    dx: 0
+    dy: 0
+    mirror: false
+    port: null
+    rotation: 0
+    x: 0.0
+    xmax: null
+    xmin: null
+    y: 6000.0
+    ymax: null
+    ymin: null
+  spiral_racetrack_heater:
+    dx: 0
+    dy: 0
+    mirror: false
+    port: null
+    rotation: 0
+    x: 1000.0
+    xmax: null
+    xmin: null
+    y: 6000.0
+    ymax: null
+    ymin: null
+  straight:
+    dx: 0
+    dy: 0
+    mirror: false
+    port: null
+    rotation: 0
+    x: 2000.0
+    xmax: null
+    xmin: null
+    y: 6000.0
+    ymax: null
+    ymin: null
+  straight_heater_meander:
+    dx: 0
+    dy: 0
+    mirror: false
+    port: null
+    rotation: 0
+    x: 4000.0
+    xmax: null
+    xmin: null
+    y: 6000.0
+    ymax: null
+    ymin: null
+  straight_heater_meander_nitride:
+    dx: 0
+    dy: 0
+    mirror: false
+    port: null
+    rotation: 0
+    x: 5000.0
+    xmax: null
+    xmin: null
+    y: 6000.0
+    ymax: null
+    ymin: null
+  straight_heater_metal:
+    dx: 0
+    dy: 0
+    mirror: false
+    port: null
+    rotation: 0
+    x: 6000.0
+    xmax: null
+    xmin: null
+    y: 6000.0
+    ymax: null
+    ymin: null
+  straight_heater_metal_nitride:
+    dx: 0
+    dy: 0
+    mirror: false
+    port: null
+    rotation: 0
+    x: 7000.0
+    xmax: null
+    xmin: null
+    y: 6000.0
+    ymax: null
+    ymin: null
+  straight_heater_metal_undercut:
+    dx: 0
+    dy: 0
+    mirror: false
+    port: null
+    rotation: 0
+    x: 8000.0
+    xmax: null
+    xmin: null
+    y: 6000.0
+    ymax: null
+    ymin: null
+  straight_heater_metal_undercut_nitride:
+    dx: 0
+    dy: 0
+    mirror: false
+    port: null
+    rotation: 0
+    x: 9000.0
+    xmax: null
+    xmin: null
+    y: 6000.0
+    ymax: null
+    ymin: null
+  straight_metal1:
+    dx: 0
+    dy: 0
+    mirror: false
+    port: null
+    rotation: 0
+    x: 10000.0
+    xmax: null
+    xmin: null
+    y: 6000.0
+    ymax: null
+    ymin: null
+  straight_metal2:
+    dx: 0
+    dy: 0
+    mirror: false
+    port: null
+    rotation: 0
+    x: 0.0
+    xmax: null
+    xmin: null
+    y: 7000.0
+    ymax: null
+    ymin: null
+  straight_nitride:
+    dx: 0
+    dy: 0
+    mirror: false
+    port: null
+    rotation: 0
+    x: 1000.0
+    xmax: null
+    xmin: null
+    y: 7000.0
+    ymax: null
+    ymin: null
+  straight_rib:
+    dx: 0
+    dy: 0
+    mirror: false
+    port: null
+    rotation: 0
+    x: 2000.0
+    xmax: null
+    xmin: null
+    y: 7000.0
+    ymax: null
+    ymin: null
+  straight_strip:
+    dx: 0
+    dy: 0
+    mirror: false
+    port: null
+    rotation: 0
+    x: 3000.0
+    xmax: null
+    xmin: null
+    y: 7000.0
+    ymax: null
+    ymin: null
+  taper:
+    dx: 0
+    dy: 0
+    mirror: false
+    port: null
+    rotation: 0
+    x: 4000.0
+    xmax: null
+    xmin: null
+    y: 7000.0
+    ymax: null
+    ymin: null
+  taper_m1:
+    dx: 0
+    dy: 0
+    mirror: false
+    port: null
+    rotation: 0
+    x: 5000.0
+    xmax: null
+    xmin: null
+    y: 7000.0
+    ymax: null
+    ymin: null
+  taper_m2:
+    dx: 0
+    dy: 0
+    mirror: false
+    port: null
+    rotation: 0
+    x: 6000.0
+    xmax: null
+    xmin: null
+    y: 7000.0
+    ymax: null
+    ymin: null
+  taper_nitride_strip:
+    dx: 0
+    dy: 0
+    mirror: false
+    port: null
+    rotation: 0
+    x: 7000.0
+    xmax: null
+    xmin: null
+    y: 7000.0
+    ymax: null
+    ymin: null
+  taper_strip_nitride:
+    dx: 0
+    dy: 0
+    mirror: false
+    port: null
+    rotation: 0
+    x: 8000.0
+    xmax: null
+    xmin: null
+    y: 7000.0
+    ymax: null
+    ymin: null
+  taper_strip_to_ridge:
+    dx: 0
+    dy: 0
+    mirror: false
+    port: null
+    rotation: 0
+    x: 9000.0
+    xmax: null
+    xmin: null
+    y: 7000.0
+    ymax: null
+    ymin: null
+  text_rectangular:
+    dx: 0
+    dy: 0
+    mirror: false
+    port: null
+    rotation: 0
+    x: 10000.0
+    xmax: null
+    xmin: null
+    y: 7000.0
+    ymax: null
+    ymin: null
+  text_rectangular_multi_layer:
+    dx: 0
+    dy: 0
+    mirror: false
+    port: null
+    rotation: 0
+    x: 0.0
+    xmax: null
+    xmin: null
+    y: 8000.0
+    ymax: null
+    ymin: null
+  via_stack_heater_mtop:
+    dx: 0
+    dy: 0
+    mirror: false
+    port: null
+    rotation: 0
+    x: 3000.0
+    xmax: null
+    xmin: null
+    y: 8000.0
+    ymax: null
+    ymin: null
+  via_stack_m1_m2:
+    dx: 0
+    dy: 0
+    mirror: false
+    port: null
+    rotation: 0
+    x: 4000.0
+    xmax: null
+    xmin: null
+    y: 8000.0
+    ymax: null
+    ymin: null
+  via_stack_npp_mtop:
+    dx: 0
+    dy: 0
+    mirror: false
+    port: null
+    rotation: 0
+    x: 5000.0
+    xmax: null
+    xmin: null
+    y: 8000.0
+    ymax: null
+    ymin: null
+  via_stack_npp_slab_mtop:
+    dx: 0
+    dy: 0
+    mirror: false
+    port: null
+    rotation: 0
+    x: 6000.0
+    xmax: null
+    xmin: null
+    y: 8000.0
+    ymax: null
+    ymin: null
+  via_stack_ppp_mtop:
+    dx: 0
+    dy: 0
+    mirror: false
+    port: null
+    rotation: 0
+    x: 7000.0
+    xmax: null
+    xmin: null
+    y: 8000.0
+    ymax: null
+    ymin: null
+  via_stack_ppp_slab_mtop:
+    dx: 0
+    dy: 0
+    mirror: false
+    port: null
+    rotation: 0
+    x: 8000.0
+    xmax: null
+    xmin: null
+    y: 8000.0
+    ymax: null
+    ymin: null
+  wire_corner:
+    dx: 0
+    dy: 0
+    mirror: false
+    port: null
+    rotation: 0
+    x: 9000.0
+    xmax: null
+    xmin: null
+    y: 8000.0
+    ymax: null
+    ymin: null
+  wire_corner45:
+    dx: 0
+    dy: 0
+    mirror: false
+    port: null
+    rotation: 0
+    x: 10000.0
+    xmax: null
+    xmin: null
+    y: 8000.0
+    ymax: null
+    ymin: null
+  wire_corner45_straight:
+    dx: 0
+    dy: 0
+    mirror: false
+    port: null
+    rotation: 0
+    x: 0.0
+    xmax: null
+    xmin: null
+    y: 9000.0
+    ymax: null
+    ymin: null
+ports: {}
+routes: {}
+warnings: {}

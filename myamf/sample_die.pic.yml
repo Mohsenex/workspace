@@ -1,0 +1,74 @@
+instances:
+  r2:
+    component: ring_single
+    settings: {}
+    array:
+      columns: 1
+      rows: 3
+      column_pitch: 100
+      row_pitch: 100
+  r1:
+    component: ring_single
+    settings: {}
+    array:
+      columns: 1
+      rows: 3
+      column_pitch: 100
+      row_pitch: 100
+  r4:
+    component: mask
+    settings: {}
+  r3:
+    component: die_with_pads
+    settings: {}
+connections: {}
+routes:
+  bundle2:
+    links:
+      r1<0.0>,o1: r3,o24
+      r1<0.1>,o1: r3,o23
+      r1<0.2>,o1: r3,o22
+    routing_strategy: route_bundle
+    settings: {}
+  right:
+    links:
+      r2<0.2>,o2: r3,o3
+      r2<0.0>,o2: r3,o1
+      r2<0.1>,o2: r3,o2
+    routing_strategy: route_bundle
+    settings: {}
+  bundle:
+    links:
+      r1<0.0>,o2: r2<0.0>,o1
+      r1<0.1>,o2: r2<0.1>,o1
+      r1<0.2>,o2: r2<0.2>,o1
+    routing_strategy: route_bundle
+    settings: {}
+nets: []
+ports: {}
+placements:
+  r2:
+    x: -94.0019989013672
+    'y': -34.11199951171875
+    dx: -0.000004371138857095502
+    dy: 100
+  r1:
+    x: 0
+    'y': 0
+    dx: -184.94400024414065
+    dy: -53.957000732421875
+    rotation: 0
+    mirror: false
+  r4:
+    x: 0
+    'y': 0
+    dx: 3829.488037109375
+    dy: 769.4669799804688
+    rotation: 0
+    mirror: false
+  r3:
+    x: -184.944
+    'y': -53.957
+    dx: 37.627
+    dy: 92.651
+name: sample_die

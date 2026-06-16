@@ -1,0 +1,44 @@
+instances:
+  p1:
+    component: pad
+    settings: {}
+    array:
+      columns: 1
+      rows: 3
+      column_pitch: 100
+      row_pitch: 150
+  p2:
+    component: pad
+    settings: {}
+    array:
+      columns: 1
+      rows: 3
+      column_pitch: 100
+      row_pitch: 150
+connections: {}
+routes:
+  bundle1:
+    links:
+      p1<0.0-2>,e3: p2<0.0-2>,e1
+    routing_strategy: route_bundle
+    settings:
+      cross_section: metal_routing
+      port_type: electrical
+nets: []
+ports: {}
+placements:
+  p1:
+    x: 0
+    'y': 0
+    dx: -320.947
+    dy: -130.412
+    rotation: 0
+    mirror: false
+  p2:
+    x: 0
+    'y': 0
+    dx: 90.523
+    dy: 112.363
+    rotation: 0
+    mirror: false
+name: sample_routing_metal2

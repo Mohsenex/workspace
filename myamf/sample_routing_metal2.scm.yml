@@ -1,0 +1,77 @@
+exploded: ''
+camera_transform:
+  translation:
+    x: -129.24326
+    'y': 186.41086
+    z: 0
+  rotation:
+    x: 0
+    'y': 0
+    z: 0
+    w: 1
+  scale:
+    x: 0.5615758
+    'y': 0.5615758
+    z: 1
+transforms:
+  p1:
+    translation:
+      x: -307.06247
+      'y': 117.04688
+      z: 0.1
+    rotation:
+      x: 0
+      'y': 0
+      z: 0
+      w: 1
+    scale:
+      x: 1
+      'y': 1
+      z: 1
+  p2:
+    translation:
+      x: 10.562499
+      'y': 96.296875
+      z: 0.2
+    rotation:
+      x: 0
+      'y': 0
+      z: 0
+      w: 1
+    scale:
+      x: 1
+      'y': 1
+      z: 1
+port_configs:
+  pad:
+    e1:
+      orientation: w
+      port_type: electrical
+      index: 0
+    e2:
+      orientation: 'n'
+      port_type: electrical
+      index: 0
+    e3:
+      orientation: e
+      port_type: electrical
+      index: 0
+    e4:
+      orientation: s
+      port_type: electrical
+      index: 0
+    pad:
+      orientation: e
+      port_type: pad
+      index: 0
+array_configs:
+  pad:
+    scm_column_pitch: 120
+    scm_row_pitch: 120
+  p2:
+    scm_column_pitch: 120
+    scm_row_pitch: 120
+  p1:
+    scm_column_pitch: 120
+    scm_row_pitch: 120
+name: sample_routing_metal2

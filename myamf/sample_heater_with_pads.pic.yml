@@ -1,0 +1,36 @@
+# yaml-language-server: $schema=../build/schemas/sample_heater_with_pads.json
+instances:
+  pad:
+    component: pad
+    settings: {}
+    array:
+      columns: 2
+      rows: 1
+      column_pitch: 100.0
+      row_pitch: 100.0
+  sh:
+    component: straight_heater_metal_undercut
+    settings:
+      length: 350
+connections: {}
+routes:
+  bundle2:
+    links:
+      sh,r_e2: pad<1.0>,e4
+      sh,l_e2: pad<0.0>,e4
+    routing_strategy: route_bundle
+    settings:
+      cross_section: metal2
+nets: []
+ports: {}
+placements:
+  pad:
+    dx: 62.296
+    dy: 77.49
+    rotation: 0
+    mirror: false
+  sh:
+    dx: -45.559
+    dy: -158.704
+    rotation: 0
+    mirror: false

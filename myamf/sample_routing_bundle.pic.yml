@@ -1,0 +1,42 @@
+# yaml-language-server: $schema=../build/schemas/sample_routing_bundle.json
+instances:
+  r1:
+    component: ring_single
+    settings: {}
+    array:
+      columns: 1
+      rows: 3
+      column_pitch: 100.0
+      row_pitch: 100.0
+  r2:
+    component: ring_single
+    settings: {}
+    array:
+      columns: 1
+      rows: 3
+      column_pitch: 100.0
+      row_pitch: 100.0
+connections: {}
+routes:
+  bundle:
+    links:
+      r1<0.1>,o2: r2<0.1>,o1
+      r1<0.2>,o2: r2<0.2>,o1
+      r1<0.0>,o2: r2<0.0>,o1
+    routing_strategy: route_bundle
+    settings: {}
+nets: []
+ports: {}
+placements:
+  r1:
+    x: 0.0
+    y: 0.0
+    dx: -184.94400024414065
+    dy: -53.957000732421875
+    rotation: 0.0
+    mirror: false
+  r2:
+    x: -94.0019989013672
+    y: -34.11199951171875
+    dx: -4.371138857095502e-06
+    dy: 100.0

@@ -1,0 +1,81 @@
+exploded: ''
+camera_transform:
+  translation:
+    x: -155.43388
+    'y': -127.490616
+    z: 0
+  rotation:
+    x: 0
+    'y': 0
+    z: 0
+    w: 1
+  scale:
+    x: 2.3584728
+    'y': 2.3584728
+    z: 1
+transforms:
+  r2:
+    translation:
+      x: 58.91571
+      'y': 157.42867
+      z: -1
+    rotation:
+      x: 0
+      'y': 0
+      z: 0
+      w: 1
+    scale:
+      x: 1
+      'y': 1
+      z: 1
+  r1:
+    translation:
+      x: -438.32468
+      'y': 159.06033
+      z: -1
+    rotation:
+      x: 0
+      'y': 0
+      z: 0
+      w: 1
+    scale:
+      x: 1
+      'y': 1
+      z: 1
+  r4:
+    translation:
+      x: 191.73451
+      'y': -325.89816
+      z: 2
+    rotation:
+      x: 0
+      'y': 0
+      z: 0
+      w: 1
+    scale:
+      x: 1
+      'y': 1
+      z: 1
+  r3:
+    translation:
+      x: -237.59401
+      'y': 653.33527
+      z: 2
+    rotation:
+      x: 0
+      'y': 1
+      z: 0
+      w: -4.371139e-8
+    scale:
+      x: 1
+      'y': 1
+      z: 1
+sizes:
+  r4:
+    width: 100
+    height: 100
+  r3:
+    width: 784
+    height: 404
+link_paths: []
+name: sample_die

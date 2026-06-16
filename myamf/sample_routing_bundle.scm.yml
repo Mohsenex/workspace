@@ -1,0 +1,45 @@
+exploded: ''
+camera_transform:
+  translation:
+    x: -155.43388
+    y: -127.490616
+    z: 0.0
+  rotation:
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  scale:
+    x: 2.3584728
+    y: 2.3584728
+    z: 1.0
+transforms:
+  r1:
+    translation:
+      x: -438.32468
+      y: 159.06033
+      z: -1.0
+    rotation:
+      x: 0.0
+      y: 0.0
+      z: 0.0
+      w: 1.0
+    scale:
+      x: 1.0
+      y: 1.0
+      z: 1.0
+  r2:
+    translation:
+      x: 58.91571
+      y: 157.42867
+      z: -1.0
+    rotation:
+      x: 0.0
+      y: 0.0
+      z: 0.0
+      w: 1.0
+    scale:
+      x: 1.0
+      y: 1.0
+      z: 1.0
+link_paths: []

@@ -1,0 +1,45 @@
+Main_AMF_Die4:
+  instances:
+    instance1:
+      component: die_frame_full
+      settings:
+        size:
+          - 7000
+          - 3500
+        street_width: 50
+      info: {}
+  placements:
+    instance1:
+      x: -86.062
+      'y': 50.925
+      rotation: 0
+      mirror: false
+  ports: {}
+  nets: []
+die_frame_full:
+  instances:
+    die:
+      component: die
+      settings:
+        size:
+          - 7000
+          - 3500
+        street_width: 50
+        street_length: 1000
+        die_name: null
+        text_size: 100
+        text_location: SW
+        layer: DTR
+        bbox_layer: null
+        text_layer: WG
+        text: text
+        draw_corners: false
+      info: {}
+  placements:
+    die:
+      x: 0
+      'y': 0
+      rotation: 0
+      mirror: false
+  ports: {}
+  nets: []

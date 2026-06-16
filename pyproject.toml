@@ -1,0 +1,77 @@
+[build-system]
+build-backend = "setuptools.build_meta"
+requires = [ "build", "pip", "setuptools", "wheel" ]
+
+[project]
+classifiers = [ "Programming Language :: Python :: 3 :: Only", "Programming Language :: Python :: 3.12" ]
+dependencies = [ "amf-gdsfactory[dev]~=5.9.2", "doroutes~=0.6.0", "pytz" ]
+description = "AMF demo project"
+keywords = [ "eda", "photonics", "python" ]
+name = "myamf"
+readme = "README.md"
+requires-python = "~=3.12.0"
+version = "0.0.0"
+
+[[project.authors]]
+name = "GDSFactory"
+email = "support@gdsfactory.com"
+
+[project.license]
+file = "LICENSE"
+
+[project.optional-dependencies]
+dev = [ "uv" ]
+
+[tool.basedpyright]
+pythonPlatform = "Linux"
+reportMissingImports = true
+reportMissingTypeStubs = false
+reportUnknownMemberType = false
+reportUnusedCallResult = false
+
+[tool.gdsfactoryplus]
+ignore = [ ]
+
+[tool.gdsfactoryplus.drc]
+pdk = "amf.hp"
+timeout = 300
+
+[tool.gdsfactoryplus.pdk]
+name = "amf.chp"
+
+[tool.gdsfactoryplus.sim.wls]
+max = 1.5
+min = 1.6
+num = 3000
+
+[tool.ruff.lint]
+ignore = [ "B008", "B028", "B904", "B905", "C408", "C901", "D100", "D101", "D102", "D103", "D104", "E501" ]
+select = [ "B", "C", "D", "E", "F", "I", "T10", "UP", "W" ]
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[tool.setuptools.package-data]
+"*" = [ "*.csv", "*.yaml", "*.yml", "*.gds", "*.lyp", "*.oas", "*.lyt", "*.dat", "*.nc", "*.svg", "*.GDS", "*.json", "*.txt", "*.md", "*.OAS" ]
+
+[tool.setuptools.packages.find]
+exclude = [ "examples*" ]
+namespaces = false
+where = [ "." ]
+
+[[tool.tbump.file]]
+src = "README.md"
+
+[[tool.tbump.file]]
+src = "pyproject.toml"
+
+[[tool.tbump.file]]
+src = "gfp_amf/__init__.py"
+
+[tool.tbump.git]
+message_template = "Bump to {new_version}"
+tag_template = "{new_version}"
+
+[tool.tbump.version]
+current = "0.0.0"
+regex = "  (?P<major>\\d+)\n  \\.\n  (?P<minor>\\d+)\n  \\.\n  (?P<patch>\\d+)\n  "

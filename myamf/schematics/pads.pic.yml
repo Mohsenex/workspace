@@ -1,0 +1,38 @@
+# yaml-language-server: $schema=../build/schemas/schematics/pads.json
+instances:
+  bl:
+    component: pad
+    settings: {}
+  tl:
+    component: pad
+    settings: {}
+  br:
+    component: pad
+    settings: {}
+  tr:
+    component: pad
+    settings: {}
+connections: {}
+routes:
+  electrical:
+    links:
+      bl,e3: br,e1
+      tl,e3: tr,e1
+    routing_strategy: route_bundle
+    settings:
+      cross_section: metal2
+      end_straight_length: 100
+      separation: 20
+nets: []
+ports: {}
+placements:
+  tl:
+    x: 0
+    y: 500
+  br:
+    x: 400
+    y: 400
+  tr:
+    x: 400
+    y: 600
+pdk: amf

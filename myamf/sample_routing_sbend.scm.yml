@@ -1,0 +1,62 @@
+exploded: ''
+camera_transform:
+  translation:
+    x: -462.42975
+    y: 186.77184
+    z: 0.0
+  rotation:
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  scale:
+    x: 0.29508087
+    y: 0.29508087
+    z: 1.0
+transforms:
+  cp1:
+    translation:
+      x: -671.5469
+      y: 233.12498
+      z: 0.1
+    rotation:
+      x: 0.0
+      y: 0.0
+      z: 0.0
+      w: 1.0
+    scale:
+      x: 1.0
+      y: 1.0
+      z: 1.0
+  cp2:
+    translation:
+      x: -348.0626
+      y: 221.72055
+      z: 0.2
+    rotation:
+      x: 0.0
+      y: 0.0
+      z: 0.0
+      w: 1.0
+    scale:
+      x: 1.0
+      y: 1.0
+      z: 1.0
+port_configs:
+  coupler_strip:
+    o1:
+      orientation: w
+      port_type: optical
+      index: -1.65
+    o2:
+      orientation: w
+      port_type: optical
+      index: 2.35
+    o3:
+      orientation: e
+      port_type: optical
+      index: 2.35
+    o4:
+      orientation: e
+      port_type: optical
+      index: -1.65

@@ -1,0 +1,25 @@
+# yaml-language-server: $schema=../build/schemas/sample_routing_sbend.json
+instances:
+  cp1:
+    component: coupler
+    settings: {}
+  cp2:
+    component: coupler
+    settings: {}
+connections: {}
+routes:
+  bundle2:
+    links:
+      cp1,o3: cp2,o2
+    routing_strategy: route_bundle_sbend
+    settings:
+      enforce_port_ordering: false
+      sort_ports: false
+nets: []
+ports: {}
+placements:
+  cp2:
+    dx: 116.492
+    dy: 14.506
+    rotation: 0
+    mirror: false
