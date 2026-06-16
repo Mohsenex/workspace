@@ -11,7 +11,7 @@ from amf.chp.cells.fixed import (
 )
 
 @gf.cell
-def MZIs_Pack()->gf.Component:
+def MZIs_Pack2()->gf.Component:
     c = gf.Component()
 
     sin_1250_mzi = c.add_ref(SiN_1250_MZI(gap = 500, dl = 18.375, cross_section = "strip"))

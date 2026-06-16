@@ -87,6 +87,8 @@ def ECL_to_WL()->gf.Component:
     c.add_port('o2', port = tc1.ports['o2'])
     c.add_port('o3', port = tc2.ports['o3'])
     c.add_port('o4', port = tc2.ports['o4'])
+    c.add_port('o5', port = tc1.ports['o3'])
+    c.add_port('o6', port = tc2.ports['o2'])
 
     c.add_port('e1', port = tc1.ports['e1'])
     c.add_port('e2', port = tc1.ports['e2'])
