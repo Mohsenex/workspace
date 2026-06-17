@@ -29,11 +29,16 @@ def MZI_Ring(
     combiner.move((55 + l, 0))
 
     # for the upper arm:
-    via1 = c.add_ref(AMF_300LSOI_LSiN2SOISSC_Cband_v5p0())
+    ssc_gds = gdsdir / "AMF_300LSOI_LSiN2SOISSC_Cband_v5p0.gds"
+    ssc_comp = import_gds(ssc_gds)
+    ssc_comp.add_port(name="o1", center=(0.0, 0.0), width=0.5, orientation=180, layer='RIB')
+    ssc_comp.add_port(name="o2", center=(121.0, 0.0), width=1.0, orientation=0, layer='WG_SIN')
+
+    via1 = c.add_ref(ssc_gds)
     via1.xmin = splitter.xmax + 20
     via1.movey(splitter.ports['o2'].center[1] + 25)
 
-    via2 = c.add_ref(AMF_300LSOI_LSiN2SOISSC_Cband_v5p0())
+    via2 = c.add_ref(ssc_gds)
     via2.mirror_x()
     via2.xmax = combiner.xmin - 40 - htr_length
     via2.movey(splitter.ports['o2'].center[1] + 25)
@@ -57,11 +62,11 @@ def MZI_Ring(
     taper2.movey(via2.ports['o2'].center[1])
 
     # for the lower arm:
-    via3 = c.add_ref(AMF_300LSOI_LSiN2SOISSC_Cband_v5p0())
+    via3 = c.add_ref(ssc_gds)
     via3.xmin = splitter.xmax + 20
     via3.movey(splitter.ports['o3'].center[1] - 25)
 
-    via4 = c.add_ref(AMF_300LSOI_LSiN2SOISSC_Cband_v5p0())
+    via4 = c.add_ref(ssc_gds)
     via4.mirror_x()
     via4.xmax = combiner.xmin - 40 - htr_length
     via4.movey(splitter.ports['o3'].center[1] - 25)

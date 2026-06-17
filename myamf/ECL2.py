@@ -74,7 +74,7 @@ def ECL2() -> gf.Component:
     ecl2.movey(0)
 
     #----- Heaters Electrical Routing----------
-    first_pad = 18 # the firs pad on the left
+    first_pad = 19 # the firs pad on the left
     gf.routing.route_single(
     c,
     port1 = ecl2.ports['e2'],
@@ -298,8 +298,8 @@ def ECL2() -> gf.Component:
         cross_section = 'strip',
         waypoints = [
             (float(ecl2_via1_mmi.ports['o2'].center[0] + 30), float(ecl2_via1_mmi.ports['o2'].center[1])),
-            (float(ecl2_via1_mmi.ports['o2'].center[0] + 30), float(pd34.ports['o2'].center[1] - 30)),
-            (float(pd34.ports['o2'].center[0]), float(pd34.ports['o2'].center[1] - 30)),
+            (float(ecl2_via1_mmi.ports['o2'].center[0] + 30), float(pd34.ports['o2'].center[1] - 60)),
+            (float(pd34.ports['o2'].center[0]), float(pd34.ports['o2'].center[1] - 60)),
         ],
     )
 
@@ -314,8 +314,8 @@ def ECL2() -> gf.Component:
             (float(ecl2_via4.ports['o2'].center[0] - 45), float(ecl2_via4_mmi.ports['o3'].center[1] - 20)),
             (float(ecl2_via4.ports['o2'].center[0] - 45), float(ecl2_via1_mmi.ports['o2'].center[1] + 10)),
             (float(ecl2_via1_mmi.ports['o2'].center[0] + 25), float(ecl2_via1_mmi.ports['o2'].center[1] + 10)),
-            (float(ecl2_via1_mmi.ports['o2'].center[0] + 25), float(pd34.ports['o2'].center[1] - 25)),
-            (float(pd34.ports['o1'].center[0]), float(pd34.ports['o2'].center[1] - 25)),
+            (float(ecl2_via1_mmi.ports['o2'].center[0] + 25), float(pd34.ports['o2'].center[1] - 55)),
+            (float(pd34.ports['o1'].center[0]), float(pd34.ports['o2'].center[1] - 55)),
         ],
     )
 
@@ -334,8 +334,8 @@ def ECL2() -> gf.Component:
             (float(ecl2_via4.ports['o2'].center[0] - 50), float(ecl2_via4_mmi.ports['o2'].center[1] - 30)),
             (float(ecl2_via4.ports['o2'].center[0] - 50), float(ecl2_via1_mmi.ports['o2'].center[1] + 15)),
             (float(ecl2_via1_mmi.ports['o2'].center[0] + 20), float(ecl2_via1_mmi.ports['o2'].center[1] + 15)),
-            (float(ecl2_via1_mmi.ports['o2'].center[0] + 20), float(pd34.ports['o2'].center[1] - 20)),
-            (float(pd12.ports['o2'].center[0]), float(pd34.ports['o2'].center[1] - 20)),
+            (float(ecl2_via1_mmi.ports['o2'].center[0] + 20), float(pd34.ports['o2'].center[1] - 50)),
+            (float(pd12.ports['o2'].center[0]), float(pd34.ports['o2'].center[1] - 50)),
         ],
     )
 
@@ -350,8 +350,8 @@ def ECL2() -> gf.Component:
             (float(ecl2_via2.ports['o2'].center[0] - 55), float(ecl2_via4_mmi.ports['o3'].center[1] - 35)),
             (float(ecl2_via4.ports['o2'].center[0] - 55), float(ecl2_via1_mmi.ports['o2'].center[1] + 20)),
             (float(ecl2_via1_mmi.ports['o2'].center[0] + 15), float(ecl2_via1_mmi.ports['o2'].center[1] + 20)),
-            (float(ecl2_via1_mmi.ports['o2'].center[0] + 15), float(pd34.ports['o2'].center[1] - 15)),
-            (float(pd12.ports['o1'].center[0]), float(pd34.ports['o2'].center[1] - 15)),
+            (float(ecl2_via1_mmi.ports['o2'].center[0] + 15), float(pd34.ports['o2'].center[1] - 45)),
+            (float(pd12.ports['o1'].center[0]), float(pd34.ports['o2'].center[1] - 45)),
         ],
     )
 

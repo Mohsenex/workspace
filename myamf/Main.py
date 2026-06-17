@@ -345,7 +345,7 @@ def Main() -> gf.Component:
     #---------------------------------------------------------------------------------------
     wavemeter = c.add_ref(Wavemeter())
     wavemeter.ymax = die.ymax - 100
-    wavemeter.xmin = die.x + 175
+    wavemeter.xmin = die.x + 275
 
     #---------------------------------------------------------------------------------------
     # MZIs first set
