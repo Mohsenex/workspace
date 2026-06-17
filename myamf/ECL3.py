@@ -39,25 +39,25 @@ def ECL3() -> gf.Component:
     #---------------------------------------------------------------------------------------
     # ECL3 GDS import + port definitions
     #---------------------------------------------------------------------------------------
-    ecl3 = gf.import_gds("/workspace/myamf/gds/FonexQuietXECL_Hybrid_V2026_3.gds")
+    ecl3 = gf.import_gds("/workspace/myamf/gds/FonexQuietXECL_Hybrid_V2026_5.gds")
     # SiN Ports:
     ecl3.add_port(name="o1", center=(368.859, -31.721),  width=1.0, orientation=0,   layer='WG_SIN')
     ecl3.add_port(name="o2", center=(283.34,  211.579),  width=1.0, orientation=0,   layer='WG_SIN')
     # Si Ports:
-    ecl3.add_port(name="o3", center=(-404.659, 336.355), width=0.5, orientation=180, layer='WG')
-    ecl3.add_port(name="o4", center=(-404.659, 211.579), width=0.5, orientation=180, layer='WG')
+    ecl3.add_port(name="o3", center=(-402.805, 335.119), width=0.5, orientation=180, layer='WG')
+    ecl3.add_port(name="o4", center=(-402.805, 211.579), width=0.5, orientation=180, layer='WG')
     ecl3.add_port(name="o5", center=(447.808,  336.355), width=0.5, orientation=0,   layer='WG')
     # Metal 2 Ports:
-    ecl3.add_port(name="e1",  center=(-391.03,  105.935), width=20, orientation=270, layer="MT2", port_type="electrical")
-    ecl3.add_port(name="e2",  center=(-320.74,  105.935), width=20, orientation=270, layer="MT2", port_type="electrical")
-    ecl3.add_port(name="e3",  center=(-240.86,  107.095), width=20, orientation=270, layer="MT2", port_type="electrical")
-    ecl3.add_port(name="e4",  center=(-185.82,  105.935), width=20, orientation=270, layer="MT2", port_type="electrical")
+    ecl3.add_port(name="e1",  center=(-390.103,  104.699), width=20, orientation=270, layer="MT2", port_type="electrical")
+    ecl3.add_port(name="e2",  center=(-319.813,  104.699), width=20, orientation=270, layer="MT2", port_type="electrical")
+    ecl3.add_port(name="e3",  center=(-239.933,  105.859), width=20, orientation=270, layer="MT2", port_type="electrical")
+    ecl3.add_port(name="e4",  center=(-184.893,  104.699), width=20, orientation=270, layer="MT2", port_type="electrical")
     ecl3.add_port(name="e5",  center=( 135.04, -119.885), width=20, orientation=270, layer="MT2", port_type="electrical")
     ecl3.add_port(name="e6",  center=( 202.81, -119.955), width=20, orientation=270, layer="MT2", port_type="electrical")
     ecl3.add_port(name="e7",  center=( 468.828,  108.585), width=20, orientation=0,  layer="MT2", port_type="electrical")
     ecl3.add_port(name="e8",  center=( 451.428,  209.815), width=20, orientation=0,  layer="MT2", port_type="electrical")
-    ecl3.add_port(name="e9",  center=( 217.859,  353.055), width=20, orientation=90, layer="MT2", port_type="electrical")
-    ecl3.add_port(name="e10", center=(-122.141,  415.645), width=20, orientation=90, layer="MT2", port_type="electrical")
+    ecl3.add_port(name="e9",  center=( 247.859,  353.055), width=20, orientation=90, layer="MT2", port_type="electrical")
+    ecl3.add_port(name="e10", center=(-92.141,  415.645), width=20, orientation=90, layer="MT2", port_type="electrical")
 
     ecl3 = c.add_ref(ecl3)
     ecl3.xmin = die.xmin + 44
