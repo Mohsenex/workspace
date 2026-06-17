@@ -731,7 +731,7 @@ def Main() -> gf.Component:
     #---------------------------------------------------------------------------------------
     # Shahab bulshit
     #---------------------------------------------------------------------------------------
-    current_mirror = c.add_ref(gf.import_gds("/workspace/myamf/gds/CurrentMirror.gds"))
+    current_mirror = c.add_ref(gf.import_gds("/workspace/myamf/gds/CurrentMirror_5.gds"))
     current_mirror.move((-4100, 20))
 
     #---------------------------------------------------------------------------------------
@@ -743,4 +743,6 @@ def Main() -> gf.Component:
     # logo.xmax =  250
     # logo.ymax = die.ymax - 1400
     logo.move((-420, 300))
+
+
     return c

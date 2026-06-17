@@ -34,7 +34,7 @@ def Balanced_PD()->gf.Component:
 
 
     #------- Connecting the left port of pd1 to pad1
-    mt1_1 = c.add_ref(gf.components.compass(size = (10, 10), layer = LAYER.MT1))
+    mt1_1 = c.add_ref(gf.components.compass(size = (10, 12), layer = LAYER.MT1))
     mt1_1.xmin = pd1.ports['e1'].center[0]-5
     mt1_1.ymin = pd1.ports['e1'].center[1]
 
@@ -52,7 +52,7 @@ def Balanced_PD()->gf.Component:
         cross_section="metal_routing",
     )
     #------- Connecting the right port of pd2 to pad3
-    mt1_3 = c.add_ref(gf.components.compass(size = (10, 10), layer = LAYER.MT1))
+    mt1_3 = c.add_ref(gf.components.compass(size = (10, 12), layer = LAYER.MT1))
     mt1_3.xmin = pd2.ports['e2'].center[0]-5
     mt1_3.ymin = pd2.ports['e2'].center[1]
 
@@ -71,7 +71,7 @@ def Balanced_PD()->gf.Component:
     )
 
     #------- Connecting the middle ports to pad2
-    mt1_2 = c.add_ref(gf.components.compass(size = (29.7, 10), layer = LAYER.MT1))
+    mt1_2 = c.add_ref(gf.components.compass(size = (29.7, 12), layer = LAYER.MT1))
     mt1_2.xmin = pd1.ports['e2'].center[0]-5
     mt1_2.ymin = pd1.ports['e2'].center[1]
 

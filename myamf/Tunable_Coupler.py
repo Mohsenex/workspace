@@ -59,7 +59,7 @@ def Tunable_Coupler(
     y_c2 = float(combiner.ports["o2"].center[1])  # lower arm end Y
 
     # Fixed stub and vertical leg lengths (as described)
-    stub  = 0   # east stub before/after the vertical section
+    stub  = 2   # east stub before/after the vertical section
     vert  = 10.0   # vertical straight length for the reference (upper) arm
 
     # The 4 arcs take up 4*R of horizontal space; the rest is the middle straight
@@ -121,7 +121,7 @@ def Tunable_Coupler(
     #----------------------------------------------------------------------
     htr = c.add_ref(gf.components.rectangle(size = (htr_length, 5), layer = LAYER.HTR))
     htr.xmin = splitter.xmax + 20
-    htr.ymin = splitter.ports['o3'].center[1] - 32.5
+    htr.ymin = splitter.ports['o4'].center[1] - 32.5
 
     htr_patch_right = c.add_ref(gf.components.rectangle(size=(6, 6), layer=LAYER.HTR))
     htr_patch_right.xmax= htr.xmax

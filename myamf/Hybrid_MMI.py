@@ -78,6 +78,9 @@ def Hybrid_MMI()->gf.Component:
         cross_section='strip',        
         )
 
+    term = c.add_ref(gf.components.terminator(doping_layers=[]))
+    term.connect('o1', mmi221.ports['o4'])
+
     c.add_port("o1", port=mmi12.ports["o1"]) 
     c.add_port("o2", port=mmi221.ports["o3"])
     c.add_port("o3", port=mmi221.ports["o4"]) 
