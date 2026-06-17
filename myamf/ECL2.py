@@ -8,7 +8,7 @@ from amf.config import PATH
 # from amf.chp.tech import LAYER, TECH
 from amf.import_gds import import_gds
 
-
+from amf.chp.tech import LAYER, TECH
 from .Balanced_PD import Balanced_PD
 
 
@@ -46,7 +46,13 @@ def ECL2() -> gf.Component:
     # Each pad has ports: e1 (west), e2 (north), e3 (east), e4 (south)
 
    
-
+    # routing SiN with bending radius of 45 um
+    xs_sin = gf.cross_section.strip(
+    width= 1,
+    radius=45,
+    radius_min=45,
+    layer=LAYER.WG_SIN,
+    )
     #---------------------------------------------------------------------------------------
     # ECL2 
     #---------------------------------------------------------------------------------------
@@ -81,9 +87,12 @@ def ECL2() -> gf.Component:
     port2 = pads[first_pad].ports['e4'],
     cross_section = "metal_routing",
     waypoints = [
-        (float(ecl2.ports['e2'].center[0] - 40), float(ecl2.ports['e2'].center[1])),
-        (float(ecl2.ports['e2'].center[0] - 40), float(ecl2.ymax + 40)),
-        (float(pads[first_pad].ports['e4'].center[0]), float(ecl2.ymax + 40)),
+            (float(ecl2.ports['e2'].center[0] - 40), float(ecl2.ports['e2'].center[1])),
+            (float(ecl2.ports['e2'].center[0] - 40), float(ecl2.ymax + 40)),
+            (float(ecl2.xmax + 280), float(ecl2.ymax + 40)),
+            (float(ecl2.xmax + 280), float(pads[first_pad].ports['e4'].center[1] - 150)),
+            (float(pads[first_pad].ports['e4'].center[0]), float(pads[first_pad].ports['e4'].center[1] - 150)),
+            
     ],
     )
     gf.routing.route_single(
@@ -94,9 +103,10 @@ def ECL2() -> gf.Component:
         waypoints = [
             (float(ecl2.ports['e1'].center[0] - 40), float(ecl2.ports['e1'].center[1])),
             (float(ecl2.ports['e1'].center[0] - 40), float(ecl2.ymax + 20)),
-            (float(pads[first_pad].ports['e4'].center[0] + 20), float(ecl2.ymax + 20)),
-            (float(pads[first_pad].ports['e4'].center[0] + 20), float(pads[first_pad].ports['e4'].center[1] - 40)),
-            (float(pads[first_pad+1].ports['e4'].center[0]), float(pads[first_pad].ports['e4'].center[1] - 40)),
+            (float(ecl2.xmax + 300), float(ecl2.ymax + 20)),
+            (float(ecl2.xmax + 300), float(pads[first_pad].ports['e4'].center[1] - 170)),
+            (float(pads[first_pad + 1].ports['e4'].center[0]), float(pads[first_pad].ports['e4'].center[1] - 170)),
+            
         ],
     )
     gf.routing.route_single(
@@ -106,9 +116,9 @@ def ECL2() -> gf.Component:
         cross_section = "metal_routing",
         waypoints = [
             (float(ecl2.ports['e3'].center[0]), float(ecl2.ymax + 20)),
-            (float(pads[first_pad].ports['e4'].center[0] + 20), float(ecl2.ymax + 20)),
-            (float(pads[first_pad].ports['e4'].center[0] + 20), float(pads[first_pad].ports['e4'].center[1] - 40)),
-            (float(pads[first_pad+1].ports['e4'].center[0]), float(pads[first_pad].ports['e4'].center[1] - 40)),
+            (float(ecl2.xmax + 300), float(ecl2.ymax + 20)),
+            (float(ecl2.xmax + 300), float(pads[first_pad].ports['e4'].center[1] - 170)),
+            (float(pads[first_pad + 1].ports['e4'].center[0]), float(pads[first_pad].ports['e4'].center[1] - 170)),
         ],
     )
 
@@ -118,10 +128,14 @@ def ECL2() -> gf.Component:
         port2 = pads[first_pad+2].ports['e4'],
         cross_section = "metal_routing",
         waypoints = [
+            # (float(ecl2.ports['e4'].center[0]), float(ecl2.ymax)),
+            # (float(pads[first_pad].ports['e4'].center[0] + 40), float(ecl2.ymax )),
+            # (float(pads[first_pad].ports['e4'].center[0] + 40), float(pads[first_pad].ports['e4'].center[1] - 60)),
+            # (float(pads[first_pad+2].ports['e4'].center[0]), float(pads[first_pad].ports['e4'].center[1] - 60)),
             (float(ecl2.ports['e4'].center[0]), float(ecl2.ymax)),
-            (float(pads[first_pad].ports['e4'].center[0] + 40), float(ecl2.ymax )),
-            (float(pads[first_pad].ports['e4'].center[0] + 40), float(pads[first_pad].ports['e4'].center[1] - 60)),
-            (float(pads[first_pad+2].ports['e4'].center[0]), float(pads[first_pad].ports['e4'].center[1] - 60)),
+            (float(ecl2.xmax + 320), float(ecl2.ymax )),
+            (float(ecl2.xmax + 320), float(pads[first_pad].ports['e4'].center[1] - 190)),
+            (float(pads[first_pad + 2].ports['e4'].center[0]), float(pads[first_pad].ports['e4'].center[1] - 190)),
         ],
     )
     gf.routing.route_single(
@@ -132,9 +146,9 @@ def ECL2() -> gf.Component:
         waypoints = [
             (float(ecl2.ports['e8'].center[0] + 20), float(ecl2.ports['e8'].center[1])),
             (float(ecl2.ports['e8'].center[0] + 20), float(ecl2.ymax - 20)),
-            (float(pads[first_pad].ports['e4'].center[0] + 60), float(ecl2.ymax - 20)),
-            (float(pads[first_pad].ports['e4'].center[0] + 60), float(pads[first_pad].ports['e4'].center[1] - 80)),
-            (float(pads[first_pad+3].ports['e4'].center[0]), float(pads[first_pad].ports['e4'].center[1] - 80)),
+            (float(ecl2.xmax + 340), float(ecl2.ymax - 20)),
+            (float(ecl2.xmax + 340), float(pads[first_pad].ports['e4'].center[1] - 210)),
+            (float(pads[first_pad+3].ports['e4'].center[0]), float(pads[first_pad].ports['e4'].center[1] - 210)),
         ],
     )
     gf.routing.route_single(
@@ -145,9 +159,9 @@ def ECL2() -> gf.Component:
         waypoints = [
             (float(ecl2.ports['e8'].center[0] + 40), float(ecl2.ports['e7'].center[1])),
             (float(ecl2.ports['e8'].center[0] + 40), float(ecl2.ymax - 40)),
-            (float(pads[first_pad].ports['e4'].center[0] + 80), float(ecl2.ymax - 40)),
-            (float(pads[first_pad].ports['e4'].center[0] + 80), float(pads[first_pad].ports['e4'].center[1] - 100)),
-            (float(pads[first_pad+4].ports['e4'].center[0]), float(pads[first_pad].ports['e4'].center[1] - 100)),
+            (float(ecl2.xmax + 360), float(ecl2.ymax - 40)),
+            (float(ecl2.xmax + 360), float(pads[first_pad].ports['e4'].center[1] - 230)),
+            (float(pads[first_pad+4].ports['e4'].center[0]), float(pads[first_pad].ports['e4'].center[1] - 230)),
         ],
     )
     gf.routing.route_single(
@@ -159,9 +173,9 @@ def ECL2() -> gf.Component:
             (float(ecl2.ports['e6'].center[0]), float(ecl2.ports['e6'].center[1] -20)),
             (float(ecl2.ports['e8'].center[0] + 60), float(ecl2.ports['e6'].center[1] -20)),
             (float(ecl2.ports['e8'].center[0] + 60), float(ecl2.ymax - 60)),
-            (float(pads[first_pad].ports['e4'].center[0] + 80), float(ecl2.ymax - 60)),
-            (float(pads[first_pad].ports['e4'].center[0] + 80), float(pads[first_pad].ports['e4'].center[1] - 100)),
-            (float(pads[first_pad+4].ports['e4'].center[0]), float(pads[first_pad].ports['e4'].center[1] - 100)),
+            (float(ecl2.xmax + 360), float(ecl2.ymax - 60)),
+            (float(ecl2.xmax + 360), float(pads[first_pad].ports['e4'].center[1] - 230)),
+            (float(pads[first_pad+4].ports['e4'].center[0]), float(pads[first_pad].ports['e4'].center[1] - 230)),
         ],
     )
     gf.routing.route_single(
@@ -173,9 +187,9 @@ def ECL2() -> gf.Component:
             (float(ecl2.ports['e5'].center[0]), float(ecl2.ports['e6'].center[1] -40)),
             (float(ecl2.ports['e8'].center[0] + 80), float(ecl2.ports['e6'].center[1] -40)),
             (float(ecl2.ports['e8'].center[0] + 80), float(ecl2.ymax - 80)),
-            (float(pads[first_pad].ports['e4'].center[0] + 100), float(ecl2.ymax - 80)),
-            (float(pads[first_pad].ports['e4'].center[0] + 100), float(pads[first_pad].ports['e4'].center[1] - 120)),
-            (float(pads[first_pad+5].ports['e4'].center[0]), float(pads[first_pad].ports['e4'].center[1] - 120)),
+            (float(ecl2.xmax + 380), float(ecl2.ymax - 80)),
+            (float(ecl2.xmax + 380), float(pads[first_pad].ports['e4'].center[1] - 250)),
+            (float(pads[first_pad+5].ports['e4'].center[0]), float(pads[first_pad].ports['e4'].center[1] - 250)),
         ],
     )
 
@@ -228,14 +242,14 @@ def ECL2() -> gf.Component:
         c,
         port1 = ecl2.ports['o4'],
         port2 = ecl2_via1.ports['o2'],
-        cross_section = 'nitride',
+        cross_section = xs_sin,
     )
 
     gf.routing.route_single(
         c,
         port1 = ecl2.ports['o3'],
         port2 = ecl2_via2.ports['o2'],
-        cross_section = 'nitride',
+        cross_section = xs_sin,
         waypoints = [
             (float(ecl2.ports['o3'].center[0]) , float(ecl2.ymin - 10)),
             (float(ecl2.xmax + 30) , float(ecl2.ymin - 10)),
@@ -247,7 +261,7 @@ def ECL2() -> gf.Component:
         c,
         port1 = ecl2.ports['o2'],
         port2 = ecl2_via3.ports['o2'],
-        cross_section = 'nitride',
+        cross_section = xs_sin,
         waypoints = [
             (float(ecl2.ports['o2'].center[0] - 50) , float(ecl2.ports['o2'].center[1])),
             (float(ecl2.ports['o2'].center[0] - 50) , float(ecl2.ymin - 15)),
@@ -260,7 +274,7 @@ def ECL2() -> gf.Component:
         c,
         port1 = ecl2.ports['o1'],
         port2 = ecl2_via4.ports['o2'],
-        cross_section = 'nitride',
+        cross_section = xs_sin,
         waypoints = [
             (float(ecl2.ports['o1'].center[0] - 55) , float(ecl2.ports['o1'].center[1])),
             (float(ecl2.ports['o1'].center[0] - 55) , float(ecl2.ymin - 20)),
@@ -355,9 +369,22 @@ def ECL2() -> gf.Component:
         ],
     )
 
+    #-----------------combiner1 to via
+    via_out = c.add_ref(AMF_300LSOI_LSiN2SOISSC_Cband_v5p0())
+    via_out.rotate(90)
+    via_out.xmin = ecl2_combiner1.xmax + 40
+    via_out.ymin = ecl2_combiner1.ymax + 50
+
+    gf.routing.route_single(
+        c,
+        port1 = ecl2_combiner1.ports['o1'],
+        port2 = via_out.ports['o1'],
+        cross_section = 'strip',
+    )
+
     c.add_port('o1', port = ecl2_via2_mmi.ports['o2'])
     c.add_port('o2', port = ecl2_via3_mmi.ports['o2'])
-    c.add_port('o3', port = ecl2_combiner1.ports['o1'])
+    c.add_port('o3', port = via_out.ports['o2'])
     c.add_port('o4', port = ecl2.ports['o5'])
    
     return c

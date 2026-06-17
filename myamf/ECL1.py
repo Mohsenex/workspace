@@ -345,22 +345,22 @@ def ECL1() -> gf.Component:
 
     #---------- Vias ---------------------------------
     #---------- Vias ---------------------------------
-    ssc_gds = gdsdir / "AMF_300LSOI_LSiN2SOISSC_Cband_v5p0.gds"
-    ssc_comp = import_gds(ssc_gds)
-    ssc_comp.add_port(name="o1", center=(0.0, 0.0), width=0.5, orientation=180, layer='RIB')
-    ssc_comp.add_port(name="o2", center=(121.0, 0.0), width=1.0, orientation=0, layer='WG_SIN')
+    # ssc_gds = gdsdir / "AMF_300LSOI_LSiN2SOISSC_Cband_v5p0.gds"
+    # ssc_comp = import_gds(ssc_gds)
+    # ssc_comp.add_port(name="o1", center=(0.0, 0.0), width=0.5, orientation=180, layer='RIB')
+    # ssc_comp.add_port(name="o2", center=(121.0, 0.0), width=1.0, orientation=0, layer='WG_SIN')
 
-    via1 = c.add_ref(ssc_comp)
+    via1 = c.add_ref(AMF_300LSOI_LSiN2SOISSC_Cband_v5p0())
     via1.rotate(90)
     via1.xmin = ecl1.ports['o7'].center[0] + 40
     via1.ymin = ecl1.ports['o7'].center[1] + 40
 
-    via2 = c.add_ref(ssc_comp)
+    via2 = c.add_ref(AMF_300LSOI_LSiN2SOISSC_Cband_v5p0())
     via2.rotate(90)
     via2.xmin = ecl1.ports['o7'].center[0] + 50
     via2.ymin = ecl1.ports['o7'].center[1] + 40
 
-    via3 = c.add_ref(ssc_comp)
+    via3 = c.add_ref(AMF_300LSOI_LSiN2SOISSC_Cband_v5p0())
     via3.rotate(90)
     via3.x = ecl1.ports['o5'].center[0] 
     via3.ymin = ecl1.ports['o5'].center[1] + 90
