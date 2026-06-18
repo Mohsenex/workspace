@@ -25,6 +25,7 @@ from .SiN_1250_MZI import SiN_1250_MZI
 from .Rib_MZI import Rib_MZI
 from .strip_MZI import strip_MZI
 from .via_MZI import via_MZI
+from .PD_Single import PD_Single
 
 gdsdir = PATH.gds_chp
 
@@ -262,8 +263,8 @@ def Main() -> gf.Component:
         waypoints = [
             (float(ecl2wl.ports['o4'].center[0] + 10), float(ecl2wl.ports['o4'].center[1])),
             (float(ecl2wl.ports['o4'].center[0] + 10), float(die.ymin + 160)),
-            (float(ecl2wl.ports['o4'].center[0] + 900), float(die.ymin + 160)),
-            (float(ecl2wl.ports['o4'].center[0] + 900), float(spiral.ports['o1'].center[1] -60)),
+            (float(ecl2wl.ports['o4'].center[0] + 1300), float(die.ymin + 160)),
+            (float(ecl2wl.ports['o4'].center[0] + 1300), float(spiral.ports['o1'].center[1] -60)),
             (float(spiral.ports['o1'].center[0] -10), float(spiral.ports['o1'].center[1] -60)),
             (float(spiral.ports['o1'].center[0] -10), float(spiral.ports['o1'].center[1])),
         ],
@@ -308,8 +309,8 @@ def Main() -> gf.Component:
 
     bpd_spiral = c.add_ref(Balanced_PD())
     bpd_spiral.mirror_y()
-    bpd_spiral.xmin = bpads[40].ports['e1'].center[0]
-    bpd_spiral.ymin = bpads[40].ports['e4'].center[1]
+    bpd_spiral.xmin = bpads[42].ports['e1'].center[0]
+    bpd_spiral.ymin = bpads[42].ports['e4'].center[1]
 
     gf.routing.route_bundle(
         c,
@@ -317,11 +318,63 @@ def Main() -> gf.Component:
         ports2 = [bpd_spiral.ports['o1'], bpd_spiral.ports['o2']],
         cross_section = 'strip',
     )
+
+    #----- PDs
+    pd1_spiral = c.add_ref(PD_Single())
+    pd1_spiral.mirror_y()
+    pd1_spiral.xmin = bpads[40].ports['e1'].center[0]
+    pd1_spiral.ymin = bpads[40].ports['e4'].center[1]
+
+    pd2_spiral = c.add_ref(PD_Single())
+    pd2_spiral.mirror_y()
+    pd2_spiral.xmin = bpads[45].ports['e1'].center[0]
+    pd2_spiral.ymin = bpads[45].ports['e4'].center[1]
+
+    #------------- Tap Coupler ----------------------
+    tap1_spiral= gf.Path()
+    tap1_spiral += gf.path.arc(radius=20, angle=180)    
+    tap1_spiral = tap1_spiral.extrude('strip')
+    tap1_spiral = c.add_ref(tap1_spiral)
+    # tap1_spiral.rotate(90)
+    tap1_spiral.move((bpd_spiral.ports['o1'].center[0] -20 -0.5 -0.16, float(bpd_spiral.ports['o1'].center[1] + 60 )))
+
+    term1_spiral = c.add_ref(gf.components.terminator(doping_layers=[]))
+    term1_spiral.rotate(90)
+    term1_spiral.connect('o1', tap1_spiral.ports['o2'])
+
+    gf.routing.route_single(
+        c,
+        port1 = tap1_spiral.ports['o1'],
+        port2 = pd1_spiral.ports['o1'],
+        cross_section = 'strip',
+    )
+
+    tap2_spiral= gf.Path()
+    tap2_spiral += gf.path.arc(radius=20, angle=180)    
+    tap2_spiral = tap2_spiral.extrude('strip')
+    tap2_spiral = c.add_ref(tap2_spiral)
+    tap2_spiral.rotate(180)
+    tap2_spiral.move((bpd_spiral.ports['o2'].center[0] + 20 + 0.5 + 0.16, float(bpd_spiral.ports['o2'].center[1] + 100 )))
+
+    term2_spiral = c.add_ref(gf.components.terminator(doping_layers=[]))
+    term2_spiral.rotate(90)
+    term2_spiral.connect('o1', tap2_spiral.ports['o1'])
+
+    gf.routing.route_single(
+        c,
+        port1 = tap2_spiral.ports['o2'],
+        port2 = pd2_spiral.ports['o1'],
+        cross_section = 'strip',
+    )
+
+
+
+
     #---------------------------------------------------------------------------------------
     # WL with Ring
     #---------------------------------------------------------------------------------------
-    wl_ring = c.add_ref(MZI_Ring(l = 580, gap = 0.35, coupling_length = 30, coupling_radius = 50, wg_width = 1.25, taper_length = 50, separation = 5.25, min_bend_radius= 100, htr_length = 100, number_of_loops = 43, npoints = 20000,))
-    wl_ring.move((-1400 , die.ymin - wl_ring.ymin + 420))
+    wl_ring = c.add_ref(MZI_Ring(l = 750, gap = 0.35, coupling_length = 30, coupling_radius = 50, wg_width = 1.25, taper_length = 50, separation = 5.25, min_bend_radius= 200, htr_length = 300, number_of_loops = 33, npoints = 20000,))
+    wl_ring.move((-1345 , die.ymin - wl_ring.ymin + 420))
 
     gf.routing.route_single(
         c,
@@ -339,18 +392,18 @@ def Main() -> gf.Component:
     gf.routing.route_bundle(
         c,
         ports1 = [wl_ring.ports['e4'], wl_ring.ports['e3']],
-        ports2 = [bpads[21].ports['e2'], bpads[22].ports['e2']],
+        ports2 = [bpads[22].ports['e2'], bpads[23].ports['e2']],
         cross_section = 'metal_routing',
     )
 
     gf.routing.route_single(
         c,
         port1 = wl_ring.ports['e2'],
-        port2 = bpads[23].ports['e2'],
+        port2 = bpads[21].ports['e2'],
         cross_section = 'metal_routing',
         waypoints = [
-            (float( wl_ring.ports['e2'].center[0]), float( wl_ring.ports['e1'].center[1] - 260)),
-            (float( bpads[23].ports['e2'].center[0]), float( wl_ring.ports['e1'].center[1] - 260)),
+            (float( wl_ring.ports['e2'].center[0]), float( wl_ring.ports['e1'].center[1] - 265)),
+            (float( bpads[21].ports['e2'].center[0]), float( wl_ring.ports['e1'].center[1] - 265)),
         ] 
     )
 
@@ -360,15 +413,15 @@ def Main() -> gf.Component:
         port2 = bpads[24].ports['e2'],
         cross_section = 'metal_routing',
         waypoints = [
-            (float( wl_ring.ports['e1'].center[0]), float( wl_ring.ports['e1'].center[1] - 240)),
-            (float( bpads[24].ports['e2'].center[0]), float( wl_ring.ports['e1'].center[1] - 240)),
+            (float( wl_ring.ports['e1'].center[0]), float( wl_ring.ports['e1'].center[1] - 140)),
+            (float( bpads[24].ports['e2'].center[0]), float( wl_ring.ports['e1'].center[1] - 140)),
         ] 
     )
 
     bpd_wl_ring = c.add_ref(Balanced_PD())
     bpd_wl_ring.mirror_y()
-    bpd_wl_ring.xmin = bpads[25].ports['e1'].center[0]
-    bpd_wl_ring.ymin = bpads[25].ports['e4'].center[1]
+    bpd_wl_ring.xmin = bpads[27].ports['e1'].center[0]
+    bpd_wl_ring.ymin = bpads[27].ports['e4'].center[1]
 
     gf.routing.route_single(
         c,
@@ -377,8 +430,8 @@ def Main() -> gf.Component:
         cross_section = 'strip',
         waypoints = [
             (float(wl_ring.ports['o3'].center[0] + 10), float(wl_ring.ports['o3'].center[1])),
-            (float(wl_ring.ports['o3'].center[0] + 10), float(bpd_wl_ring.ports['o1'].center[1] + 20)),
-            (float(bpd_wl_ring.ports['o1'].center[0] ), float(bpd_wl_ring.ports['o1'].center[1] + 20)),
+            (float(wl_ring.ports['o3'].center[0] + 10), float(bpd_wl_ring.ports['o1'].center[1] + 100)),
+            (float(bpd_wl_ring.ports['o1'].center[0] ), float(bpd_wl_ring.ports['o1'].center[1] + 100)),
         ],  
     )
     gf.routing.route_single(
@@ -388,10 +441,60 @@ def Main() -> gf.Component:
         cross_section = 'strip',  
         waypoints = [
             (float(wl_ring.ports['o2'].center[0] + 15), float(wl_ring.ports['o2'].center[1])),
-            (float(wl_ring.ports['o2'].center[0] + 15), float(bpd_wl_ring.ports['o2'].center[1] + 25)),
-            (float(bpd_wl_ring.ports['o2'].center[0] ), float(bpd_wl_ring.ports['o2'].center[1] + 25)),
+            (float(wl_ring.ports['o2'].center[0] + 15), float(bpd_wl_ring.ports['o2'].center[1] + 105)),
+            (float(bpd_wl_ring.ports['o2'].center[0] ), float(bpd_wl_ring.ports['o2'].center[1] + 105)),
         ],
     )
+
+    #----- PDs
+    pd1 = c.add_ref(PD_Single())
+    pd1.mirror_y()
+    pd1.xmin = bpads[25].ports['e1'].center[0]
+    pd1.ymin = bpads[25].ports['e4'].center[1]
+
+    pd2 = c.add_ref(PD_Single())
+    pd2.mirror_y()
+    pd2.xmin = bpads[30].ports['e1'].center[0]
+    pd2.ymin = bpads[30].ports['e4'].center[1]
+
+    #------------- Tap Coupler ----------------------
+    tap1= gf.Path()
+    tap1 += gf.path.arc(radius=20, angle=180)    
+    tap1 = tap1.extrude('strip')
+    tap1 = c.add_ref(tap1)
+    tap1.rotate(90)
+    tap1.move((pd1.ports['o1'].center[0], float(bpd_wl_ring.ports['o2'].center[1] + 100 -20 -0.5 - 0.16)))
+
+    term1 = c.add_ref(gf.components.terminator(doping_layers=[]))
+    term1.rotate(90)
+    term1.connect('o1', tap1.ports['o2'])
+
+    gf.routing.route_single(
+        c,
+        port1 = tap1.ports['o1'],
+        port2 = pd1.ports['o1'],
+        cross_section = 'strip',
+    )
+
+
+    tap2= gf.Path()
+    tap2 += gf.path.arc(radius=20, angle=180)    
+    tap2 = tap2.extrude('strip')
+    tap2 = c.add_ref(tap2)
+    tap2.rotate(-90)
+    tap2.move((wl_ring.ports['o2'].center[0] - 200, wl_ring.ports['o2'].center[1] + 45.733 + 0.16))
+
+    term2 = c.add_ref(gf.components.terminator(doping_layers=[]))
+    term2.rotate(90)
+    term2.connect('o1', tap2.ports['o1'])
+
+    gf.routing.route_single(
+        c,
+        port1 = tap2.ports['o2'],
+        port2 = pd2.ports['o1'],
+        cross_section = 'strip',
+    )
+    
     # ---------------------------------------------------------------------------------------
     # Balanced PD
     #---------------------------------------------------------------------------------------
@@ -410,7 +513,7 @@ def Main() -> gf.Component:
     #---------------------------------------------------------------------------------------
     mzi_pack1 = c.add_ref(MZIs_Pack())
     mzi_pack1.xmin = bpads[44].ports['e1'].center[0]
-    mzi_pack1.ymax = spiral.ymin + 100
+    mzi_pack1.ymax = spiral.ymin + 20
 
     #---------- Connecting ECL2 and MZI and Outputs
 
@@ -555,7 +658,7 @@ def Main() -> gf.Component:
     mzi_pack2 = c.add_ref(MZIs_Pack())
     mzi_pack2.rotate(90)
     mzi_pack2.xmax = die.xmax - 370
-    mzi_pack2.ymin = mzi_pack1.ymax + 110
+    mzi_pack2.ymin = mzi_pack1.ymax + 80
 
     #---------- Routing -------------------
     gf.routing.route_single(
