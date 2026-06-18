@@ -8,16 +8,17 @@ from amf.chp.tech import LAYER, TECH
 
 @gf.cell
 def MZI_Ring(
-    l: float = 550, # distance between splitter and combiner
+    l: float = 750, # distance between splitter and combiner
     gap: float = 0.35,
     coupling_length: float = 16.8, 
     coupling_radius: float = 50,
     wg_width: float = 1.25,
     taper_length: float = 30,
     separation: float = 5.25,
-    min_bend_radius: float = 100,
-    htr_length: float = 100,
-    number_of_loops: float = 43,
+    min_bend_radius: float = 100 *2,
+    htr_length: float = 300,
+    htr_radius = 450,
+    number_of_loops: float = 33,
     npoints: float = 20000,
 )->gf.Component:
     c = gf.Component()
@@ -167,7 +168,7 @@ def MZI_Ring(
     #---------------------------------------------------------------------
     # Spiral
     #---------------------------------------------------------------------
-    bend=dict(component='bend_euler', settings=dict(p=0))
+    bend=dict(component='bend_euler', settings=dict(p=0.9))
     spiral = c.add_ref(gf.components.spiral_double(min_bend_radius=min_bend_radius, separation=separation, number_of_loops=number_of_loops, npoints=npoints, cross_section=xs_sin, bend=bend))
     spiral.ymin = taper1.ports['o2'].center[1] + wg_width/2 + gap + 2 * coupling_radius
     spiral.movex(taper1.ports['o2'].center[0] + (taper2.ports['o2'].center[0] - taper1.ports['o2'].center[0])/2 )
@@ -200,7 +201,7 @@ def MZI_Ring(
     radius_min=25,
     layer=LAYER.HTR,
     )
-    htr_radius = min_bend_radius * 3
+    
     spiral_htr = gf.Path()
     spiral_htr += gf.path.arc(radius=htr_radius, angle=270) 
     spiral_htr = c.add_ref(spiral_htr.extrude(xs_htr))
@@ -223,6 +224,11 @@ def MZI_Ring(
     spiral_mt_patch_right.center= spiral_htr_patch_right.center
     spiral_mt_patch_left = c.add_ref(gf.components.rectangle(size=(10, 10), layer=LAYER.MT2))
     spiral_mt_patch_left.center= spiral_htr_patch_left.center
+
+    #--------- Deep trench -----------------
+    deeptrench = c.add_ref(gf.components.rectangle(size = (l - 80, 20), layer = LAYER.DTR))
+    deeptrench.xmin = splitter.xmax + 40
+    deeptrench.y = splitter.y
 
     #---------- Add Ports-------------------
     c.add_port('o1', port = splitter.ports['o1'])

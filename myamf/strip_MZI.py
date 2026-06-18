@@ -5,7 +5,7 @@ from amf.chp.cells.fixed import (
 )
 
 
-@gf.cell  # pyright: ignore[reportArgumentType]
+@gf.cell
 def strip_MZI(
     gap: float = 100,
     dl: float = 62.017,

@@ -5,7 +5,7 @@ from amf.chp.cells.fixed import (
     AMF_300LSOI_Si1X2MMI_Cband_v5p0,
     AMF_300LSOI_LSiN2SOISSC_Cband_v5p0)
 from amf.config import PATH
-# from amf.chp.tech import LAYER, TECH
+from amf.chp.tech import LAYER, TECH
 from amf.import_gds import import_gds
 
 from amf.chp.tech import LAYER, TECH
@@ -16,7 +16,7 @@ gdsdir = PATH.gds_chp
 
 N_FIBERS = 22
 PITCH = 127.0  # um
-DIE_SIZE = (7500, 3100)
+DIE_SIZE = (7400, 3000)
 
 
 @gf.cell
@@ -24,7 +24,8 @@ def ECL2() -> gf.Component:
     c = gf.Component()
     pdk = get_active_pdk()
 
-    die = c.add_ref(pdk.get_component("die_frame_full", size=DIE_SIZE))
+    die = c.add_ref(gf.components.rectangle(size=DIE_SIZE, layer = LAYER.MARKER))
+    die.move((-3700, -1500))
 
     
     #---------------------------------------------------------------------------------------
@@ -35,11 +36,11 @@ def ECL2() -> gf.Component:
     pad_cell = pdk.get_component("pad")
 
     pads = []
-    x_start = die.xmin + 200  #die.x - (N_PADS - 1) * PAD_PITCH / 2 + 1400
+    x_start = die.xmin + 150  #die.x - (N_PADS - 1) * PAD_PITCH / 2 + 1400
     for i in range(N_PADS):
         p = c.add_ref(pad_cell)
         p.x = x_start + i * PAD_PITCH
-        p.ymax = die.ymax - 100
+        p.ymax = die.ymax - 50
         pads.append(p)
 
     # Access individual pads as: pads[0], pads[1], ..., pads[37]
@@ -76,7 +77,7 @@ def ECL2() -> gf.Component:
     ecl2.add_port(name="e8", center=(-303.29, 20.07), width=20, orientation=0,  layer="MT2", port_type="electrical")
 
     ecl2 = c.add_ref(ecl2)
-    ecl2.xmin = die.xmin + 44
+    ecl2.xmin = die.xmin - 6
     ecl2.movey(0)
 
     #----- Heaters Electrical Routing----------
@@ -369,7 +370,7 @@ def ECL2() -> gf.Component:
         ],
     )
 
-    #-----------------combiner1 to via
+    #-----------------output vias
     via_out = c.add_ref(AMF_300LSOI_LSiN2SOISSC_Cband_v5p0())
     via_out.rotate(90)
     via_out.xmin = ecl2_combiner1.xmax + 40
@@ -382,8 +383,53 @@ def ECL2() -> gf.Component:
         cross_section = 'strip',
     )
 
-    c.add_port('o1', port = ecl2_via2_mmi.ports['o2'])
-    c.add_port('o2', port = ecl2_via3_mmi.ports['o2'])
+
+    via_out2 = c.add_ref(AMF_300LSOI_LSiN2SOISSC_Cband_v5p0())
+    via_out2.rotate(-90)
+    via_out2.xmin = ecl2_via3_mmi.xmax + 40
+    via_out2.ymax = ecl2_via3_mmi.ymin - 20
+
+    via_out3 = c.add_ref(AMF_300LSOI_LSiN2SOISSC_Cband_v5p0())
+    via_out3.rotate(-90)
+    via_out3.xmin = ecl2_via3_mmi.xmax + 50
+    via_out3.ymax = ecl2_via3_mmi.ymin - 20
+
+    via_out22 = c.add_ref(AMF_300LSOI_LSiN2SOISSC_Cband_v5p0())
+    via_out22.xmin = ecl2.x 
+    via_out22.ymax = ecl2.ymin - 60
+
+    via_out33 = c.add_ref(AMF_300LSOI_LSiN2SOISSC_Cband_v5p0())
+    via_out33.xmin = ecl2.x 
+    via_out33.ymax = ecl2.ymin - 70
+
+    gf.routing.route_single(
+        c,
+        port1 = ecl2_via3_mmi.ports['o2'],
+        port2 = via_out2.ports['o1'],
+        cross_section = 'strip',
+    )
+    gf.routing.route_single(
+        c,
+        port1 = ecl2_via2_mmi.ports['o2'],
+        port2 = via_out3.ports['o1'],
+        cross_section = 'strip',
+    )
+
+    gf.routing.route_single(
+        c,
+        port1 = via_out2.ports['o2'],
+        port2 = via_out22.ports['o2'],
+        cross_section = xs_sin,
+    )
+    gf.routing.route_single(
+        c,
+        port1 = via_out3.ports['o2'],
+        port2 = via_out33.ports['o2'],
+        cross_section = xs_sin,
+    )
+
+    c.add_port('o1', port = via_out22.ports['o1'])
+    c.add_port('o2', port = via_out33.ports['o1'])
     c.add_port('o3', port = via_out.ports['o2'])
     c.add_port('o4', port = ecl2.ports['o5'])
    

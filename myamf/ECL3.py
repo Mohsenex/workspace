@@ -6,7 +6,7 @@ from amf.chp.cells.fixed import (
     AMF_300LSOI_LSiN2SOISSC_Cband_v5p0)
 from amf.config import PATH
 from amf.import_gds import import_gds
-
+from amf.chp.tech import LAYER, TECH
 from .Balanced_PD import Balanced_PD
 
 
@@ -14,7 +14,7 @@ gdsdir = PATH.gds_chp
 
 N_FIBERS = 22
 PITCH = 127.0
-DIE_SIZE = (7500, 3100)
+DIE_SIZE = (7400, 3000)
 
 
 @gf.cell
@@ -22,18 +22,19 @@ def ECL3() -> gf.Component:
     c = gf.Component()
     pdk = get_active_pdk()
 
-    die = c.add_ref(pdk.get_component("die_frame_full", size=DIE_SIZE))
+    die = c.add_ref(gf.components.rectangle(size=DIE_SIZE, layer = LAYER.MARKER))
+    die.move((-3700, -1500))
 
     N_bPADS = 20
     bPAD_PITCH = 125.0
     pad_cell = pdk.get_component("pad")
 
     bpads = []
-    x_start = die.xmin + 200
+    x_start = die.xmin + 150
     for i in range(N_bPADS):
         p = c.add_ref(pad_cell)
         p.x = x_start + i * bPAD_PITCH
-        p.ymin = die.ymin + 100
+        p.ymin = die.ymin + 50
         bpads.append(p)
 
     #---------------------------------------------------------------------------------------
@@ -60,7 +61,7 @@ def ECL3() -> gf.Component:
     ecl3.add_port(name="e10", center=(-92.141,  415.645), width=20, orientation=90, layer="MT2", port_type="electrical")
 
     ecl3 = c.add_ref(ecl3)
-    ecl3.xmin = die.xmin + 44
+    ecl3.xmin = die.xmin - 6
     ecl3.ymin = die.ymin + 400
 
     #---------------------------------------------------------------------------------------

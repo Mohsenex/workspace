@@ -6,7 +6,7 @@ from amf.chp.cells.fixed import (
 from amf.chp.tech import LAYER, TECH
 
 
-@gf.cell  # pyright: ignore[reportArgumentType]
+@gf.cell
 def Tunable_Coupler(
     htr_length: float = 160,
     dl: float = 0,
@@ -110,11 +110,6 @@ def Tunable_Coupler(
 
     upper_length = stub + vert + middle + vert + stub + 4 * (3.14159 / 2 * R)
     lower_length = stub + (vert + extra) + middle + (vert + extra) + stub + 4 * (3.14159 / 2 * R)
-    print(
-        f"[strip_MZI] upper: {upper_length:.3f} µm | "
-        f"lower: {lower_length:.3f} µm | "
-        f"ΔL: {lower_length - upper_length:.3f} µm (target {dl:.3f} µm)"
-    )
 
     #----------------------------------------------------------------------
     # Heater

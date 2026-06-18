@@ -14,13 +14,12 @@ from amf.chp.tech import LAYER
 def Delay_Spiral(
     width = 3, # width of SiN waveguide
     taper_length = 200, # length of the transition from standard SiN to customized width
-    min_bend_radius=270, 
+    min_bend_radius=270 * 2, 
     separation: float =6.5, 
-    number_of_loops=48, 
+    number_of_loops=27, 
+    htr_radius = 650,
     mzi_htr_length: float = 200,
     npoints=20000, 
-    bend=dict(component='bend_euler', 
-    settings=dict(p=0)),
     sps_gap = 15, #  gap between the two spirals
 )->gf.Component:
     c = gf.Component()
@@ -36,7 +35,7 @@ def Delay_Spiral(
     # Spiral
     #------------------------------------------------------------------------------
     cross_section=gf.cross_section.strip(width = width)
-
+    bend=dict(component='bend_euler', settings=dict(p=0))
     sp1 = c.add_ref(gf.components.spiral_double(min_bend_radius=min_bend_radius, separation=separation, number_of_loops=number_of_loops, npoints=npoints, cross_section=xs_sin, bend=bend))
     sp2 = c.add_ref(gf.components.spiral_double(min_bend_radius=min_bend_radius, separation=separation, number_of_loops=number_of_loops, npoints=npoints, cross_section=xs_sin, bend=bend))
     spiral_width = 2 * (min_bend_radius + 2 * separation * number_of_loops)
@@ -160,7 +159,7 @@ def Delay_Spiral(
     htr_patch_right.ymax= htr.ymax
     htr_patch_left = c.add_ref(gf.components.rectangle(size=(6, 6), layer=LAYER.HTR))
     htr_patch_left.xmin= htr.xmin
-    htr_patch_left.ymax= htr.ymax
+    htr_patch_left.ymin= htr.ymax
 
     via_patch_right = c.add_ref(gf.components.rectangle(size=(3, 3), layer=LAYER.VIA2))
     via_patch_right.center= htr_patch_right.center
@@ -179,7 +178,7 @@ def Delay_Spiral(
     radius_min=25,
     layer=LAYER.HTR,
     )
-    htr_radius = min_bend_radius * 2
+    
     spiral_htr = gf.Path()
     spiral_htr += gf.path.arc(radius=htr_radius, angle=-270) 
     spiral_htr = c.add_ref(spiral_htr.extrude(xs_htr))
@@ -191,7 +190,7 @@ def Delay_Spiral(
     spiral_htr_patch_right.move(spiral_htr.ports['o1'].center)
     spiral_htr_patch_left = c.add_ref(gf.components.rectangle(size=(6, 6), layer=LAYER.HTR))
     spiral_htr_patch_left.move(spiral_htr.ports['o2'].center)
-    
+    spiral_htr_patch_left.move((-2.5, -2.5))    
 
     spiral_via_patch_right = c.add_ref(gf.components.rectangle(size=(3, 3), layer=LAYER.VIA2))
     spiral_via_patch_right.center= spiral_htr_patch_right.center

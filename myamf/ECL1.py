@@ -6,7 +6,7 @@ from amf.chp.cells.fixed import (
     AMF_300LSOI_LSiN2SOISSC_Cband_v5p0,
     AMF_300LSOI_PowMonitor_Cband_Cell_v5p0)
 from amf.config import PATH
-# from amf.chp.tech import LAYER, TECH
+from amf.chp.tech import LAYER, TECH
 from amf.import_gds import import_gds
 
 
@@ -17,7 +17,7 @@ gdsdir = PATH.gds_chp
 
 N_FIBERS = 22
 PITCH = 127.0  # um
-DIE_SIZE = (7500, 3100)
+DIE_SIZE = (7400, 3000)
 
 
 @gf.cell
@@ -25,7 +25,8 @@ def ECL1() -> gf.Component:
     c = gf.Component()
     pdk = get_active_pdk()
 
-    die = c.add_ref(pdk.get_component("die_frame_full", size=DIE_SIZE))
+    die = c.add_ref(gf.components.rectangle(size=DIE_SIZE, layer = LAYER.MARKER))
+    die.move((-3700, -1500))
 
     
     #---------------------------------------------------------------------------------------
@@ -36,11 +37,11 @@ def ECL1() -> gf.Component:
     pad_cell = pdk.get_component("pad")
 
     pads = []
-    x_start = die.xmin + 200  #die.x - (N_PADS - 1) * PAD_PITCH / 2 + 1400
+    x_start = die.xmin + 150  #die.x - (N_PADS - 1) * PAD_PITCH / 2 + 1400
     for i in range(N_PADS):
         p = c.add_ref(pad_cell)
         p.x = x_start + i * PAD_PITCH
-        p.ymax = die.ymax - 100
+        p.ymax = die.ymax - 50
         pads.append(p)
 
     # Access individual pads as: pads[0], pads[1], ..., pads[37]
@@ -85,7 +86,7 @@ def ECL1() -> gf.Component:
     ecl1.add_port(name="e18", center=(183.43, -138.179), width=20, orientation=270,  layer="MT2", port_type="electrical")
 
     ecl1 = c.add_ref(ecl1)
-    ecl1.xmin = die.xmin + 44
+    ecl1.xmin = die.xmin - 6
     ecl1.movey(600)
 
     #----------Metal Routing ---------------------
@@ -312,7 +313,10 @@ def ECL1() -> gf.Component:
         cross_section = 'strip',
         waypoints = [
             (float(ecl1.ports['o2'].center[0]), float(ecl1.ports['o2'].center[1])-20),
-            (float(ecl1.ports['o6'].center[0]) - 40, float(ecl1.ports['o2'].center[1]) -20),
+            (float(ecl1.ports['o6'].center[0]) + 15, float(ecl1.ports['o2'].center[1]) -20),
+            (float(ecl1.ports['o6'].center[0]) + 15, float(ecl1.ports['o2'].center[1]) + 100 ),
+            (float(ecl1.ports['o6'].center[0]) - 40, float(ecl1.ports['o2'].center[1]) + 100 ),
+            # (float(ecl1.ports['o6'].center[0]) - 40, float(ecl1.ports['o2'].center[1]) -20),
             (float(ecl1.ports['o6'].center[0]) - 40, float(pd1.ports['o1'].center[1]) -15),
             (float(pd1.ports['o1'].center[0]), float(pd1.ports['o1'].center[1]) -15),
         ]
