@@ -9,10 +9,10 @@ from amf.import_gds import import_gds
 
 @gf.cell
 def MZI_Ring(
-    l: float = 750, # distance between splitter and combiner
+    l: float = 800, # distance between splitter and combiner
     gap: float = 0.35,
-    coupling_length: float = 16.8, 
-    coupling_radius: float = 50,
+    coupling_length: float = 21, 
+    coupling_radius: float = 100,
     wg_width: float = 1.25,
     taper_length: float = 30,
     separation: float = 5.25,
@@ -146,7 +146,7 @@ def MZI_Ring(
     # MZI Heater
     #----------------------------------------------------------------------
     htr = c.add_ref(gf.components.rectangle(size = (htr_length, 5), layer = LAYER.HTR))
-    htr.xmax = combiner.xmin - 20 
+    htr.xmax = combiner.xmin - 30 
     htr.ymin = splitter.ports['o3'].center[1] - 27.5
 
     htr_patch_right = c.add_ref(gf.components.rectangle(size=(6, 6), layer=LAYER.HTR))
@@ -175,14 +175,14 @@ def MZI_Ring(
     spiral.add_port(name="o1", center=(0, 546.5), width=1.25, orientation=180, layer='WG_SIN')
     spiral.add_port(name="o2", center=(0, -546.5), width=1.25, orientation=0, layer='WG_SIN')
     spiral = c.add_ref(spiral)
-    spiral.ymin = taper1.ports['o2'].center[1] + wg_width/2 + gap + 2 * coupling_radius
+    spiral.ymin = taper1.ports['o2'].center[1] + wg_width/2 + gap + 2 * coupling_radius + 61.71 + 0.350
     spiral.movex(taper1.ports['o2'].center[0] + (taper2.ports['o2'].center[0] - taper1.ports['o2'].center[0])/2 )
     
     tiny_ring = gf.Path()
-    tiny_ring += gf.path.arc(radius=coupling_radius, angle=-180)    
-    tiny_ring += gf.path.straight(length = coupling_length)
-    tiny_ring += gf.path.arc(radius=coupling_radius, angle=-90)  
-    tiny_ring += gf.path.arc(radius=coupling_radius, angle=90) 
+    tiny_ring += gf.path.euler(radius=coupling_radius, angle=-180, p=0.9)
+    tiny_ring += gf.path.straight(length=coupling_length)
+    tiny_ring += gf.path.euler(radius=coupling_radius, angle=-90, p=0.9)
+    tiny_ring += gf.path.euler(radius=coupling_radius, angle=90, p=0.7)
     tiny_ring_wg = tiny_ring.extrude(xs_sin)
     t_ring = c.add_ref(tiny_ring_wg)
     t_ring.move((spiral.ports['o2'].center[0], spiral.ports['o2'].center[1]))
@@ -191,7 +191,7 @@ def MZI_Ring(
         c,
         port1 = t_ring.ports['o2'],
         port2 = spiral.ports['o1'],
-        cross_section =  gf.cross_section.strip(width= wg_width, radius=250, layer=LAYER.WG_SIN),
+        cross_section =  gf.cross_section.strip(width= wg_width, radius=190, layer=LAYER.WG_SIN),
         waypoints = [
             (spiral.xmin - separation, t_ring.ports['o2'].center[1]),
             # (spiral.xmin - separation, spiral.ymin + (spiral.ymax - spiral.ymin)/2 ),

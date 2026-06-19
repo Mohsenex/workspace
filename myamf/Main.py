@@ -392,8 +392,8 @@ def Main() -> gf.Component:
     #---------------------------------------------------------------------------------------
     # WL with Ring
     #---------------------------------------------------------------------------------------
-    wl_ring = c.add_ref(MZI_Ring(l = 750, gap = 0.35, coupling_length = 30, coupling_radius = 50, wg_width = 1.25, taper_length = 50, separation = 5.25, min_bend_radius= 200, htr_length = 300, number_of_loops = 33, npoints = 20000,))
-    wl_ring.move((-1345 , die.ymin - wl_ring.ymin + 420))
+    wl_ring = c.add_ref(MZI_Ring())
+    wl_ring.move((-1395 , die.ymin - wl_ring.ymin + 420))
 
     gf.routing.route_single(
         c,
@@ -421,8 +421,8 @@ def Main() -> gf.Component:
         port2 = bpads[21].ports['e2'],
         cross_section = 'metal_routing',
         waypoints = [
-            (float( wl_ring.ports['e2'].center[0]), float( wl_ring.ports['e1'].center[1] - 265)),
-            (float( bpads[21].ports['e2'].center[0]), float( wl_ring.ports['e1'].center[1] - 265)),
+            (float( wl_ring.ports['e2'].center[0]), float( wl_ring.ports['e1'].center[1] - 430)),
+            (float( bpads[21].ports['e2'].center[0]), float( wl_ring.ports['e1'].center[1] - 430)),
         ] 
     )
 
@@ -432,8 +432,10 @@ def Main() -> gf.Component:
         port2 = bpads[24].ports['e2'],
         cross_section = 'metal_routing',
         waypoints = [
-            (float( wl_ring.ports['e1'].center[0]), float( wl_ring.ports['e1'].center[1] - 140)),
-            (float( bpads[24].ports['e2'].center[0]), float( wl_ring.ports['e1'].center[1] - 140)),
+            (float( wl_ring.ports['e1'].center[0]), float( wl_ring.ports['e1'].center[1] - 240)),
+            # (float( wl_ring.ports['o2'].center[0] - 90), float( wl_ring.ports['e1'].center[1] - 240)),
+            # (float( wl_ring.ports['o2'].center[0] - 90), float( bpads[24].ports['e2'].center[1]) + 100),
+            (float( bpads[24].ports['e2'].center[0]), float( wl_ring.ports['e1'].center[1] - 240)),
         ] 
     )
 
@@ -888,7 +890,8 @@ def Main() -> gf.Component:
     # Shahab bulshit
     #---------------------------------------------------------------------------------------
     current_mirror = c.add_ref(gf.import_gds("/workspace/myamf/gds/CurrentMirror_5.gds"))
-    current_mirror.move((-4100, 20))
+    current_mirror.rotate(-90)
+    current_mirror.move((-3770, 2450))
 
     #---------------------------------------------------------------------------------------
     # Logo
