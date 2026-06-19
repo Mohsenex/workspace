@@ -62,7 +62,7 @@ def ECL3() -> gf.Component:
 
     ecl3 = c.add_ref(ecl3)
     ecl3.xmin = die.xmin - 6
-    ecl3.ymin = die.ymin + 400
+    ecl3.ymin = die.ymin + 380
 
     #---------------------------------------------------------------------------------------
     # Electrical Routing

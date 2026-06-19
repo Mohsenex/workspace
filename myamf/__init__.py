@@ -1,6 +1,6 @@
 from gdsfactory.config import CONF
 
-CONF.max_cellname_length = 64
+CONF.max_cellname_length = 55
 
 __version__ = "0.0.0"
 
