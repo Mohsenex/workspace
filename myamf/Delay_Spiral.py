@@ -19,7 +19,7 @@ def Delay_Spiral(
     separation: float =6.5, 
     number_of_loops=27, 
     htr_radius = 650,
-    mzi_htr_length: float = 200,
+    mzi_htr_length: float = 300,
     npoints=20000, 
     sps_gap = 15, #  gap between the two spirals
 )->gf.Component:
@@ -157,56 +157,57 @@ def Delay_Spiral(
     #----------------------------------------------------------------------
     # MZI Heater
     #----------------------------------------------------------------------
-    htr = c.add_ref(gf.components.rectangle(size = (mzi_htr_length, 5), layer = LAYER.HTR))
+    htr = c.add_ref(gf.components.rectangle(size = (mzi_htr_length, 10), layer = LAYER.HTR))
     htr.xmax = voa.xmin - 50 
-    htr.ymin = voa.ports['o1'].center[1] - 2.5
+    htr.ymin = voa.ports['o1'].center[1] - 5
 
-    htr_patch_right = c.add_ref(gf.components.rectangle(size=(6, 6), layer=LAYER.HTR))
+    htr_patch_right = c.add_ref(gf.components.rectangle(size=(8, 8), layer=LAYER.HTR))
     htr_patch_right.xmax= htr.xmax
-    htr_patch_right.ymax= htr.ymax
-    htr_patch_left = c.add_ref(gf.components.rectangle(size=(6, 6), layer=LAYER.HTR))
+    htr_patch_right.ymax= htr.ymax 
+    htr_patch_left = c.add_ref(gf.components.rectangle(size=(8, 8), layer=LAYER.HTR))
     htr_patch_left.xmin= htr.xmin
-    htr_patch_left.ymin= htr.ymax
+    htr_patch_left.ymin= htr.ymax -10
 
-    via_patch_right = c.add_ref(gf.components.rectangle(size=(3, 3), layer=LAYER.VIA2))
+    via_patch_right = c.add_ref(gf.components.rectangle(size=(4, 4), layer=LAYER.VIA2))
     via_patch_right.center= htr_patch_right.center
-    via_patch_left = c.add_ref(gf.components.rectangle(size=(3, 3), layer=LAYER.VIA2))
+    via_patch_left = c.add_ref(gf.components.rectangle(size=(4, 4), layer=LAYER.VIA2))
     via_patch_left.center= htr_patch_left.center
 
-    mt_patch_right = c.add_ref(gf.components.rectangle(size=(10, 10), layer=LAYER.MT2))
+    mt_patch_right = c.add_ref(gf.components.rectangle(size=(12, 12), layer=LAYER.MT2))
     mt_patch_right.center= htr_patch_right.center
-    mt_patch_left = c.add_ref(gf.components.rectangle(size=(10, 10), layer=LAYER.MT2))
+    mt_patch_left = c.add_ref(gf.components.rectangle(size=(12, 12), layer=LAYER.MT2))
     mt_patch_left.center= htr_patch_left.center
 
     #------------ Heater ---------------------------------
     xs_htr = gf.cross_section.strip(
-    width= 5,
+    width= 20,
     radius=25,
     radius_min=25,
     layer=LAYER.HTR,
     )
     
     spiral_htr = gf.Path()
-    spiral_htr += gf.path.arc(radius=htr_radius, angle=-270) 
+    spiral_htr += gf.path.arc(radius=htr_radius, angle=-90) 
+    spiral_htr.rotate(90)
     spiral_htr = c.add_ref(spiral_htr.extrude(xs_htr))
-    spiral_htr.ymin = sp1.center[1] - htr_radius
+    spiral_htr.ymin = sp1.center[1] #- htr_radius
     spiral_htr.xmin = sp1.center[0] - htr_radius
     # spiral_htr.rotate(90)
     # spiral_htr.move(spiral.center)
-    spiral_htr_patch_right = c.add_ref(gf.components.rectangle(size=(6, 6), layer=LAYER.HTR))
+    spiral_htr_patch_right = c.add_ref(gf.components.rectangle(size=(8, 8), layer=LAYER.HTR))
     spiral_htr_patch_right.move(spiral_htr.ports['o1'].center)
-    spiral_htr_patch_left = c.add_ref(gf.components.rectangle(size=(6, 6), layer=LAYER.HTR))
+    spiral_htr_patch_left = c.add_ref(gf.components.rectangle(size=(8, 8), layer=LAYER.HTR))
     spiral_htr_patch_left.move(spiral_htr.ports['o2'].center)
-    spiral_htr_patch_left.move((-2.5, -2.5))    
+    spiral_htr_patch_left.move((-10, -2.5))    
 
-    spiral_via_patch_right = c.add_ref(gf.components.rectangle(size=(3, 3), layer=LAYER.VIA2))
+    spiral_via_patch_right = c.add_ref(gf.components.rectangle(size=(4, 4), layer=LAYER.VIA2))
     spiral_via_patch_right.center= spiral_htr_patch_right.center
-    spiral_via_patch_left = c.add_ref(gf.components.rectangle(size=(3, 3), layer=LAYER.VIA2))
+    spiral_via_patch_left = c.add_ref(gf.components.rectangle(size=(4, 4), layer=LAYER.VIA2))
     spiral_via_patch_left.center= spiral_htr_patch_left.center
 
-    spiral_mt_patch_right = c.add_ref(gf.components.rectangle(size=(10, 10), layer=LAYER.MT2))
+    spiral_mt_patch_right = c.add_ref(gf.components.rectangle(size=(12, 12), layer=LAYER.MT2))
     spiral_mt_patch_right.center= spiral_htr_patch_right.center
-    spiral_mt_patch_left = c.add_ref(gf.components.rectangle(size=(10, 10), layer=LAYER.MT2))
+    spiral_mt_patch_left = c.add_ref(gf.components.rectangle(size=(12, 12), layer=LAYER.MT2))
     spiral_mt_patch_left.center= spiral_htr_patch_left.center
 
 

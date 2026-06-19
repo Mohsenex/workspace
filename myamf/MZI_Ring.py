@@ -18,7 +18,7 @@ def MZI_Ring(
     separation: float = 5.25,
     min_bend_radius: float = 100 *2,
     htr_length: float = 300,
-    htr_radius = 450,
+    htr_radius = 250,
     number_of_loops: float = 33,
     npoints: float = 20000,
 )->gf.Component:
@@ -145,25 +145,25 @@ def MZI_Ring(
     #----------------------------------------------------------------------
     # MZI Heater
     #----------------------------------------------------------------------
-    htr = c.add_ref(gf.components.rectangle(size = (htr_length, 5), layer = LAYER.HTR))
+    htr = c.add_ref(gf.components.rectangle(size = (htr_length, 10), layer = LAYER.HTR))
     htr.xmax = combiner.xmin - 30 
-    htr.ymin = splitter.ports['o3'].center[1] - 27.5
+    htr.ymin = splitter.ports['o3'].center[1] - 30
 
-    htr_patch_right = c.add_ref(gf.components.rectangle(size=(6, 6), layer=LAYER.HTR))
+    htr_patch_right = c.add_ref(gf.components.rectangle(size=(8, 8), layer=LAYER.HTR))
     htr_patch_right.xmax= htr.xmax
     htr_patch_right.ymax= htr.ymax
-    htr_patch_left = c.add_ref(gf.components.rectangle(size=(6, 6), layer=LAYER.HTR))
+    htr_patch_left = c.add_ref(gf.components.rectangle(size=(8, 8), layer=LAYER.HTR))
     htr_patch_left.xmin= htr.xmin
     htr_patch_left.ymax= htr.ymax
 
-    via_patch_right = c.add_ref(gf.components.rectangle(size=(3, 3), layer=LAYER.VIA2))
+    via_patch_right = c.add_ref(gf.components.rectangle(size=(4, 4), layer=LAYER.VIA2))
     via_patch_right.center= htr_patch_right.center
-    via_patch_left = c.add_ref(gf.components.rectangle(size=(3, 3), layer=LAYER.VIA2))
+    via_patch_left = c.add_ref(gf.components.rectangle(size=(4, 4), layer=LAYER.VIA2))
     via_patch_left.center= htr_patch_left.center
 
-    mt_patch_right = c.add_ref(gf.components.rectangle(size=(10, 10), layer=LAYER.MT2))
+    mt_patch_right = c.add_ref(gf.components.rectangle(size=(12, 12), layer=LAYER.MT2))
     mt_patch_right.center= htr_patch_right.center
-    mt_patch_left = c.add_ref(gf.components.rectangle(size=(10, 10), layer=LAYER.MT2))
+    mt_patch_left = c.add_ref(gf.components.rectangle(size=(12, 12), layer=LAYER.MT2))
     mt_patch_left.center= htr_patch_left.center
 
     #---------------------------------------------------------------------
@@ -171,7 +171,7 @@ def MZI_Ring(
     #---------------------------------------------------------------------
     bend=dict(component='bend_euler', settings=dict(p=0.9))
     # spiral = c.add_ref(gf.components.spiral_double(min_bend_radius=min_bend_radius, separation=separation, number_of_loops=number_of_loops, npoints=npoints, cross_section=xs_sin, bend=bend))
-    spiral = gf.import_gds("/workspace/myamf/gds/Ring_WL.gds")
+    spiral = gf.import_gds("/workspace/myamf/gds/Ring_WL.gds", skip_new_cells=True)
     spiral.add_port(name="o1", center=(0, 546.5), width=1.25, orientation=180, layer='WG_SIN')
     spiral.add_port(name="o2", center=(0, -546.5), width=1.25, orientation=0, layer='WG_SIN')
     spiral = c.add_ref(spiral)
@@ -201,33 +201,35 @@ def MZI_Ring(
     
     #------------ Heater ---------------------------------
     xs_htr = gf.cross_section.strip(
-    width= 5,
+    width= 20,
     radius=25,
     radius_min=25,
     layer=LAYER.HTR,
     )
     
     spiral_htr = gf.Path()
-    spiral_htr += gf.path.arc(radius=htr_radius, angle=270) 
+    spiral_htr += gf.path.arc(radius=htr_radius, angle=90) 
     spiral_htr = c.add_ref(spiral_htr.extrude(xs_htr))
     spiral_htr.ymin = spiral.center[1] - htr_radius
-    spiral_htr.xmin = spiral.center[0] - htr_radius
+    spiral_htr.xmin = spiral.center[0] 
     # spiral_htr.rotate(90)
     # spiral_htr.move(spiral.center)
-    spiral_htr_patch_right = c.add_ref(gf.components.rectangle(size=(6, 6), layer=LAYER.HTR))
+    spiral_htr_patch_right = c.add_ref(gf.components.rectangle(size=(8, 8), layer=LAYER.HTR))
     spiral_htr_patch_right.move(spiral_htr.ports['o1'].center)
-    spiral_htr_patch_left = c.add_ref(gf.components.rectangle(size=(6, 6), layer=LAYER.HTR))
-    spiral_htr_patch_left.move(spiral_htr.ports['o2'].center)
+    
+    spiral_htr_patch_left = c.add_ref(gf.components.rectangle(size=(8, 8), layer=LAYER.HTR))
+    spiral_htr_patch_left.move(spiral_htr.ports['o2'].center )
+    spiral_htr_patch_left.movey(-12)
     
 
-    spiral_via_patch_right = c.add_ref(gf.components.rectangle(size=(3, 3), layer=LAYER.VIA2))
+    spiral_via_patch_right = c.add_ref(gf.components.rectangle(size=(4, 4), layer=LAYER.VIA2))
     spiral_via_patch_right.center= spiral_htr_patch_right.center
-    spiral_via_patch_left = c.add_ref(gf.components.rectangle(size=(3, 3), layer=LAYER.VIA2))
+    spiral_via_patch_left = c.add_ref(gf.components.rectangle(size=(4, 4), layer=LAYER.VIA2))
     spiral_via_patch_left.center= spiral_htr_patch_left.center
 
-    spiral_mt_patch_right = c.add_ref(gf.components.rectangle(size=(10, 10), layer=LAYER.MT2))
+    spiral_mt_patch_right = c.add_ref(gf.components.rectangle(size=(12, 12), layer=LAYER.MT2))
     spiral_mt_patch_right.center= spiral_htr_patch_right.center
-    spiral_mt_patch_left = c.add_ref(gf.components.rectangle(size=(10, 10), layer=LAYER.MT2))
+    spiral_mt_patch_left = c.add_ref(gf.components.rectangle(size=(12, 12), layer=LAYER.MT2))
     spiral_mt_patch_left.center= spiral_htr_patch_left.center
 
     #--------- Deep trench -----------------

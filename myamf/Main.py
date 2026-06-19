@@ -86,7 +86,7 @@ def Main() -> gf.Component:
     #---------------------------------------------------------------------------------------
     # Polishing Markers
     #---------------------------------------------------------------------------------------
-    pol = gf.import_gds("/workspace/myamf/gds/PolishingMarkers.gds")
+    pol = gf.import_gds("/workspace/myamf/gds/PolishingMarkers.gds", skip_new_cells=True)
     pol1 = c.add_ref(pol)
     pol1.xmin = die.xmin + 1
 
@@ -292,22 +292,22 @@ def Main() -> gf.Component:
     gf.routing.route_single(
         c,
         port1 = spiral.ports['e1'],
-        port2 = bpads[34].ports['e2'],
+        port2 = bpads[33].ports['e2'],
         cross_section = 'metal_routing',
         waypoints = [
-            (float(spiral.ports['e1'].center[0]), float(bpads[34].ports['e2'].center[1] + 300)),
-            (float(bpads[34].ports['e2'].center[0]), float(bpads[34].ports['e2'].center[1] + 300)),
+            (float(spiral.ports['e1'].center[0]), float(bpads[33].ports['e2'].center[1] + 260)),
+            (float(bpads[33].ports['e2'].center[0]), float(bpads[33].ports['e2'].center[1] + 260)),
         ],
 
     )
     gf.routing.route_single(
         c,
         port1 = spiral.ports['e2'],
-        port2 = bpads[33].ports['e2'],
+        port2 = bpads[34].ports['e2'],
         cross_section = 'metal_routing',
         waypoints = [
-            (float(spiral.ports['e2'].center[0]), float(bpads[33].ports['e2'].center[1] + 260)),
-            (float(bpads[33].ports['e2'].center[0]), float(bpads[33].ports['e2'].center[1] + 260)),
+            (float(spiral.ports['e2'].center[0]), float(bpads[34].ports['e2'].center[1] + 300)),
+            (float(bpads[34].ports['e2'].center[0]), float(bpads[34].ports['e2'].center[1] + 300)),
         ],
 
     )
@@ -417,25 +417,27 @@ def Main() -> gf.Component:
 
     gf.routing.route_single(
         c,
-        port1 = wl_ring.ports['e2'],
+        port1 = wl_ring.ports['e1'],
         port2 = bpads[21].ports['e2'],
         cross_section = 'metal_routing',
         waypoints = [
-            (float( wl_ring.ports['e2'].center[0]), float( wl_ring.ports['e1'].center[1] - 430)),
-            (float( bpads[21].ports['e2'].center[0]), float( wl_ring.ports['e1'].center[1] - 430)),
+            (float( wl_ring.ports['e1'].center[0]), float( wl_ring.ports['e1'].center[1] - 430)),
+            (float( wl_ring.ports['o1'].center[0] - 50), float( wl_ring.ports['e1'].center[1] - 430)),
+            (float( wl_ring.ports['o1'].center[0] - 50), float( wl_ring.ports['o1'].center[1] - 50)),
+            (float( bpads[21].ports['e2'].center[0]), float( wl_ring.ports['o1'].center[1] - 50)),
         ] 
     )
 
     gf.routing.route_single(
         c,
-        port1 = wl_ring.ports['e1'],
+        port1 = wl_ring.ports['e2'],
         port2 = bpads[24].ports['e2'],
         cross_section = 'metal_routing',
         waypoints = [
-            (float( wl_ring.ports['e1'].center[0]), float( wl_ring.ports['e1'].center[1] - 240)),
+            (float( wl_ring.ports['e2'].center[0]), float( wl_ring.ports['e2'].center[1] - 240)),
             # (float( wl_ring.ports['o2'].center[0] - 90), float( wl_ring.ports['e1'].center[1] - 240)),
             # (float( wl_ring.ports['o2'].center[0] - 90), float( bpads[24].ports['e2'].center[1]) + 100),
-            (float( bpads[24].ports['e2'].center[0]), float( wl_ring.ports['e1'].center[1] - 240)),
+            (float( bpads[24].ports['e2'].center[0]), float( wl_ring.ports['e2'].center[1] - 240)),
         ] 
     )
 
@@ -889,19 +891,19 @@ def Main() -> gf.Component:
     #---------------------------------------------------------------------------------------
     # Shahab bulshit
     #---------------------------------------------------------------------------------------
-    current_mirror = c.add_ref(gf.import_gds("/workspace/myamf/gds/CurrentMirror_5.gds"))
+    current_mirror = c.add_ref(gf.import_gds("/workspace/myamf/gds/CurrentMirror_5.gds", skip_new_cells=True))
     current_mirror.rotate(-90)
     current_mirror.move((-3770, 2450))
 
     #---------------------------------------------------------------------------------------
     # Logo
     #---------------------------------------------------------------------------------------
-    logo_gds = gf.import_gds("/workspace/myamf/gds/quiet_logo.gds")
+    logo_gds = gf.import_gds("/workspace/myamf/gds/quiet_logo.gds", skip_new_cells=True)
     logo_gds.remap_layers({(1, 0): (125, 0)})  # move to Metal 2 layer
     logo = c.add_ref(logo_gds)
     # logo.xmax =  250
     # logo.ymax = die.ymax - 1400
-    logo.move((-420, 200))
+    logo.move((500, 930))
 
 
     return c

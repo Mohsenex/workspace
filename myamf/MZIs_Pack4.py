@@ -11,7 +11,7 @@ from .via_MZI import via_MZI
 def MZIs_Pack4()->gf.Component:
     c = gf.Component()
     
-    mzi = gf.import_gds("/workspace/myamf/gds/NeffMZIGrattoSlabRibtoStrip_Alternative_V2.gds")
+    mzi = gf.import_gds("/workspace/myamf/gds/NeffMZIGrattoSlabRibtoStrip_Alternative_V2.gds", skip_new_cells=True)
     mzi.add_port(name="o1", center=(-546.09, 46.044), width=0.5, orientation=180, layer='WG')
     mzi.add_port(name="o2", center=(-546.09, 44.71), width=0.5, orientation=180, layer='WG')
     mzi.add_port(name="o3", center=(463.91, 46.044), width=0.5, orientation=0, layer='WG')

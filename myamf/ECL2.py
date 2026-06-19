@@ -58,7 +58,7 @@ def ECL2() -> gf.Component:
     # ECL2 
     #---------------------------------------------------------------------------------------
 
-    ecl2 = gf.import_gds("/workspace/myamf/gds/FonexQuietXECL_SiN_V2026_6.gds")
+    ecl2 = gf.import_gds("/workspace/myamf/gds/FonexQuietXECL_SiN_V2026_6.gds", skip_new_cells=True)
     # SiN Ports:
     ecl2.add_port(name="o1", center=(-1425.95, -232.72), width=1.0, orientation=180, layer='WG_SIN')
     ecl2.add_port(name="o2", center=(-1425.96, -282.72), width=1.0, orientation=180, layer='WG_SIN')

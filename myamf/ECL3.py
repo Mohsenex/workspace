@@ -40,7 +40,7 @@ def ECL3() -> gf.Component:
     #---------------------------------------------------------------------------------------
     # ECL3 GDS import + port definitions
     #---------------------------------------------------------------------------------------
-    ecl3 = gf.import_gds("/workspace/myamf/gds/FonexQuietXECL_Hybrid_V2026_5.gds")
+    ecl3 = gf.import_gds("/workspace/myamf/gds/FonexQuietXECL_Hybrid_V2026_5.gds", skip_new_cells=True)
     # SiN Ports:
     ecl3.add_port(name="o1", center=(368.859, -31.721),  width=1.0, orientation=0,   layer='WG_SIN')
     ecl3.add_port(name="o2", center=(283.34,  211.579),  width=1.0, orientation=0,   layer='WG_SIN')
