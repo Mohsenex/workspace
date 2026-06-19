@@ -898,7 +898,7 @@ def Main() -> gf.Component:
     logo = c.add_ref(logo_gds)
     # logo.xmax =  250
     # logo.ymax = die.ymax - 1400
-    logo.move((-420, 300))
+    logo.move((-420, 200))
 
 
     return c
