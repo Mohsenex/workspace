@@ -9,6 +9,7 @@ from amf.chp.cells.fixed import (
 )
 import amf.chp as pdk
 from amf.chp.tech import LAYER
+from amf.import_gds import import_gds
 
 @gf.cell
 def Delay_Spiral(
@@ -36,8 +37,14 @@ def Delay_Spiral(
     #------------------------------------------------------------------------------
     cross_section=gf.cross_section.strip(width = width)
     bend=dict(component='bend_euler', settings=dict(p=0))
-    sp1 = c.add_ref(gf.components.spiral_double(min_bend_radius=min_bend_radius, separation=separation, number_of_loops=number_of_loops, npoints=npoints, cross_section=xs_sin, bend=bend))
-    sp2 = c.add_ref(gf.components.spiral_double(min_bend_radius=min_bend_radius, separation=separation, number_of_loops=number_of_loops, npoints=npoints, cross_section=xs_sin, bend=bend))
+    # sp1 = c.add_ref(gf.components.spiral_double(min_bend_radius=min_bend_radius, separation=separation, number_of_loops=number_of_loops, npoints=npoints, cross_section=xs_sin, bend=bend))
+    sp = gf.import_gds("/workspace/myamf/gds/Delay_WL.gds")
+    sp.add_port(name="o1", center=(0, 891), width=3, orientation=180, layer='WG_SIN')
+    sp.add_port(name="o2", center=(0, -891), width=3, orientation=0, layer='WG_SIN')
+    sp1 = c.add_ref(sp)
+    
+    # sp2 = c.add_ref(gf.components.spiral_double(min_bend_radius=min_bend_radius, separation=separation, number_of_loops=number_of_loops, npoints=npoints, cross_section=xs_sin, bend=bend))
+    sp2 = c.add_ref(sp)
     spiral_width = 2 * (min_bend_radius + 2 * separation * number_of_loops)
     sp2_offset = spiral_width + sps_gap
     sp2.movex(sp2_offset)

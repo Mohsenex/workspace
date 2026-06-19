@@ -26,6 +26,7 @@ from .Rib_MZI import Rib_MZI
 from .strip_MZI import strip_MZI
 from .via_MZI import via_MZI
 from .PD_Single import PD_Single
+from amf.import_gds import import_gds
 
 gdsdir = PATH.gds_chp
 
@@ -83,10 +84,28 @@ def Main() -> gf.Component:
 
 
     #---------------------------------------------------------------------------------------
-    # RINGS
+    # Polishing Markers
     #---------------------------------------------------------------------------------------
-    # Rings = c.add_ref(Rings_Pack())
-    # Rings.move((-1000, 1000))
+    pol = gf.import_gds("/workspace/myamf/gds/PolishingMarkers.gds")
+    pol1 = c.add_ref(pol)
+    pol1.xmin = die.xmin + 1
+
+    pol2 = c.add_ref(pol)
+    pol2.xmin = die.xmin + 1
+    pol2.ymin = die.ymin + 1000
+
+    pol3 = c.add_ref(pol)
+    pol3.mirror_x()
+    pol3.xmax = die.xmax - 1
+    pol3.ymax = die.ymax - 1
+
+    pol4 = c.add_ref(pol)
+    pol4.mirror_x()
+    pol4.xmax = die.xmax - 1
+    pol4.ymin = die.ymin + 1
+    
+
+    
 
     
 
@@ -251,7 +270,7 @@ def Main() -> gf.Component:
     #---------------------------------------------------------------------------------------
     # SPIRAL
     #---------------------------------------------------------------------------------------
-    spiral = c.add_ref(Delay_Spiral(width = 3, taper_length = 200, min_bend_radius=270, separation=6.5, number_of_loops=48, npoints=20000,))
+    spiral = c.add_ref(Delay_Spiral(width = 3, taper_length = 200, min_bend_radius=270*2, separation=6.5, number_of_loops=27, npoints=20000,))
     spiral.mirror_y()
     spiral.move((350 , die.ymin - spiral.ymin + 500))  # 200 µm from left edge, vertically centered
     

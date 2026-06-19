@@ -5,6 +5,7 @@ from amf.chp.cells.fixed import (
     AMF_300LSOI_LSiN2SOISSC_Cband_v5p0,
 )
 from amf.chp.tech import LAYER, TECH
+from amf.import_gds import import_gds
 
 @gf.cell
 def MZI_Ring(
@@ -169,7 +170,11 @@ def MZI_Ring(
     # Spiral
     #---------------------------------------------------------------------
     bend=dict(component='bend_euler', settings=dict(p=0.9))
-    spiral = c.add_ref(gf.components.spiral_double(min_bend_radius=min_bend_radius, separation=separation, number_of_loops=number_of_loops, npoints=npoints, cross_section=xs_sin, bend=bend))
+    # spiral = c.add_ref(gf.components.spiral_double(min_bend_radius=min_bend_radius, separation=separation, number_of_loops=number_of_loops, npoints=npoints, cross_section=xs_sin, bend=bend))
+    spiral = gf.import_gds("/workspace/myamf/gds/Ring_WL.gds")
+    spiral.add_port(name="o1", center=(0, 546.5), width=1.25, orientation=180, layer='WG_SIN')
+    spiral.add_port(name="o2", center=(0, -546.5), width=1.25, orientation=0, layer='WG_SIN')
+    spiral = c.add_ref(spiral)
     spiral.ymin = taper1.ports['o2'].center[1] + wg_width/2 + gap + 2 * coupling_radius
     spiral.movex(taper1.ports['o2'].center[0] + (taper2.ports['o2'].center[0] - taper1.ports['o2'].center[0])/2 )
     
