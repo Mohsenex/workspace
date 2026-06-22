@@ -10,6 +10,7 @@ from amf.import_gds import import_gds
 
 from amf.chp.tech import LAYER, TECH
 from .Balanced_PD import Balanced_PD
+from .ported_cells import ssc_via, mmi_1x2
 
 
 gdsdir = PATH.gds_chp
@@ -77,7 +78,7 @@ def ECL2() -> gf.Component:
     ecl2.add_port(name="e8", center=(-303.29, 20.07), width=20, orientation=0,  layer="MT2", port_type="electrical")
 
     ecl2 = c.add_ref(ecl2)
-    ecl2.xmin = die.xmin - 6
+    ecl2.xmin = die.xmin
     ecl2.movey(0)
 
     #----- Heaters Electrical Routing----------
@@ -204,35 +205,35 @@ def ECL2() -> gf.Component:
     pd34.ymax = pads[first_pad + 9].ports['e2'].center[1]
 
     # ------------- Optical routings---------------
-    ecl2_via1 = c.add_ref(AMF_300LSOI_LSiN2SOISSC_Cband_v5p0())
+    ecl2_via1 = c.add_ref(ssc_via())
     ecl2_via1.mirror_x()
     ecl2_via1.xmin = ecl2.ports['e8'].center[0] + 100
     ecl2_via1.movey(ecl2.ports['o4'].center[1])
-    ecl2_via1_mmi = c.add_ref(AMF_300LSOI_Si1X2MMI_Cband_v5p0())
+    ecl2_via1_mmi = c.add_ref(mmi_1x2())
     ecl2_via1_mmi.move(ecl2_via1.ports['o1'].center)
 
-    ecl2_via2 = c.add_ref(AMF_300LSOI_LSiN2SOISSC_Cband_v5p0())
+    ecl2_via2 = c.add_ref(ssc_via())
     ecl2_via2.mirror_x()
     ecl2_via2.xmin = ecl2.ports['e8'].center[0] + 100
     ecl2_via2.movey(ecl2.ports['o4'].center[1] - 50)
-    ecl2_via2_mmi = c.add_ref(AMF_300LSOI_Si1X2MMI_Cband_v5p0())
+    ecl2_via2_mmi = c.add_ref(mmi_1x2())
     ecl2_via2_mmi.move(ecl2_via2.ports['o1'].center)
 
-    ecl2_via3 = c.add_ref(AMF_300LSOI_LSiN2SOISSC_Cband_v5p0())
+    ecl2_via3 = c.add_ref(ssc_via())
     ecl2_via3.mirror_x()
     ecl2_via3.xmin = ecl2.ports['e8'].center[0] + 100
     ecl2_via3.movey(ecl2.ports['o4'].center[1] - 100)
-    ecl2_via3_mmi = c.add_ref(AMF_300LSOI_Si1X2MMI_Cband_v5p0())
+    ecl2_via3_mmi = c.add_ref(mmi_1x2())
     ecl2_via3_mmi.move(ecl2_via3.ports['o1'].center)
 
-    ecl2_via4 = c.add_ref(AMF_300LSOI_LSiN2SOISSC_Cband_v5p0())
+    ecl2_via4 = c.add_ref(ssc_via())
     ecl2_via4.mirror_x()
     ecl2_via4.xmin = ecl2.ports['e8'].center[0] + 100
     ecl2_via4.movey(ecl2.ports['o4'].center[1] - 150)
-    ecl2_via4_mmi = c.add_ref(AMF_300LSOI_Si1X2MMI_Cband_v5p0())
+    ecl2_via4_mmi = c.add_ref(mmi_1x2())
     ecl2_via4_mmi.move(ecl2_via4.ports['o1'].center)
 
-    ecl2_combiner1 = c.add_ref(AMF_300LSOI_Si1X2MMI_Cband_v5p0())
+    ecl2_combiner1 = c.add_ref(mmi_1x2())
     ecl2_combiner1.mirror_x()
     ecl2_combiner1.xmin = ecl2_via1_mmi.xmax + 20
     ecl2_combiner1.ymax = ecl2_via1_mmi.ymin - 15
@@ -371,7 +372,7 @@ def ECL2() -> gf.Component:
     )
 
     #-----------------output vias
-    via_out = c.add_ref(AMF_300LSOI_LSiN2SOISSC_Cband_v5p0())
+    via_out = c.add_ref(ssc_via())
     via_out.rotate(90)
     via_out.xmin = ecl2_combiner1.xmax + 40
     via_out.ymin = ecl2_combiner1.ymax + 50
@@ -384,21 +385,21 @@ def ECL2() -> gf.Component:
     )
 
 
-    via_out2 = c.add_ref(AMF_300LSOI_LSiN2SOISSC_Cband_v5p0())
+    via_out2 = c.add_ref(ssc_via())
     via_out2.rotate(-90)
     via_out2.xmin = ecl2_via3_mmi.xmax + 40
     via_out2.ymax = ecl2_via3_mmi.ymin - 20
 
-    via_out3 = c.add_ref(AMF_300LSOI_LSiN2SOISSC_Cband_v5p0())
+    via_out3 = c.add_ref(ssc_via())
     via_out3.rotate(-90)
     via_out3.xmin = ecl2_via3_mmi.xmax + 50
     via_out3.ymax = ecl2_via3_mmi.ymin - 20
 
-    via_out22 = c.add_ref(AMF_300LSOI_LSiN2SOISSC_Cband_v5p0())
+    via_out22 = c.add_ref(ssc_via())
     via_out22.xmin = ecl2.x 
     via_out22.ymax = ecl2.ymin - 60
 
-    via_out33 = c.add_ref(AMF_300LSOI_LSiN2SOISSC_Cband_v5p0())
+    via_out33 = c.add_ref(ssc_via())
     via_out33.xmin = ecl2.x 
     via_out33.ymax = ecl2.ymin - 70
 

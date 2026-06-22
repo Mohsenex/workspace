@@ -11,6 +11,7 @@ from amf.import_gds import import_gds
 
 
 from .Balanced_PD import Balanced_PD
+from .ported_cells import ssc_via, mmi_1x2
 
 
 gdsdir = PATH.gds_chp
@@ -86,7 +87,7 @@ def ECL1() -> gf.Component:
     ecl1.add_port(name="e18", center=(183.43, -138.179), width=20, orientation=270,  layer="MT2", port_type="electrical")
 
     ecl1 = c.add_ref(ecl1)
-    ecl1.xmin = die.xmin - 6
+    ecl1.xmin = die.xmin
     ecl1.movey(600)
 
     #----------Metal Routing ---------------------
@@ -354,17 +355,17 @@ def ECL1() -> gf.Component:
     # ssc_comp.add_port(name="o1", center=(0.0, 0.0), width=0.5, orientation=180, layer='RIB')
     # ssc_comp.add_port(name="o2", center=(121.0, 0.0), width=1.0, orientation=0, layer='WG_SIN')
 
-    via1 = c.add_ref(AMF_300LSOI_LSiN2SOISSC_Cband_v5p0())
+    via1 = c.add_ref(ssc_via()) ## via1 = c.add_ref(AMF_300LSOI_LSiN2SOISSC_Cband_v5p0())
     via1.rotate(90)
     via1.xmin = ecl1.ports['o7'].center[0] + 40
     via1.ymin = ecl1.ports['o7'].center[1] + 40
 
-    via2 = c.add_ref(AMF_300LSOI_LSiN2SOISSC_Cband_v5p0())
+    via2 = c.add_ref(ssc_via()) ## via2 = c.add_ref(AMF_300LSOI_LSiN2SOISSC_Cband_v5p0())
     via2.rotate(90)
     via2.xmin = ecl1.ports['o7'].center[0] + 50
     via2.ymin = ecl1.ports['o7'].center[1] + 40
 
-    via3 = c.add_ref(AMF_300LSOI_LSiN2SOISSC_Cband_v5p0())
+    via3 = c.add_ref(ssc_via()) ##via3 = c.add_ref(AMF_300LSOI_LSiN2SOISSC_Cband_v5p0())
     via3.rotate(90)
     via3.x = ecl1.ports['o5'].center[0] 
     via3.ymin = ecl1.ports['o5'].center[1] + 90

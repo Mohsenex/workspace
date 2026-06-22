@@ -8,6 +8,7 @@ from amf.config import PATH
 from amf.import_gds import import_gds
 from amf.chp.tech import LAYER, TECH
 from .Balanced_PD import Balanced_PD
+from .ported_cells import ssc_via, mmi_1x2
 
 
 gdsdir = PATH.gds_chp
@@ -61,7 +62,7 @@ def ECL3() -> gf.Component:
     ecl3.add_port(name="e10", center=(-92.141,  415.645), width=20, orientation=90, layer="MT2", port_type="electrical")
 
     ecl3 = c.add_ref(ecl3)
-    ecl3.xmin = die.xmin - 6
+    ecl3.xmin = die.xmin
     ecl3.ymin = die.ymin + 380
 
     #---------------------------------------------------------------------------------------
@@ -151,12 +152,12 @@ def ECL3() -> gf.Component:
     via3_o1_x = via3_xmin + 121
     via4_o1_x = via3_xmin + 121  # same xmin
 
-    via3 = c.add_ref(AMF_300LSOI_LSiN2SOISSC_Cband_v5p0())
+    via3 = c.add_ref(ssc_via())
     via3.mirror_x()
     via3.xmin = via3_xmin
     via3.movey(via3_y)
 
-    via4 = c.add_ref(AMF_300LSOI_LSiN2SOISSC_Cband_v5p0())
+    via4 = c.add_ref(ssc_via())
     via4.mirror_x()
     via4.xmin = via3_xmin
     via4.movey(via4_y)
@@ -166,23 +167,23 @@ def ECL3() -> gf.Component:
     # MMI o1 is at local x=0 (west input), o2/o3 at x=55 (east outputs).
     # mmi3/mmi4 are snapped to via3/via4 Si output ports using computed positions.
     #---------------------------------------------------------------------------------------
-    mmi1 = c.add_ref(AMF_300LSOI_Si1X2MMI_Cband_v5p0())
+    mmi1 = c.add_ref(mmi_1x2())
     mmi1.xmin = ecl3.xmax - 150
     mmi1.ymin = ecl3.ymin - 35
 
-    mmi2 = c.add_ref(AMF_300LSOI_Si1X2MMI_Cband_v5p0())
+    mmi2 = c.add_ref(mmi_1x2())
     mmi2.xmin = ecl3.xmax - 150
     mmi2.ymin = ecl3.ymin - 20
 
     # mmi3 input (o1 at x=0) snapped to via3 Si output
-    mmi3 = c.add_ref(AMF_300LSOI_Si1X2MMI_Cband_v5p0())
+    mmi3 = c.add_ref(mmi_1x2())
     mmi3.move((via3_o1_x, via3_y))
 
     # mmi4 input snapped to via4 Si output
-    mmi4 = c.add_ref(AMF_300LSOI_Si1X2MMI_Cband_v5p0())
+    mmi4 = c.add_ref(mmi_1x2())
     mmi4.move((via4_o1_x, via4_y))
 
-    mmi5 = c.add_ref(AMF_300LSOI_Si1X2MMI_Cband_v5p0())
+    mmi5 = c.add_ref(mmi_1x2())
     mmi5.mirror_x()
     mmi5.xmin = via3_xmin
     mmi5.ymax = via3_y - 40
