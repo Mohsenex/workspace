@@ -3,13 +3,13 @@ from .Hybrid_MMI import Hybrid_MMI
 from .Balanced_PD import Balanced_PD
 
 @gf.cell
-def Hybrid_MMI_Balanced_PD()->gf.Component:
+def Hybrid_MMI_Balanced_PD(pad_dy: float = 0)->gf.Component:
     c = gf.Component()
     
     hmmi = c.add_ref(Hybrid_MMI())
-    bpd1 = c.add_ref(Balanced_PD())
+    bpd1 = c.add_ref(Balanced_PD(pad_dy=pad_dy))
     bpd1.move((-120, 220))
-    bpd2 = c.add_ref(Balanced_PD())
+    bpd2 = c.add_ref(Balanced_PD(pad_dy=pad_dy))
     bpd2.xmin = bpd1.xmax + 35
     bpd2.ymin = bpd1.ymin
 

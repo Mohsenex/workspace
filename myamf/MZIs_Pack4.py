@@ -1,4 +1,5 @@
 import gdsfactory as gf
+from .ported_cells import ssc_via, mmi_1x2, mmi_2x2
 from amf.import_gds import import_gds
 from amf.chp.cells.fixed import (
     AMF_300LSOI_Si1X2MMI_Cband_v5p0,
@@ -31,25 +32,25 @@ def MZIs_Pack4()->gf.Component:
 
 
 
-    via = c.add_ref(AMF_300LSOI_LSiN2SOISSC_Cband_v5p0())
+    via = c.add_ref(ssc_via())
     via.x = mzi1.xmin + 250
     via.y = via.y + 150
 
-    splitter0 = c.add_ref(AMF_300LSOI_Si1X2MMI_Cband_v5p0())
+    splitter0 = c.add_ref(mmi_1x2())
     splitter0.mirror_x()
     splitter0.connect('o1', via.ports['o1'])
 
-    splitter1 = c.add_ref(AMF_300LSOI_Si1X2MMI_Cband_v5p0())
+    splitter1 = c.add_ref(mmi_1x2())
     splitter1.mirror_x()
     splitter1.xmax = splitter0.xmin - 25
     splitter1.ymin = splitter0.ymin - 25
 
-    splitter2 = c.add_ref(AMF_300LSOI_Si1X2MMI_Cband_v5p0())
+    splitter2 = c.add_ref(mmi_1x2())
     splitter2.mirror_x()
     splitter2.xmax = splitter1.xmin - 25
     splitter2.ymin = splitter1.ymax + 25
 
-    splitter3 = c.add_ref(AMF_300LSOI_Si1X2MMI_Cband_v5p0())
+    splitter3 = c.add_ref(mmi_1x2())
     splitter3.mirror_x()
     splitter3.xmax = splitter1.xmin - 25
     splitter3.ymin = splitter1.ymin - 25
@@ -121,7 +122,7 @@ def MZIs_Pack4()->gf.Component:
 
 
     #--------- second via ------------------
-    via2 = c.add_ref(AMF_300LSOI_LSiN2SOISSC_Cband_v5p0())
+    via2 = c.add_ref(ssc_via())
     via2.mirror_x()
     via2.x = mzi1.xmin + 20
     via2.y = via.y + 30

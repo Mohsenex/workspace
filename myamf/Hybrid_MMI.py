@@ -1,4 +1,5 @@
 import gdsfactory as gf
+from .ported_cells import ssc_via, mmi_1x2, mmi_2x2
 from amf.chp.cells.fixed import (
     AMF_300LSOI_Si1X2MMI_Cband_v5p0,
     AMF_300LSOI_Si2X2MMI_Cband_v5p0,
@@ -7,13 +8,13 @@ from amf.chp.cells.fixed import (
 @gf.cell
 def Hybrid_MMI()->gf.Component:
     # c = gf.Component()
-    # mmi12 = c.add_ref(AMF_300LSOI_Si1X2MMI_Cband_v5p0())
-    # mmi221 = c.add_ref(AMF_300LSOI_Si2X2MMI_Cband_v5p0())
+    # mmi12 = c.add_ref(mmi_1x2())
+    # mmi221 = c.add_ref(mmi_2x2())
     # mmi221.movex(95)
-    # mmi222 = c.add_ref(AMF_300LSOI_Si2X2MMI_Cband_v5p0())
+    # mmi222 = c.add_ref(mmi_2x2())
     # mmi222.rotate(90)
     # mmi222.move([75, 20])
-    # mmi223 = c.add_ref(AMF_300LSOI_Si2X2MMI_Cband_v5p0())
+    # mmi223 = c.add_ref(mmi_2x2())
     # mmi223.rotate(-90)
     # mmi223.move([75, -20])
 
@@ -43,13 +44,13 @@ def Hybrid_MMI()->gf.Component:
     #     )
 
     c = gf.Component()
-    mmi12 = c.add_ref(AMF_300LSOI_Si1X2MMI_Cband_v5p0())
-    mmi221 = c.add_ref(AMF_300LSOI_Si2X2MMI_Cband_v5p0())
+    mmi12 = c.add_ref(mmi_1x2())
+    mmi221 = c.add_ref(mmi_2x2())
     mmi221.movex(80)
-    mmi222 = c.add_ref(AMF_300LSOI_Si2X2MMI_Cband_v5p0())
+    mmi222 = c.add_ref(mmi_2x2())
     # mmi222.rotate(90)
     mmi222.move([80, 25])
-    mmi223 = c.add_ref(AMF_300LSOI_Si2X2MMI_Cband_v5p0())
+    mmi223 = c.add_ref(mmi_2x2())
     # mmi223.rotate(-90)
     mmi223.move([80, -25])
 

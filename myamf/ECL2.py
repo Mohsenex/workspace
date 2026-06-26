@@ -1,4 +1,5 @@
 import gdsfactory as gf
+from .ported_cells import ssc_via, mmi_1x2, mmi_2x2
 from gdsfactory.pdk import get_active_pdk
 
 from amf.chp.cells.fixed import (
@@ -78,7 +79,7 @@ def ECL2() -> gf.Component:
     ecl2.add_port(name="e8", center=(-303.29, 20.07), width=20, orientation=0,  layer="MT2", port_type="electrical")
 
     ecl2 = c.add_ref(ecl2)
-    ecl2.xmin = die.xmin
+    ecl2.xmin = die.xmin -5.5
     ecl2.movey(0)
 
     #----- Heaters Electrical Routing----------
@@ -196,11 +197,11 @@ def ECL2() -> gf.Component:
     )
 
     # ----------- PDs -----------------
-    pd12 = c.add_ref(Balanced_PD())
+    pd12 = c.add_ref(Balanced_PD(pad_dy=10))
     pd12.xmin = pads[first_pad + 6].ports['e1'].center[0]
     pd12.ymax = pads[first_pad + 6].ports['e2'].center[1]
 
-    pd34 = c.add_ref(Balanced_PD())
+    pd34 = c.add_ref(Balanced_PD(pad_dy=10))
     pd34.xmin = pads[first_pad + 9].ports['e1'].center[0]
     pd34.ymax = pads[first_pad + 9].ports['e2'].center[1]
 

@@ -1,4 +1,5 @@
 import gdsfactory as gf
+from .ported_cells import ssc_via, mmi_1x2, mmi_2x2
 from .Si_MZI_with_Hybrid_MMI_Balanced_PD import Si_MZI_with_Hybrid_MMI_Balanced_PD
 from .SiN_MZI_with_Hybrid_MMI_Balanced_PD import SiN_MZI_with_Hybrid_MMI_Balanced_PD
 from amf.chp.cells.fixed import (
@@ -11,28 +12,28 @@ def Wavemeter(
     dl2: float = 52,
     dl3: float = 445,
     dl4: float = 445, # SiN MZI
-)->gf.Component:
+    pad_dy: float = 0)->gf.Component:
     c = gf.Component()
-    mzi1 = c.add_ref(Si_MZI_with_Hybrid_MMI_Balanced_PD(dl = dl1))
-    mzi2 = c.add_ref(Si_MZI_with_Hybrid_MMI_Balanced_PD(dl = dl2))
+    mzi1 = c.add_ref(Si_MZI_with_Hybrid_MMI_Balanced_PD(dl = dl1, pad_dy=pad_dy))
+    mzi2 = c.add_ref(Si_MZI_with_Hybrid_MMI_Balanced_PD(dl = dl2, pad_dy=pad_dy))
     mzi2.xmin = mzi1.xmax + 35
-    mzi3 = c.add_ref(Si_MZI_with_Hybrid_MMI_Balanced_PD(dl = dl3))
+    mzi3 = c.add_ref(Si_MZI_with_Hybrid_MMI_Balanced_PD(dl = dl3, pad_dy=pad_dy))
     mzi3.xmin = mzi2.xmax + 35
     # SiN MZI:
-    mzi4 = c.add_ref(SiN_MZI_with_Hybrid_MMI_Balanced_PD(dl = dl4))
+    mzi4 = c.add_ref(SiN_MZI_with_Hybrid_MMI_Balanced_PD(dl = dl4, pad_dy=pad_dy))
     mzi4.xmin = mzi3.xmax + 35
 
-    mmi1 = c.add_ref(AMF_300LSOI_Si2X2MMI_Cband_v5p0())
+    mmi1 = c.add_ref(mmi_2x2())
     # mmi1.rotate(90)
     mmi1.move((-190, 30))
-    mmi2 = c.add_ref(AMF_300LSOI_Si1X2MMI_Cband_v5p0())
+    mmi2 = c.add_ref(mmi_1x2())
     mmi2.rotate(90)
     mmi2.move((-160, 75))
-    mmi3 = c.add_ref(AMF_300LSOI_Si1X2MMI_Cband_v5p0())
+    mmi3 = c.add_ref(mmi_1x2())
     mmi3.rotate(90)
     mmi3.move((-140, 75))
 
-    mmi4 = c.add_ref(AMF_300LSOI_Si1X2MMI_Cband_v5p0())
+    mmi4 = c.add_ref(mmi_1x2())
     mmi4.rotate(90)
     mmi4.xmin = mmi1.xmin + 15
     mmi4.ymax = mmi1.ymin - 50

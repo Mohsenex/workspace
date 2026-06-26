@@ -1,4 +1,5 @@
 import gdsfactory as gf
+from .ported_cells import ssc_via, mmi_1x2, mmi_2x2
 from amf.chp.cells.fixed import (
     AMF_300LSOI_Si1X2MMI_Cband_v5p0,
     AMF_300LSOI_LSiN2SOISSC_Cband_v5p0)
@@ -6,23 +7,22 @@ from .Hybrid_MMI_Balanced_PD import Hybrid_MMI_Balanced_PD
 
 @gf.cell
 def SiN_MZI_with_Hybrid_MMI_Balanced_PD(
-    dl: float = 450,
-)->gf.Component:
+    dl: float = 450, pad_dy: float = 0)->gf.Component:
     c = gf.Component()
     
-    hmmi = c.add_ref(Hybrid_MMI_Balanced_PD())
-    splitter = c.add_ref(AMF_300LSOI_Si1X2MMI_Cband_v5p0())
+    hmmi = c.add_ref(Hybrid_MMI_Balanced_PD(pad_dy=pad_dy))
+    splitter = c.add_ref(mmi_1x2())
     splitter.move((-100 -55, 0))
     
-    via_top1 = c.add_ref(AMF_300LSOI_LSiN2SOISSC_Cband_v5p0())
+    via_top1 = c.add_ref(ssc_via())
     via_top1.move((-70, 38))
-    via_top2 = c.add_ref(AMF_300LSOI_LSiN2SOISSC_Cband_v5p0())
+    via_top2 = c.add_ref(ssc_via())
     via_top2.mirror_x()
     via_top2.move((70+242, 38))
 
-    via_bottom1 = c.add_ref(AMF_300LSOI_LSiN2SOISSC_Cband_v5p0())
+    via_bottom1 = c.add_ref(ssc_via())
     via_bottom1.move((16.167, -95))
-    via_bottom2 = c.add_ref(AMF_300LSOI_LSiN2SOISSC_Cband_v5p0())
+    via_bottom2 = c.add_ref(ssc_via())
     # via_bottom2.mirror_x()
     via_bottom2.move((16.167, -35))
 

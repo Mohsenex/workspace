@@ -1,4 +1,5 @@
 import gdsfactory as gf
+from .ported_cells import ssc_via, mmi_1x2, mmi_2x2
 from gdsfactory.pdk import get_active_pdk
 from amf.chp.tech import LAYER, TECH
 
@@ -540,7 +541,7 @@ def Main() -> gf.Component:
 
     #---------- Connecting ECL2 and MZI and Outputs
 
-    ecl3_via_out_top = c.add_ref(AMF_300LSOI_LSiN2SOISSC_Cband_v5p0())
+    ecl3_via_out_top = c.add_ref(ssc_via())
     ecl3_via_out_top.rotate(-90)
     ecl3_via_out_top.ymin = bpads[11].ymax + 100
     ecl3_via_out_top.xmax = bpads[12].xmin
@@ -810,7 +811,7 @@ def Main() -> gf.Component:
     #---------------------------------------------------------------------------------------
     # ECL to Wavementer
     #---------------------------------------------------------------------------------------
-    ecl_wm_mmi = c.add_ref(AMF_300LSOI_Si1X2MMI_Cband_v5p0())
+    ecl_wm_mmi = c.add_ref(mmi_1x2())
     
     ecl_wm_mmi.xmax = wavemeter.xmin - 20
     ecl_wm_mmi.ymax = wavemeter.ports['o1'].center[1] - 20
@@ -835,7 +836,7 @@ def Main() -> gf.Component:
         ],
     )
 
-    external_wl_via = c.add_ref(AMF_300LSOI_LSiN2SOISSC_Cband_v5p0())
+    external_wl_via = c.add_ref(ssc_via())
     external_wl_via.mirror_x()
     external_wl_via.xmax = ecl2wl.ports['o6'].center[0] - 100
     external_wl_via.ymin = ecl2wl.ports['o6'].center[1] + 50
@@ -860,7 +861,7 @@ def Main() -> gf.Component:
     )
 
     #------- ECL-Wavemeter-out
-    via_ecl_wm = c.add_ref(AMF_300LSOI_LSiN2SOISSC_Cband_v5p0())
+    via_ecl_wm = c.add_ref(ssc_via())
     via_ecl_wm.xmin = ecl_wm_mmi.xmax + 100
     via_ecl_wm.y = ecl_wm_mmi.y - 120
 

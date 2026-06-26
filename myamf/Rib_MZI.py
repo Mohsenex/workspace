@@ -1,4 +1,5 @@
 import gdsfactory as gf
+from .ported_cells import ssc_via, mmi_1x2, mmi_2x2
 from amf.chp.cells.fixed import (
     AMF_300LSOI_Si1X2MMI_Cband_v5p0,
     AMF_300LSOI_Si2X2MMI_Cband_v5p0,
@@ -37,8 +38,8 @@ def Rib_MZI(
     # ------------------------------------------------------------------ #
     # MMI placement                                                        #
     # ------------------------------------------------------------------ #
-    splitter = c.add_ref(AMF_300LSOI_Si1X2MMI_Cband_v5p0())
-    combiner = c.add_ref(AMF_300LSOI_Si2X2MMI_Cband_v5p0())
+    splitter = c.add_ref(mmi_1x2())
+    combiner = c.add_ref(mmi_2x2())
 
     # Place combiner gap µm east of splitter (port face to port face)
     combiner.movex(

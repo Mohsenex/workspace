@@ -1,6 +1,7 @@
 from turtle import width
 
 import gdsfactory as gf
+from .ported_cells import ssc_via, mmi_1x2, mmi_2x2
 from amf.chp.cells.fixed import (
     AMF_300LSOI_Si1X2MMI_Cband_v5p0,
     AMF_300LSOI_Si2X2MMI_Cband_v5p0,
@@ -69,10 +70,10 @@ def Delay_Spiral(
     #-------------------------------------------------------------------------------
     # Splitter and combiner
     #-------------------------------------------------------------------------------
-    splitter = c.add_ref(AMF_300LSOI_Si1X2MMI_Cband_v5p0())
+    splitter = c.add_ref(mmi_1x2())
     splitter.move([-spiral_half_height, spiral_half_height + 0.9])
 
-    via1 = c.add_ref(AMF_300LSOI_LSiN2SOISSC_Cband_v5p0())
+    via1 = c.add_ref(ssc_via())
     via1.move([-spiral_half_height + 80, spiral_half_height])
 
     taper1 = c.add_ref(gf.components.taper(
@@ -83,7 +84,7 @@ def Delay_Spiral(
     ))
     taper1.move([-spiral_half_height + 80 + 121, spiral_half_height])
 
-    via2 = c.add_ref(AMF_300LSOI_LSiN2SOISSC_Cband_v5p0())
+    via2 = c.add_ref(ssc_via())
     via2.move([1.5 * spiral_half_height , spiral_half_height + 10])
 
     taper2 = c.add_ref(gf.components.taper(
@@ -98,7 +99,7 @@ def Delay_Spiral(
     voa.mirror_y()
     voa.move([spiral_half_height -310/2, spiral_half_height +1.8])
 
-    combiner = c.add_ref(AMF_300LSOI_Si2X2MMI_Cband_v5p0())
+    combiner = c.add_ref(mmi_2x2())
     combiner.rotate(90)
     combiner.move([spiral_half_height + 310/2 + 40, spiral_half_height+ 30 ])
 

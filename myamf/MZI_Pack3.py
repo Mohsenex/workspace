@@ -1,4 +1,5 @@
 import gdsfactory as gf
+from .ported_cells import ssc_via, mmi_1x2, mmi_2x2
 from .Rib_MZI import Rib_MZI
 from .SiN_MZI import SiN_MZI
 from .via_MZI import via_MZI
@@ -32,54 +33,54 @@ def MZIs_Pack3()->gf.Component:
 
     #---------Combiners ------------------
 
-    # combiner1 = c.add_ref(AMF_300LSOI_Si1X2MMI_Cband_v5p0())
+    # combiner1 = c.add_ref(mmi_1x2())
     # combiner1.mirror_x()
     # combiner1.xmin = sin_1250_mzi.ports['o2'].center[0] + 30
     # combiner1.ymax = sin_1250_mzi.ports['o2'].center[1] - 30
 
-    # combiner2 = c.add_ref(AMF_300LSOI_Si1X2MMI_Cband_v5p0())
+    # combiner2 = c.add_ref(mmi_1x2())
     # combiner2.mirror_x()
     # combiner2.xmin = sin_mzi.ports['o2'].center[0] + 30
     # combiner2.ymax = sin_mzi.ports['o2'].center[1] - 30
 
-    # combiner3 = c.add_ref(AMF_300LSOI_Si1X2MMI_Cband_v5p0())
+    # combiner3 = c.add_ref(mmi_1x2())
     # combiner3.mirror_x()
     # combiner3.xmin = via_mzi.ports['o2'].center[0] + 30
     # combiner3.ymax = via_mzi.ports['o2'].center[1] - 30
 
-    # combiner4 = c.add_ref(AMF_300LSOI_Si1X2MMI_Cband_v5p0())
+    # combiner4 = c.add_ref(mmi_1x2())
     # combiner4.mirror_x()
     # combiner4.xmin = strip_mzi.ports['o2'].center[0] + 30
     # combiner4.ymax = strip_mzi.ports['o2'].center[1] - 30
 
     #-------------- Vias-----------------------------
 
-    # via1 = c.add_ref(AMF_300LSOI_LSiN2SOISSC_Cband_v5p0())
+    # via1 = c.add_ref(ssc_via())
     # via1.connect('o1', combiner1.ports['o1'])
 
-    # via2 = c.add_ref(AMF_300LSOI_LSiN2SOISSC_Cband_v5p0())
+    # via2 = c.add_ref(ssc_via())
     # via2.connect('o1', combiner2.ports['o1'])
 
-    # via3 = c.add_ref(AMF_300LSOI_LSiN2SOISSC_Cband_v5p0())
+    # via3 = c.add_ref(ssc_via())
     # via3.connect('o1', combiner3.ports['o1'])
 
-    # via4 = c.add_ref(AMF_300LSOI_LSiN2SOISSC_Cband_v5p0())
+    # via4 = c.add_ref(ssc_via())
     # via4.connect('o1', combiner4.ports['o1'])
 
     #------------- Splitters--------------------------
-    splitter1 = c.add_ref(AMF_300LSOI_Si1X2MMI_Cband_v5p0())
+    splitter1 = c.add_ref(mmi_1x2())
     splitter1.xmax = sin_1250_mzi.xmin - 120
     splitter1.ymin = sin_1250_mzi.ymin - 110
 
-    via0 = c.add_ref(AMF_300LSOI_LSiN2SOISSC_Cband_v5p0())
+    via0 = c.add_ref(ssc_via())
     via0.mirror_x()
     via0.connect('o1', splitter1.ports['o1'])
 
-    splitter2 = c.add_ref(AMF_300LSOI_Si1X2MMI_Cband_v5p0())
+    splitter2 = c.add_ref(mmi_1x2())
     splitter2.xmin = splitter1.xmax + 30
     splitter2.ymin = splitter1.ymax + 30
 
-    splitter3 = c.add_ref(AMF_300LSOI_Si1X2MMI_Cband_v5p0())
+    splitter3 = c.add_ref(mmi_1x2())
     splitter3.xmin = splitter1.xmax + 30
     splitter3.ymax = splitter1.ymin - 30
 

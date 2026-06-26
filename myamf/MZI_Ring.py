@@ -1,4 +1,5 @@
 import gdsfactory as gf
+from .ported_cells import ssc_via, mmi_1x2, mmi_2x2
 from amf.chp.cells.fixed import (
     AMF_300LSOI_Si1X2MMI_Cband_v5p0,
     AMF_300LSOI_Si2X2MMI_Cband_v5p0,
@@ -26,16 +27,16 @@ def MZI_Ring(
     #---------------------------------------------------------------
     # MZI
     #---------------------------------------------------------------
-    splitter = c.add_ref(AMF_300LSOI_Si1X2MMI_Cband_v5p0())
-    combiner = c.add_ref(AMF_300LSOI_Si2X2MMI_Cband_v5p0())
+    splitter = c.add_ref(mmi_1x2())
+    combiner = c.add_ref(mmi_2x2())
     combiner.move((55 + l, 0))
 
     # for the upper arm:
-    via1 = c.add_ref(AMF_300LSOI_LSiN2SOISSC_Cband_v5p0())
+    via1 = c.add_ref(ssc_via())
     via1.xmin = splitter.xmax + 20
     via1.movey(splitter.ports['o2'].center[1] + 25)
 
-    via2 = c.add_ref(AMF_300LSOI_LSiN2SOISSC_Cband_v5p0())
+    via2 = c.add_ref(ssc_via())
     via2.mirror_x()
     via2.xmax = combiner.xmin - 40 - htr_length
     via2.movey(splitter.ports['o2'].center[1] + 25)
@@ -59,11 +60,11 @@ def MZI_Ring(
     taper2.movey(via2.ports['o2'].center[1])
 
     # for the lower arm:
-    via3 = c.add_ref(AMF_300LSOI_LSiN2SOISSC_Cband_v5p0())
+    via3 = c.add_ref(ssc_via())
     via3.xmin = splitter.xmax + 20
     via3.movey(splitter.ports['o3'].center[1] - 25)
 
-    via4 = c.add_ref(AMF_300LSOI_LSiN2SOISSC_Cband_v5p0())
+    via4 = c.add_ref(ssc_via())
     via4.mirror_x()
     via4.xmax = combiner.xmin - 40 - htr_length
     via4.movey(splitter.ports['o3'].center[1] - 25)

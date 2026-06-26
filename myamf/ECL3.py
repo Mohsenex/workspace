@@ -1,4 +1,5 @@
 import gdsfactory as gf
+from .ported_cells import ssc_via, mmi_1x2, mmi_2x2
 from gdsfactory.pdk import get_active_pdk
 
 from amf.chp.cells.fixed import (
@@ -62,7 +63,7 @@ def ECL3() -> gf.Component:
     ecl3.add_port(name="e10", center=(-92.141,  415.645), width=20, orientation=90, layer="MT2", port_type="electrical")
 
     ecl3 = c.add_ref(ecl3)
-    ecl3.xmin = die.xmin
+    ecl3.xmin = die.xmin -5.5
     ecl3.ymin = die.ymin + 380
 
     #---------------------------------------------------------------------------------------
@@ -130,12 +131,12 @@ def ECL3() -> gf.Component:
     #---------------------------------------------------------------------------------------
     # Balanced PDs
     #---------------------------------------------------------------------------------------
-    bpd12 = c.add_ref(Balanced_PD())
+    bpd12 = c.add_ref(Balanced_PD(pad_dy=25))
     bpd12.mirror_y()
     bpd12.ymin = bpads[9].ports['e4'].center[1]
     bpd12.xmin = bpads[9].ports['e1'].center[0]
 
-    bpd34 = c.add_ref(Balanced_PD())
+    bpd34 = c.add_ref(Balanced_PD(pad_dy=25))
     bpd34.mirror_y()
     bpd34.ymin = bpads[12].ports['e4'].center[1]
     bpd34.xmin = bpads[12].ports['e1'].center[0]

@@ -1,4 +1,5 @@
 import gdsfactory as gf
+from .ported_cells import ssc_via, mmi_1x2, mmi_2x2
 import numpy as np
 from gdsfactory.typings import CrossSectionSpec
 import amf.chp as pdk
@@ -78,15 +79,15 @@ def Ring_Master(
 
         #--------- Si-SiN Via----------------
     if Si_SiN_Via:
-        via1 = c.add_ref(AMF_300LSOI_LSiN2SOISSC_Cband_v5p0())
+        via1 = c.add_ref(ssc_via())
         via1.move((-121 -radius/2 , - wg_width -gap1))
-        via2 = c.add_ref(AMF_300LSOI_LSiN2SOISSC_Cband_v5p0())
+        via2 = c.add_ref(ssc_via())
         via2.mirror()
         via2.move((121 +radius/2 , - wg_width -gap1))
 
-        via3 = c.add_ref(AMF_300LSOI_LSiN2SOISSC_Cband_v5p0())
+        via3 = c.add_ref(ssc_via())
         via3.move((-121 -radius/2 , 2*radius + wg_width +gap2))
-        via4 = c.add_ref(AMF_300LSOI_LSiN2SOISSC_Cband_v5p0())
+        via4 = c.add_ref(ssc_via())
         via4.mirror()
         via4.move((121 +radius/2 , 2*radius + wg_width +gap2))
 

@@ -1,4 +1,5 @@
 import gdsfactory as gf
+from .ported_cells import ssc_via, mmi_1x2, mmi_2x2
 from amf.chp.cells.fixed import (
     AMF_300LSOI_Si1X2MMI_Cband_v5p0,
     AMF_300LSOI_Si2X2MMI_Cband_v5p0,
@@ -35,8 +36,8 @@ def SiN_MZI(
     # ------------------------------------------------------------------ #
     # MMI placement                                                        #
     # ------------------------------------------------------------------ #
-    splitter = c.add_ref(AMF_300LSOI_Si1X2MMI_Cband_v5p0())
-    combiner = c.add_ref(AMF_300LSOI_Si2X2MMI_Cband_v5p0())
+    splitter = c.add_ref(mmi_1x2())
+    combiner = c.add_ref(mmi_2x2())
 
     # Place combiner gap µm east of splitter (port face to port face)
     combiner.movex(
@@ -46,18 +47,18 @@ def SiN_MZI(
     #-------------------------------------------------------
     # Via Placement
     #-------------------------------------------------------
-    via_up1 = c.add_ref(AMF_300LSOI_LSiN2SOISSC_Cband_v5p0())
+    via_up1 = c.add_ref(ssc_via())
     via_up1.move([55 + 2*R, 2*R + 0.9])
 
-    via_up2 = c.add_ref(AMF_300LSOI_LSiN2SOISSC_Cband_v5p0())
+    via_up2 = c.add_ref(ssc_via())
     via_up2.mirror_x()
     via_up2.move([242 + 55 + 2*R, 2*R + 0.9])
 
 
-    via_bottom1 = c.add_ref(AMF_300LSOI_LSiN2SOISSC_Cband_v5p0())
+    via_bottom1 = c.add_ref(ssc_via())
     via_bottom1.move([55 + 2*R, - (2*R + 0.9) - dl/2])
 
-    via_bottom2 = c.add_ref(AMF_300LSOI_LSiN2SOISSC_Cband_v5p0())
+    via_bottom2 = c.add_ref(ssc_via())
     via_bottom2.mirror_x()
     via_bottom2.move([242 + 55 + 2*R + dl, -(2*R + 0.9) - dl/2])
 

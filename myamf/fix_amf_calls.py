@@ -3,9 +3,9 @@
 Sweep myamf/*.py and route AMF fixed-cell calls through ported_cells / get_component.
 
 Rules (from AMF PDK 5.0 port scan):
-  AMF_300LSOI_LSiN2SOISSC_Cband_v5p0()  -> ssc_via()      (portless -> wrapper)
-  AMF_300LSOI_Si2X2MMI_Cband_v5p0()     -> mmi_2x2()       (portless -> wrapper)
-  AMF_300LSOI_Si1X2MMI_Cband_v5p0()     -> mmi_1x2()       (native ports via PDK)
+  ssc_via()  -> ssc_via()      (portless -> wrapper)
+  mmi_2x2()     -> mmi_2x2()       (portless -> wrapper)
+  mmi_1x2()     -> mmi_1x2()       (native ports via PDK)
 Also rewrites the pdk.get_component("...") form of those three to the same helpers,
 fixes the `<var>.xmin = die.xmin - 6` floorplan overshoot, and inserts the import.
 

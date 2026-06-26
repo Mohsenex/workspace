@@ -65,9 +65,9 @@ def mmi_2x2(flip_lr: bool = False, flip_tb: bool = False) -> gf.Component:
     ET = dict(center=(75.0,  0.667), orientation=0)     # east top
     EB = dict(center=(75.0, -0.667), orientation=0)     # east bottom
 
-    o1, o2, o3, o4 = WT, WB, ET, EB          # AMF default
+    o1, o2, o3, o4 = WB, WT, ET, EB          # AMF default
     if flip_lr:
-        o1, o2, o3, o4 = ET, EB, WT, WB      # inputs on east, outputs on west
+        o1, o2, o3, o4 = ET, EB, WB, WT      # inputs on east, outputs on west
     if flip_tb:
         o1, o2, o3, o4 = o2, o1, o4, o3      # swap top/bottom on each side
 

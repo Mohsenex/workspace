@@ -1,4 +1,5 @@
 import gdsfactory as gf
+from .ported_cells import ssc_via, mmi_1x2, mmi_2x2
 from gdsfactory.pdk import get_active_pdk
 
 from amf.chp.cells.fixed import (
@@ -87,7 +88,7 @@ def ECL1() -> gf.Component:
     ecl1.add_port(name="e18", center=(183.43, -138.179), width=20, orientation=270,  layer="MT2", port_type="electrical")
 
     ecl1 = c.add_ref(ecl1)
-    ecl1.xmin = die.xmin
+    ecl1.xmin = die.xmin-5.5
     ecl1.movey(600)
 
     #----------Metal Routing ---------------------
@@ -215,70 +216,107 @@ def ECL1() -> gf.Component:
     pd1.rotate(90)
     pd1 .xmin = pads[0].ports['e3'].center[0]
     pd1.ymax = pads[14].ports['e4'].center[1] - 80
-    via_pd1_e1 = c.add_ref(pdk.get_component("via_stack_m1_m2"))
-    via_pd1_e2 = c.add_ref(pdk.get_component("via_stack_m1_m2"))
-    via_pd1_e1.x = float(pads[0].ports['e4'].center[0])
-    via_pd1_e1.y = float(pd1.ports['e1'].center[1]  + 40)
-    via_pd1_e2.x = float(pads[1].ports['e4'].center[0])
-    via_pd1_e2.y = float(pd1.ports['e2'].center[1] +40)
+    # ---- pd1.e1 -> pads[0]
+    mt1_p1e1 = c.add_ref(gf.components.compass(size=(10, 12), layer=LAYER.MT1))
+    mt1_p1e1.xmin = pd1.ports['e1'].center[0] - 5
+    mt1_p1e1.ymin = pd1.ports['e1'].center[1]
+    via2_p1e1 = c.add_ref(gf.components.compass(size=(5, 5), layer=LAYER.VIA2))
+    via2_p1e1.move(mt1_p1e1.center)
+    mt2_p1e1 = c.add_ref(gf.components.compass(size=(10, 10), layer=LAYER.MT2))
+    mt2_p1e1.move(mt1_p1e1.center)
+    gf.routing.route_single(c, port1=mt2_p1e1.ports['e2'], port2=pads[0].ports['e4'], cross_section='metal_routing')
 
-    gf.routing.route_bundle(
-        c,
-        ports1=[pd1.ports['e1'], pd1.ports['e2']],
-        ports2=[via_pd1_e1.ports['e3'], via_pd1_e2.ports['e1']],
-        cross_section='metal1',
-        auto_taper=False,
-        allow_layer_mismatch=True,
-        allow_width_mismatch=True,
-    )
-    gf.routing.route_single(
-        c,
-        port1=via_pd1_e1.ports['e2'],
-        port2=pads[0].ports['e4'],
-        cross_section='metal_routing',
-    )
-    gf.routing.route_single(
-        c,
-        port1=via_pd1_e2.ports['e2'],
-        port2=pads[1].ports['e4'],
-        cross_section='metal_routing',
-    )
+    # ---- pd1.e2 -> pads[1]
+    mt1_p1e2 = c.add_ref(gf.components.compass(size=(10, 12), layer=LAYER.MT1))
+    mt1_p1e2.xmin = pd1.ports['e2'].center[0] - 5
+    mt1_p1e2.ymin = pd1.ports['e2'].center[1]
+    via2_p1e2 = c.add_ref(gf.components.compass(size=(5, 5), layer=LAYER.VIA2))
+    via2_p1e2.move(mt1_p1e2.center)
+    mt2_p1e2 = c.add_ref(gf.components.compass(size=(10, 10), layer=LAYER.MT2))
+    mt2_p1e2.move(mt1_p1e2.center)
+    gf.routing.route_single(c, port1=mt2_p1e2.ports['e2'], port2=pads[1].ports['e4'], cross_section='metal_routing')
+    # via_pd1_e1 = c.add_ref(pdk.get_component("via_stack_m1_m2")) #///////
+    # via_pd1_e2 = c.add_ref(pdk.get_component("via_stack_m1_m2"))
+    # via_pd1_e1.x = float(pads[0].ports['e4'].center[0])
+    # via_pd1_e1.y = float(pd1.ports['e1'].center[1]  + 40)
+    # via_pd1_e2.x = float(pads[1].ports['e4'].center[0])
+    # via_pd1_e2.y = float(pd1.ports['e2'].center[1] +40)
+
+    # gf.routing.route_bundle(
+    #     c,
+    #     ports1=[pd1.ports['e1'], pd1.ports['e2']],
+    #     ports2=[via_pd1_e1.ports['e3'], via_pd1_e2.ports['e1']],
+    #     cross_section='metal1',
+    #     auto_taper=False,
+    #     allow_layer_mismatch=True,
+    #     allow_width_mismatch=True,
+    # )
+    # gf.routing.route_single(
+    #     c,
+    #     port1=via_pd1_e1.ports['e2'],
+    #     port2=pads[0].ports['e4'],
+    #     cross_section='metal_routing',
+    # )
+    # gf.routing.route_single(
+    #     c,
+    #     port1=via_pd1_e2.ports['e2'],
+    #     port2=pads[1].ports['e4'],
+    #     cross_section='metal_routing',
+    # ) #////
 
     pd2 = c.add_ref(AMF_300LSOI_PowMonitor_Cband_Cell_v5p0())
     pd2.rotate(90)
     pd2 .xmin = pads[14].ports['e3'].center[0]
     pd2.ymax = pads[14].ports['e4'].center[1] - 60
+# ---- pd2.e1 -> pads[14]
+    mt1_p2e1 = c.add_ref(gf.components.compass(size=(10, 12), layer=LAYER.MT1))
+    mt1_p2e1.xmin = pd2.ports['e1'].center[0] - 5
+    mt1_p2e1.ymin = pd2.ports['e1'].center[1]
+    via2_p2e1 = c.add_ref(gf.components.compass(size=(5, 5), layer=LAYER.VIA2))
+    via2_p2e1.move(mt1_p2e1.center)
+    mt2_p2e1 = c.add_ref(gf.components.compass(size=(10, 10), layer=LAYER.MT2))
+    mt2_p2e1.move(mt1_p2e1.center)
+    gf.routing.route_single(c, port1=mt2_p2e1.ports['e2'], port2=pads[14].ports['e4'], cross_section='metal_routing')
 
-    via_pd2_e1 = c.add_ref(pdk.get_component("via_stack_m1_m2"))
-    via_pd2_e2 = c.add_ref(pdk.get_component("via_stack_m1_m2"))
-    via_pd2_e1.x = float(pads[14].ports['e4'].center[0])
-    via_pd2_e1.y = float(pd2.ports['e1'].center[1]  + 40)
-    via_pd2_e2.x = float(pads[15].ports['e4'].center[0])
-    via_pd2_e2.y = float(pd2.ports['e2'].center[1] +40)
+    # ---- pd2.e2 -> pads[15]
+    mt1_p2e2 = c.add_ref(gf.components.compass(size=(10, 12), layer=LAYER.MT1))
+    mt1_p2e2.xmin = pd2.ports['e2'].center[0] - 5
+    mt1_p2e2.ymin = pd2.ports['e2'].center[1]
+    via2_p2e2 = c.add_ref(gf.components.compass(size=(5, 5), layer=LAYER.VIA2))
+    via2_p2e2.move(mt1_p2e2.center)
+    mt2_p2e2 = c.add_ref(gf.components.compass(size=(10, 10), layer=LAYER.MT2))
+    mt2_p2e2.move(mt1_p2e2.center)
+    gf.routing.route_single(c, port1=mt2_p2e2.ports['e2'], port2=pads[15].ports['e4'], cross_section='metal_routing')
+    # via_pd2_e1 = c.add_ref(pdk.get_component("via_stack_m1_m2")) #////////
+    # via_pd2_e2 = c.add_ref(pdk.get_component("via_stack_m1_m2"))
+    # via_pd2_e1.x = float(pads[14].ports['e4'].center[0])
+    # via_pd2_e1.y = float(pd2.ports['e1'].center[1]  + 40)
+    # via_pd2_e2.x = float(pads[15].ports['e4'].center[0])
+    # via_pd2_e2.y = float(pd2.ports['e2'].center[1] +40)
 
-    gf.routing.route_bundle(
-        c,
-        ports1=[pd2.ports['e1'], pd2.ports['e2']],
-        ports2=[via_pd2_e1.ports['e3'], via_pd2_e2.ports['e1']],
-        cross_section='metal1',
-        auto_taper=False,
-        allow_layer_mismatch=True,
-        allow_width_mismatch=True,
-    )
-    gf.routing.route_single(
-        c,
-        port1=via_pd2_e1.ports['e2'],
-        port2=pads[14].ports['e4'],
-        cross_section='metal_routing',
-    )
-    gf.routing.route_single(
-        c,
-        port1=via_pd2_e2.ports['e2'],
-        port2=pads[15].ports['e4'],
-        cross_section='metal_routing',
-    )
+    # gf.routing.route_bundle(
+    #     c,
+    #     ports1=[pd2.ports['e1'], pd2.ports['e2']],
+    #     ports2=[via_pd2_e1.ports['e3'], via_pd2_e2.ports['e1']],
+    #     cross_section='metal1',
+    #     auto_taper=False,
+    #     allow_layer_mismatch=True,
+    #     allow_width_mismatch=True,
+    # )
+    # gf.routing.route_single(
+    #     c,
+    #     port1=via_pd2_e1.ports['e2'],
+    #     port2=pads[14].ports['e4'],
+    #     cross_section='metal_routing',
+    # )
+    # gf.routing.route_single(
+    #     c,
+    #     port1=via_pd2_e2.ports['e2'],
+    #     port2=pads[15].ports['e4'],
+    #     cross_section='metal_routing',
+    # ) #////
 
-    bpd = c.add_ref(Balanced_PD())
+    bpd = c.add_ref(Balanced_PD(pad_dy=20))
     bpd.xmin = pads[16].ports['e1'].center[0]
     bpd.ymax = pads[16].ports['e2'].center[1]
 
@@ -355,20 +393,20 @@ def ECL1() -> gf.Component:
     # ssc_comp.add_port(name="o1", center=(0.0, 0.0), width=0.5, orientation=180, layer='RIB')
     # ssc_comp.add_port(name="o2", center=(121.0, 0.0), width=1.0, orientation=0, layer='WG_SIN')
 
-    via1 = c.add_ref(ssc_via()) ## via1 = c.add_ref(AMF_300LSOI_LSiN2SOISSC_Cband_v5p0())
+    via1 = c.add_ref(ssc_via()) ## via1 = c.add_ref(ssc_via())
     via1.rotate(90)
     via1.xmin = ecl1.ports['o7'].center[0] + 40
-    via1.ymin = ecl1.ports['o7'].center[1] + 40
+    via1.ymin = ecl1.ports['o7'].center[1] + 35.1
 
-    via2 = c.add_ref(ssc_via()) ## via2 = c.add_ref(AMF_300LSOI_LSiN2SOISSC_Cband_v5p0())
+    via2 = c.add_ref(ssc_via()) ## via2 = c.add_ref(ssc_via())
     via2.rotate(90)
     via2.xmin = ecl1.ports['o7'].center[0] + 50
-    via2.ymin = ecl1.ports['o7'].center[1] + 40
+    via2.ymin = ecl1.ports['o7'].center[1] + 31.5
 
-    via3 = c.add_ref(ssc_via()) ##via3 = c.add_ref(AMF_300LSOI_LSiN2SOISSC_Cband_v5p0())
+    via3 = c.add_ref(ssc_via()) ##via3 = c.add_ref(ssc_via())
     via3.rotate(90)
     via3.x = ecl1.ports['o5'].center[0] 
-    via3.ymin = ecl1.ports['o5'].center[1] + 90
+    via3.ymin = ecl1.ports['o5'].center[1] + 78.5
 
     gf.routing.route_single(
         c,

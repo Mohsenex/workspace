@@ -1,4 +1,5 @@
 import gdsfactory as gf
+from .ported_cells import ssc_via, mmi_1x2, mmi_2x2
 from .Ring_Master import Ring_Master
 from amf.chp.tech import LAYER, TECH
 from amf.chp.cells.fixed import (AMF_300LSOI_LSiN2SOISSC_Cband_v5p0,
@@ -28,14 +29,14 @@ def Rings_Pack()->gf.Component:
         gc.rotate(90)
         gc.move((-300  +i * 127, -250))
         gcs.append(gc)
-    mmi1 = c.add_ref(AMF_300LSOI_Si1X2MMI_Cband_v5p0())
+    mmi1 = c.add_ref(mmi_1x2())
     mmi1.rotate(90)
     mmi1.move((-300  , -0))
-    mmi2 = c.add_ref(AMF_300LSOI_Si1X2MMI_Cband_v5p0())
+    mmi2 = c.add_ref(mmi_1x2())
     mmi2.move((55 + 25, 25))
     mmi2.rotate(90)
     mmi2.move((-300  , 0))
-    mmi3 = c.add_ref(AMF_300LSOI_Si1X2MMI_Cband_v5p0())
+    mmi3 = c.add_ref(mmi_1x2())
     mmi3.move((55 + 25, -25))
     mmi3.rotate(90)
     mmi3.move((-300 , 0))

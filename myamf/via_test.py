@@ -1,4 +1,5 @@
 import gdsfactory as gf
+from .ported_cells import ssc_via, mmi_1x2, mmi_2x2
 from amf.chp.cells.fixed import (
     AMF_300LSOI_Si1X2MMI_Cband_v5p0,
     AMF_300LSOI_Si2X2MMI_Cband_v5p0,
@@ -38,8 +39,8 @@ def via_test(
     # ------------------------------------------------------------------ #
     # Fixed cells                                                          #
     # ------------------------------------------------------------------ #
-    splitter = c.add_ref(AMF_300LSOI_Si1X2MMI_Cband_v5p0())
-    combiner = c.add_ref(AMF_300LSOI_Si2X2MMI_Cband_v5p0())
+    splitter = c.add_ref(mmi_1x2())
+    combiner = c.add_ref(mmi_2x2())
 
     # Position combiner: its input ports are `gap` µm east of the splitter
     # output ports.
@@ -77,7 +78,7 @@ def via_test(
     # ------------------------------------------------------------------ #
 
     # Build the via sub-component once so we can measure its longitudinal extent.
-    _via_single = AMF_300LSOI_LSiN2SOISSC_Cband_v5p0()
+    _via_single = ssc_via()
     _c_o2 = _via_single.ports["o2"].center
     _c_o1 = _via_single.ports["o1"].center
     via_width = float(_c_o2[0]) - float(_c_o1[0])  # longitudinal extent of one via
@@ -90,10 +91,10 @@ def via_test(
 
     # --- Place via pair (free-standing sub-component) ---
     # via_fwd: Si(W) → SiN(E)
-    via_fwd = c.add_ref(AMF_300LSOI_LSiN2SOISSC_Cband_v5p0())
+    via_fwd = c.add_ref(ssc_via())
 
     # via_rev: mirror of via_fwd so its SiN port faces West (touching via_fwd.o2)
-    via_rev = c.add_ref(AMF_300LSOI_LSiN2SOISSC_Cband_v5p0())
+    via_rev = c.add_ref(ssc_via())
     via_rev.mirror_x()  # flip horizontally: o2(SiN) is now on the West side
 
     # Connect SiN ports: move via_rev so its o2 coincides with via_fwd.o2

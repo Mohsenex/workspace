@@ -1,4 +1,5 @@
 import gdsfactory as gf
+from .ported_cells import ssc_via, mmi_1x2, mmi_2x2
 from amf.chp.cells.fixed import (
     AMF_300LSOI_Si1X2MMI_Cband_v5p0,
     AMF_300LSOI_Si2X2MMI_Cband_v5p0,
@@ -33,8 +34,8 @@ def MZIs(
     c = gf.Component()
 
     # --- Place splitter at origin ---
-    splitter = c.add_ref(AMF_300LSOI_Si1X2MMI_Cband_v5p0())
-    combiner = c.add_ref(AMF_300LSOI_Si2X2MMI_Cband_v5p0())
+    splitter = c.add_ref(mmi_1x2())
+    combiner = c.add_ref(mmi_2x2())
 
     # Position combiner so its west face (o1/o2 ports) is exactly `gap` µm
     # east of the splitter's east face (o2/o3 ports).

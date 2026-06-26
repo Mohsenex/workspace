@@ -1,0 +1,368 @@
+[1mdiff --git a/myamf/Athermal_SiN_MZI_FSR10nm.py b/myamf/Athermal_SiN_MZI_FSR10nm.py[m
+[1mindex a2231c8..99ae4d9 100644[m
+[1m--- a/myamf/Athermal_SiN_MZI_FSR10nm.py[m
+[1m+++ b/myamf/Athermal_SiN_MZI_FSR10nm.py[m
+[36m@@ -1,4 +1,5 @@[m
+ import gdsfactory as gf[m
+[32m+[m[32mfrom .ported_cells import ssc_via, mmi_1x2, mmi_2x2[m
+ from amf.chp.cells.fixed import ([m
+     AMF_300LSOI_Si1X2MMI_Cband_v5p0,[m
+     AMF_300LSOI_Si2X2MMI_Cband_v5p0,[m
+[36m@@ -36,8 +37,8 @@[m [mdef Athermal_SiN_MZI([m
+     # ------------------------------------------------------------------ #[m
+     # MMI placement                                                        #[m
+     # ------------------------------------------------------------------ #[m
+[31m-    splitter = c.add_ref(AMF_300LSOI_Si1X2MMI_Cband_v5p0())[m
+[31m-    combiner = c.add_ref(AMF_300LSOI_Si2X2MMI_Cband_v5p0())[m
+[32m+[m[32m    splitter = c.add_ref(mmi_1x2())[m
+[32m+[m[32m    combiner = c.add_ref(mmi_2x2())[m
+ [m
+     # Place combiner gap µm east of splitter (port face to port face)[m
+     combiner.movex([m
+[36m@@ -47,18 +48,18 @@[m [mdef Athermal_SiN_MZI([m
+     #-------------------------------------------------------[m
+     # Via Placement[m
+     #-------------------------------------------------------[m
+[31m-    via_up1 = c.add_ref(AMF_300LSOI_LSiN2SOISSC_Cband_v5p0())[m
+[32m+[m[32m    via_up1 = c.add_ref(ssc_via())[m
+     via_up1.move([55 + 2*R, 2*R + 0.9])[m
+ [m
+[31m-    via_up2 = c.add_ref(AMF_300LSOI_LSiN2SOISSC_Cband_v5p0())[m
+[32m+[m[32m    via_up2 = c.add_ref(ssc_via())[m
+     via_up2.mirror_x()[m
+     via_up2.move([242 + 55 + 2*R, 2*R + 0.9])[m
+ [m
+ [m
+[31m-    via_bottom1 = c.add_ref(AMF_300LSOI_LSiN2SOISSC_Cband_v5p0())[m
+[32m+[m[32m    via_bottom1 = c.add_ref(ssc_via())[m
+     via_bottom1.move([55 + 2*R, - (2*R + 0.9) - dl/2])[m
+ [m
+[31m-    via_bottom2 = c.add_ref(AMF_300LSOI_LSiN2SOISSC_Cband_v5p0())[m
+[32m+[m[32m    via_bottom2 = c.add_ref(ssc_via())[m
+     via_bottom2.mirror_x()[m
+     via_bottom2.move([242 + 55 + 2*R + l_SiN, -(2*R + 0.9) - dl/2])[m
+ [m
+[1mdiff --git a/myamf/Athremal_MZI_FSR80nm.py b/myamf/Athremal_MZI_FSR80nm.py[m
+[1mindex d5405b9..5587b20 100644[m
+[1m--- a/myamf/Athremal_MZI_FSR80nm.py[m
+[1m+++ b/myamf/Athremal_MZI_FSR80nm.py[m
+[36m@@ -1,4 +1,5 @@[m
+ import gdsfactory as gf[m
+[32m+[m[32mfrom .ported_cells import ssc_via, mmi_1x2, mmi_2x2[m
+ from amf.chp.cells.fixed import ([m
+     AMF_300LSOI_Si1X2MMI_Cband_v5p0,[m
+     AMF_300LSOI_Si2X2MMI_Cband_v5p0,[m
+[36m@@ -36,8 +37,8 @@[m [mdef Athermal_MZI([m
+     # ------------------------------------------------------------------ #[m
+     # MMI placement                                                        #[m
+     # ------------------------------------------------------------------ #[m
+[31m-    splitter = c.add_ref(AMF_300LSOI_Si1X2MMI_Cband_v5p0())[m
+[31m-    combiner = c.add_ref(AMF_300LSOI_Si2X2MMI_Cband_v5p0())[m
+[32m+[m[32m    splitter = c.add_ref(mmi_1x2())[m
+[32m+[m[32m    combiner = c.add_ref(mmi_2x2())[m
+ [m
+     # Place combiner gap µm east of splitter (port face to port face)[m
+     combiner.movex([m
+[1mdiff --git a/myamf/Delay_Spiral.py b/myamf/Delay_Spiral.py[m
+[1mindex da24b82..9a73c66 100644[m
+[1m--- a/myamf/Delay_Spiral.py[m
+[1m+++ b/myamf/Delay_Spiral.py[m
+[36m@@ -1,6 +1,7 @@[m
+ from turtle import width[m
+ [m
+ import gdsfactory as gf[m
+[32m+[m[32mfrom .ported_cells import ssc_via, mmi_1x2, mmi_2x2[m
+ from amf.chp.cells.fixed import ([m
+     AMF_300LSOI_Si1X2MMI_Cband_v5p0,[m
+     AMF_300LSOI_Si2X2MMI_Cband_v5p0,[m
+[36m@@ -69,10 +70,10 @@[m [mdef Delay_Spiral([m
+     #-------------------------------------------------------------------------------[m
+     # Splitter and combiner[m
+     #-------------------------------------------------------------------------------[m
+[31m-    splitter = c.add_ref(AMF_300LSOI_Si1X2MMI_Cband_v5p0())[m
+[32m+[m[32m    splitter = c.add_ref(mmi_1x2())[m
+     splitter.move([-spiral_half_height, spiral_half_height + 0.9])[m
+ [m
+[31m-    via1 = c.add_ref(AMF_300LSOI_LSiN2SOISSC_Cband_v5p0())[m
+[32m+[m[32m    via1 = c.add_ref(ssc_via())[m
+     via1.move([-spiral_half_height + 80, spiral_half_height])[m
+ [m
+     taper1 = c.add_ref(gf.components.taper([m
+[36m@@ -83,7 +84,7 @@[m [mdef Delay_Spiral([m
+     ))[m
+     taper1.move([-spiral_half_height + 80 + 121, spiral_half_height])[m
+ [m
+[31m-    via2 = c.add_ref(AMF_300LSOI_LSiN2SOISSC_Cband_v5p0())[m
+[32m+[m[32m    via2 = c.add_ref(ssc_via())[m
+     via2.move([1.5 * spiral_half_height , spiral_half_height + 10])[m
+ [m
+     taper2 = c.add_ref(gf.components.taper([m
+[36m@@ -98,7 +99,7 @@[m [mdef Delay_Spiral([m
+     voa.mirror_y()[m
+     voa.move([spiral_half_height -310/2, spiral_half_height +1.8])[m
+ [m
+[31m-    combiner = c.add_ref(AMF_300LSOI_Si2X2MMI_Cband_v5p0())[m
+[32m+[m[32m    combiner = c.add_ref(mmi_2x2())[m
+     combiner.rotate(90)[m
+     combiner.move([spiral_half_height + 310/2 + 40, spiral_half_height+ 30 ])[m
+ [m
+[1mdiff --git a/myamf/ECL1.py b/myamf/ECL1.py[m
+[1mindex d0c420c..74f89b3 100644[m
+[1m--- a/myamf/ECL1.py[m
+[1m+++ b/myamf/ECL1.py[m
+[36m@@ -1,4 +1,5 @@[m
+ import gdsfactory as gf[m
+[32m+[m[32mfrom .ported_cells import ssc_via, mmi_1x2, mmi_2x2[m
+ from gdsfactory.pdk import get_active_pdk[m
+ [m
+ from amf.chp.cells.fixed import ([m
+[36m@@ -87,7 +88,7 @@[m [mdef ECL1() -> gf.Component:[m
+     ecl1.add_port(name="e18", center=(183.43, -138.179), width=20, orientation=270,  layer="MT2", port_type="electrical")[m
+ [m
+     ecl1 = c.add_ref(ecl1)[m
+[31m-    ecl1.xmin = die.xmin[m
+[32m+[m[32m    ecl1.xmin = die.xmin-5.5[m
+     ecl1.movey(600)[m
+ [m
+     #----------Metal Routing ---------------------[m
+[36m@@ -355,17 +356,17 @@[m [mdef ECL1() -> gf.Component:[m
+     # ssc_comp.add_port(name="o1", center=(0.0, 0.0), width=0.5, orientation=180, layer='RIB')[m
+     # ssc_comp.add_port(name="o2", center=(121.0, 0.0), width=1.0, orientation=0, layer='WG_SIN')[m
+ [m
+[31m-    via1 = c.add_ref(ssc_via()) ## via1 = c.add_ref(AMF_300LSOI_LSiN2SOISSC_Cband_v5p0())[m
+[32m+[m[32m    via1 = c.add_ref(ssc_via()) ## via1 = c.add_ref(ssc_via())[m
+     via1.rotate(90)[m
+     via1.xmin = ecl1.ports['o7'].center[0] + 40[m
+     via1.ymin = ecl1.ports['o7'].center[1] + 40[m
+ [m
+[31m-    via2 = c.add_ref(ssc_via()) ## via2 = c.add_ref(AMF_300LSOI_LSiN2SOISSC_Cband_v5p0())[m
+[32m+[m[32m    via2 = c.add_ref(ssc_via()) ## via2 = c.add_ref(ssc_via())[m
+     via2.rotate(90)[m
+     via2.xmin = ecl1.ports['o7'].center[0] + 50[m
+     via2.ymin = ecl1.ports['o7'].center[1] + 40[m
+ [m
+[31m-    via3 = c.add_ref(ssc_via()) ##via3 = c.add_ref(AMF_300LSOI_LSiN2SOISSC_Cband_v5p0())[m
+[32m+[m[32m    via3 = c.add_ref(ssc_via()) ##via3 = c.add_ref(ssc_via())[m
+     via3.rotate(90)[m
+     via3.x = ecl1.ports['o5'].center[0] [m
+     via3.ymin = ecl1.ports['o5'].center[1] + 90[m
+[1mdiff --git a/myamf/ECL2.py b/myamf/ECL2.py[m
+[1mindex c478bda..392d4e2 100644[m
+[1m--- a/myamf/ECL2.py[m
+[1m+++ b/myamf/ECL2.py[m
+[36m@@ -1,4 +1,5 @@[m
+ import gdsfactory as gf[m
+[32m+[m[32mfrom .ported_cells import ssc_via, mmi_1x2, mmi_2x2[m
+ from gdsfactory.pdk import get_active_pdk[m
+ [m
+ from amf.chp.cells.fixed import ([m
+[36m@@ -78,7 +79,7 @@[m [mdef ECL2() -> gf.Component:[m
+     ecl2.add_port(name="e8", center=(-303.29, 20.07), width=20, orientation=0,  layer="MT2", port_type="electrical")[m
+ [m
+     ecl2 = c.add_ref(ecl2)[m
+[31m-    ecl2.xmin = die.xmin[m
+[32m+[m[32m    ecl2.xmin = die.xmin -5.5[m
+     ecl2.movey(0)[m
+ [m
+     #----- Heaters Electrical Routing----------[m
+[1mdiff --git a/myamf/ECL3.py b/myamf/ECL3.py[m
+[1mindex 0e8c815..20dc5bf 100644[m
+[1m--- a/myamf/ECL3.py[m
+[1m+++ b/myamf/ECL3.py[m
+[36m@@ -1,4 +1,5 @@[m
+ import gdsfactory as gf[m
+[32m+[m[32mfrom .ported_cells import ssc_via, mmi_1x2, mmi_2x2[m
+ from gdsfactory.pdk import get_active_pdk[m
+ [m
+ from amf.chp.cells.fixed import ([m
+[36m@@ -62,7 +63,7 @@[m [mdef ECL3() -> gf.Component:[m
+     ecl3.add_port(name="e10", center=(-92.141,  415.645), width=20, orientation=90, layer="MT2", port_type="electrical")[m
+ [m
+     ecl3 = c.add_ref(ecl3)[m
+[31m-    ecl3.xmin = die.xmin[m
+[32m+[m[32m    ecl3.xmin = die.xmin -5.5[m
+     ecl3.ymin = die.ymin + 380[m
+ [m
+     #---------------------------------------------------------------------------------------[m
+[1mdiff --git a/myamf/Hybrid_MMI.py b/myamf/Hybrid_MMI.py[m
+[1mindex 83aa3cb..b69a6be 100644[m
+[1m--- a/myamf/Hybrid_MMI.py[m
+[1m+++ b/myamf/Hybrid_MMI.py[m
+[36m@@ -1,4 +1,5 @@[m
+ import gdsfactory as gf[m
+[32m+[m[32mfrom .ported_cells import ssc_via, mmi_1x2, mmi_2x2[m
+ from amf.chp.cells.fixed import ([m
+     AMF_300LSOI_Si1X2MMI_Cband_v5p0,[m
+     AMF_300LSOI_Si2X2MMI_Cband_v5p0,[m
+[36m@@ -7,13 +8,13 @@[m [mfrom amf.chp.cells.fixed import ([m
+ @gf.cell[m
+ def Hybrid_MMI()->gf.Component:[m
+     # c = gf.Component()[m
+[31m-    # mmi12 = c.add_ref(AMF_300LSOI_Si1X2MMI_Cband_v5p0())[m
+[31m-    # mmi221 = c.add_ref(AMF_300LSOI_Si2X2MMI_Cband_v5p0())[m
+[32m+[m[32m    # mmi12 = c.add_ref(mmi_1x2())[m
+[32m+[m[32m    # mmi221 = c.add_ref(mmi_2x2())[m
+     # mmi221.movex(95)[m
+[31m-    # mmi222 = c.add_ref(AMF_300LSOI_Si2X2MMI_Cband_v5p0())[m
+[32m+[m[32m    # mmi222 = c.add_ref(mmi_2x2())[m
+     # mmi222.rotate(90)[m
+     # mmi222.move([75, 20])[m
+[31m-    # mmi223 = c.add_ref(AMF_300LSOI_Si2X2MMI_Cband_v5p0())[m
+[32m+[m[32m    # mmi223 = c.add_ref(mmi_2x2())[m
+     # mmi223.rotate(-90)[m
+     # mmi223.move([75, -20])[m
+ [m
+[36m@@ -43,13 +44,13 @@[m [mdef Hybrid_MMI()->gf.Component:[m
+     #     )[m
+ [m
+     c = gf.Component()[m
+[31m-    mmi12 = c.add_ref(AMF_300LSOI_Si1X2MMI_Cband_v5p0())[m
+[31m-    mmi221 = c.add_ref(AMF_300LSOI_Si2X2MMI_Cband_v5p0())[m
+[32m+[m[32m    mmi12 = c.add_ref(mmi_1x2())[m
+[32m+[m[32m    mmi221 = c.add_ref(mmi_2x2())[m
+     mmi221.movex(80)[m
+[31m-    mmi222 = c.add_ref(AMF_300LSOI_Si2X2MMI_Cband_v5p0())[m
+[32m+[m[32m    mmi222 = c.add_ref(mmi_2x2())[m
+     # mmi222.rotate(90)[m
+     mmi222.move([80, 25])[m
+[31m-    mmi223 = c.add_ref(AMF_300LSOI_Si2X2MMI_Cband_v5p0())[m
+[32m+[m[32m    mmi223 = c.add_ref(mmi_2x2())[m
+     # mmi223.rotate(-90)[m
+     mmi223.move([80, -25])[m
+ [m
+[1mdiff --git a/myamf/MZI_Pack2.py b/myamf/MZI_Pack2.py[m
+[1mindex 1872fc3..64927ea 100644[m
+[1m--- a/myamf/MZI_Pack2.py[m
+[1m+++ b/myamf/MZI_Pack2.py[m
+[36m@@ -1,4 +1,5 @@[m
+ import gdsfactory as gf[m
+[32m+[m[32mfrom .ported_cells import ssc_via, mmi_1x2, mmi_2x2[m
+ from .Rib_MZI import Rib_MZI[m
+ from .SiN_MZI import SiN_MZI[m
+ from .via_MZI import via_MZI[m
+[36m@@ -36,54 +37,54 @@[m [mdef MZIs_Pack2()->gf.Component:[m
+ [m
+     #---------Combiners ------------------[m
+ [m
+[31m-    combiner1 = c.add_ref(AMF_300LSOI_Si1X2MMI_Cband_v5p0())[m
+[32m+[m[32m    combiner1 = c.add_ref(mmi_1x2())[m
+     combiner1.mirror_x()[m
+     combiner1.xmin = sin_1250_mzi.ports['o2'].center[0] + 30[m
+     combiner1.ymax = sin_1250_mzi.ports['o2'].center[1] - 30[m
+ [m
+[31m-    combiner2 = c.add_ref(AMF_300LSOI_Si1X2MMI_Cband_v5p0())[m
+[32m+[m[32m    combiner2 = c.add_ref(mmi_1x2())[m
+     combiner2.mirror_x()[m
+     combiner2.xmin = sin_mzi.ports['o2'].center[0] + 30[m
+     combiner2.ymax = sin_mzi.ports['o2'].center[1] - 30[m
+ [m
+[31m-    combiner3 = c.add_ref(AMF_300LSOI_Si1X2MMI_Cband_v5p0())[m
+[32m+[m[32m    combiner3 = c.add_ref(mmi_1x2())[m
+     combiner3.mirror_x()[m
+     combiner3.xmin = via_mzi.ports['o2'].center[0] + 30[m
+     combiner3.ymax = via_mzi.ports['o2'].center[1] - 30[m
+ [m
+[31m-    combiner4 = c.add_ref(AMF_300LSOI_Si1X2MMI_Cband_v5p0())[m
+[32m+[m[32m    combiner4 = c.add_ref(mmi_1x2())[m
+     combiner4.mirror_x()[m
+     combiner4.xmin = strip_mzi.ports['o2'].center[0] + 30[m
+     combiner4.ymax = strip_mzi.ports['o2'].center[1] - 30[m
+ [m
+     #-------------- Vias-----------------------------[m
+ [m
+[31m-    via1 = c.add_ref(AMF_300LSOI_LSiN2SOISSC_Cband_v5p0())[m
+[32m+[m[32m    via1 = c.add_ref(ssc_via())[m
+     via1.connect('o1', combiner1.ports['o1'])[m
+ [m
+[31m-    via2 = c.add_ref(AMF_300LSOI_LSiN2SOISSC_Cband_v5p0())[m
+[32m+[m[32m    via2 = c.add_ref(ssc_via())[m
+     via2.connect('o1', combiner2.ports['o1'])[m
+ [m
+[31m-    via3 = c.add_ref(AMF_300LSOI_LSiN2SOISSC_Cband_v5p0())[m
+[32m+[m[32m    via3 = c.add_ref(ssc_via())[m
+     via3.connect('o1', combiner3.ports['o1'])[m
+ [m
+[31m-    via4 = c.add_ref(AMF_300LSOI_LSiN2SOISSC_Cband_v5p0())[m
+[32m+[m[32m    via4 = c.add_ref(ssc_via())[m
+     via4.connect('o1', combiner4.ports['o1'])[m
+ [m
+     #------------- Splitters--------------------------[m
+[31m-    splitter1 = c.add_ref(AMF_300LSOI_Si1X2MMI_Cband_v5p0())[m
+[32m+[m[32m    splitter1 = c.add_ref(mmi_1x2())[m
+     splitter1.xmax = sin_1250_mzi.xmin - 120[m
+     splitter1.ymin = sin_1250_mzi.ymin - 110[m
+ [m
+[31m-    via0 = c.add_ref(AMF_300LSOI_LSiN2SOISSC_Cband_v5p0())[m
+[32m+[m[32m    via0 = c.add_ref(ssc_via())[m
+     via0.mirror_x()[m
+     via0.connect('o1', splitter1.ports['o1'])[m
+ [m
+[31m-    splitter2 = c.add_ref(AMF_300LSOI_Si1X2MMI_Cband_v5p0())[m
+[32m+[m[32m    splitter2 = c.add_ref(mmi_1x2())[m
+     splitter2.xmin = splitter1.xmax + 30[m
+     splitter2.ymin = splitter1.ymax + 30[m
+ [m
+[31m-    splitter3 = c.add_ref(AMF_300LSOI_Si1X2MMI_Cband_v5p0())[m
+[32m+[m[32m    splitter3 = c.add_ref(mmi_1x2())[m
+     splitter3.xmin = splitter1.xmax + 30[m
+     splitter3.ymax = splitter1.ymin - 15[m
+ [m
+[1mdiff --git a/myamf/MZI_Pack3.py b/myamf/MZI_Pack3.py[m
+[1mindex e668708..1dcaca6 100644[m
+[1m--- a/myamf/MZI_Pack3.py[m
+[1m+++ b/myamf/MZI_Pack3.py[m
+[36m@@ -1,4 +1,5 @@[m
+ import gdsfactory as gf[m
+[32m+[m[32mfrom .ported_cells import ssc_via, mmi_1x2, mmi_2x2[m
+ from .Rib_MZI import Rib_MZI[m
+ from .SiN_MZI import SiN_MZI[m
+ from .via_MZI import via_MZI[m
+[36m@@ -32,54 +33,54 @@[m [mdef MZIs_Pack3()->gf.Component:[m
+ [m
+     #---------Combiners ------------------[m
+ [m
+[31m-    # combiner1 = c.add_ref(AMF_300LSOI_Si1X2MMI_Cband_v5p0())[m
+[32m+[m[32m    # combiner1 = c.add_ref(mmi_1x2())[m
+     # combiner1.mirror_x()[m
+     # combiner1.xmin = sin_1250_mzi.ports['o2'].center[0] + 30[m
+     # combiner1.ymax = sin_1250_mzi.ports['o2'].center[1] - 30[m
+ [m
+[31m-    # combiner2 = c.add_ref(AMF_300LSOI_Si1X2MMI_Cband_v5p0())[m
+[32m+[m[32m    # combiner2 = c.add_ref(mmi_1x2())[m
+     # combiner2.mirror_x()[m
+     # combiner2.xmin = sin_mzi.ports['o2'].center[0] + 30[m
+     # combiner2.ymax = sin_mzi.ports['o2'].center[1] - 30[m
+ [m
+[31m-    # combiner3 = c.add_ref(AMF_300LSOI_Si1X2MMI_Cband_v5p0())[m
+[32m+[m[32m    # combiner3 = c.add_ref(mmi_1x2())[m
+     # combiner3.mirror_x()[m
+     # combiner3.xmin = via_mzi.ports['o2'].center[0] + 30[m
+     # combiner3.ymax = via_mzi.ports['o2'].center[1] - 30[m
+ [m
+[31m-    # combiner4 = c.add_ref(AMF_300LSOI_Si1X2MMI_Cband_v5p0())[m
+[32m+[m[32m    # combiner4 = c.add_ref(mmi_1x2())[m
+     # combiner4.mirror_x()[m
+     # combiner4.xmin = strip_mzi.ports['o2'].center[0] + 30[m
+     # combiner4.ymax = strip_mzi.ports['o2'].center[1] - 30[m
+ [m
+     #-------------- Vias-----------------------------[m
+ [m
+[31m-    # via1 = c.add_ref(AMF_300LSOI_LSiN2SOISSC_Cband_v5p0())[m
+[32m+[m[32m    # via1 = c.add_ref(ssc_via())[m
+     # via1.connect('o1', combiner1.ports['o1'])[m
+ [m
+[31m-    # via2 = c.add_ref(AMF_300LSOI_LSiN2SOISSC_Cband_v5p0())[m
+[32m+[m[32m    # via2 = c.add_ref(ssc_via())[m
+     # via2.connect('o1', combiner2.ports['o1'])[m
+ [m
+[31m-    # via3 = c.add_ref(AMF_300LSOI_LSiN2SOISSC_Cband_v5p0())[m
+[32m+[m[32m    # via3 = c.add_ref(ssc_via())[m
+     # via3.connect('o1', combiner3.ports['o1'])[m
+ [m
+[31m-    # via4 = c.add_ref(AMF_300LSOI_LSiN2SOISSC_Cband_v5p0())[m
+[32m+[m[32m    # via4 = c.add_ref(ssc_via())[m
+     # via4.connect('o1', combiner4.ports['o1'])[m
+ [m
+     #------------- Splitters--------------------------[m
+[31m-    splitter1 = c.add_ref(AMF_300LSOI_Si1X2MMI_Cband_v5p0())[m
+[32m+[m[32m  

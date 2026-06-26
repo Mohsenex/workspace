@@ -4,7 +4,7 @@ from amf.chp.cells.fixed import AMF_300LSOI_PowMonitor_Cband_Cell_v5p0
 from amf.chp.tech import LAYER, TECH
 
 @gf.cell
-def Balanced_PD()->gf.Component:
+def Balanced_PD(pad_dy: float=0)->gf.Component:
     c = gf.Component()
     
     # PAD_PITCH = 125.0
@@ -20,10 +20,11 @@ def Balanced_PD()->gf.Component:
     pdk = get_active_pdk()
     pitch = 125
     pad1 = c.add_ref(pdk.get_component("pad"))
+    pad1.movey(pad_dy)
     pad2 = c.add_ref(pdk.get_component("pad"))
-    pad2.move((1*pitch, 0))
+    pad2.move((1*pitch, pad_dy))
     pad3 = c.add_ref(pdk.get_component("pad"))
-    pad3.move((2*pitch, 0))
+    pad3.move((2*pitch, pad_dy))
 
     pd1 = c.add_ref(AMF_300LSOI_PowMonitor_Cband_Cell_v5p0())
     pd1.rotate(90)
