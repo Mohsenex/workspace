@@ -42,7 +42,7 @@ def Main_v2() -> gf.Component:
     c = gf.Component()
     pdk = get_active_pdk()
 
-    die = c.add_ref(gf.components.rectangle(size=DIE_SIZE, layer = LAYER.MARKER))
+    die = c.add_ref(gf.components.rectangle(size=DIE_SIZE, layer = LAYER.FLOORPLAN))
     die.move((-3700, -1500))
     # routing SiN with bending radius of 45 um
     xs_sin = gf.cross_section.strip(
@@ -88,10 +88,10 @@ def Main_v2() -> gf.Component:
     #---------------------------------------------------------------------------------------
     # Polishing Markers
     #---------------------------------------------------------------------------------------
-    pol = gf.import_gds("/workspace/myamf/gds/PolishingMarks_east.gds", skip_new_cells=True)
+    pol = gf.import_gds("/workspace/myamf/gds/PolishingMarks_east_RIB.gds", skip_new_cells=True)
     pol1 = c.add_ref(pol)
     pol1.xmin = die.xmin 
-    pol1.ymin = die.ymin + 250
+    pol1.ymin = die.ymin + 350
 
     pol2 = c.add_ref(pol)
     pol2.xmin = die.xmin
@@ -106,17 +106,27 @@ def Main_v2() -> gf.Component:
     pol4.ymin = die.ymin + 2500
 
     pol5 = c.add_ref(pol)
-    pol5.mirror_x()
+    pol5.rotate(180) 
     pol5.xmax = die.xmax
     pol5.ymax = die.ymax - 1
 
     pol6 = c.add_ref(pol)
-    pol6.mirror_x()
+    pol6.rotate(180) 
     pol6.xmax = die.xmax
     pol6.ymin = die.ymin + 1
     
+    polM = gf.import_gds("/workspace/myamf/gds/PolishingMarks_east_M2.gds", skip_new_cells=True)
+    pol1M = c.add_ref(polM)
+    pol1M.xmin = die.xmin 
+    pol1M.ymin = die.ymin + 200
 
-    
+    pol2M = c.add_ref(polM)
+    pol2M.xmin = die.xmin
+    pol2M.ymin = die.ymin + 1250
+
+    pol3M = c.add_ref(polM)
+    pol3M.xmin = die.xmin
+    pol3M.ymin = die.ymin + 2700   
 
     
 
@@ -135,8 +145,8 @@ def Main_v2() -> gf.Component:
         cross_section = xs_sin,
         waypoints = [
             (float(ecl1.ports['o1'].center[0] + 250), float(ecl1.ports['o1'].center[1])),
-            (float(ecl1.ports['o1'].center[0] + 250), die.ymax - 170.5),
-            (float(refs[16].ports['o1'].center[0] -120), die.ymax - 170.5),
+            (float(ecl1.ports['o1'].center[0] + 250), die.ymax - 170.5-6),
+            (float(refs[16].ports['o1'].center[0] -120), die.ymax - 170.5-6),
             (float(refs[16].ports['o1'].center[0] -120), float(refs[16].ports['o1'].center[1])),
         ]
     )
@@ -147,8 +157,8 @@ def Main_v2() -> gf.Component:
         port2 = refs[17].ports['o1'],
         cross_section = xs_sin,
         waypoints = [
-            (float(ecl1.ports['o2'].center[0]), die.ymax - 164),
-            (float(refs[16].ports['o1'].center[0] -110), die.ymax - 164),
+            (float(ecl1.ports['o2'].center[0]), die.ymax - 164-6),
+            (float(refs[16].ports['o1'].center[0] -110), die.ymax - 164-6),
             (float(refs[16].ports['o1'].center[0] -110), float(refs[17].ports['o1'].center[1])),
         ]
     )
@@ -158,8 +168,8 @@ def Main_v2() -> gf.Component:
         port2 = refs[18].ports['o1'],
         cross_section = xs_sin,
         waypoints = [
-            (float(ecl1.ports['o3'].center[0]), die.ymax - 157.5),
-            (float(refs[18].ports['o1'].center[0] -100), die.ymax - 157.5),
+            (float(ecl1.ports['o3'].center[0]), die.ymax - 157.5-6),
+            (float(refs[18].ports['o1'].center[0] -100), die.ymax - 157.5-6),
             (float(refs[18].ports['o1'].center[0] -100), float(refs[18].ports['o1'].center[1])),
         ]
     )
@@ -169,8 +179,8 @@ def Main_v2() -> gf.Component:
         port2 = refs[19].ports['o1'],
         cross_section = xs_sin,
         waypoints = [
-            (float(ecl1.ports['o4'].center[0]), die.ymax - 151),
-            (float(refs[19].ports['o1'].center[0] -90), die.ymax - 151),
+            (float(ecl1.ports['o4'].center[0]), die.ymax - 151-6),
+            (float(refs[19].ports['o1'].center[0] -90), die.ymax - 151-6),
             (float(refs[19].ports['o1'].center[0] -90), float(refs[19].ports['o1'].center[1])),
         ]
     )
@@ -221,11 +231,33 @@ def Main_v2() -> gf.Component:
     ecl2wl.xmin = die.xmin + 1700
 
     #----------- Electrical routings--------
-    gf.routing.route_bundle(
+    # gf.routing.route_bundle(
+    #     c,
+    #     ports1 = [ecl2wl.ports['e1'], ecl2wl.ports['e2']],
+    #     ports2 = [bpads[15].ports['e2'], bpads[16].ports['e2']],
+    #     cross_section= 'metal_routing',   
+    # )
+    gf.routing.route_single(
         c,
-        ports1 = [ecl2wl.ports['e1'], ecl2wl.ports['e2']],
-        ports2 = [bpads[15].ports['e2'], bpads[16].ports['e2']],
-        cross_section= 'metal_routing',   
+        port1 = ecl2wl.ports['e1'],
+        port2 = bpads[15].ports['e2'],
+        cross_section = 'metal_routing',
+        waypoints = [
+            (float(ecl2wl.ports['e1'].center[0]), float(ecl2wl.ports['e1'].center[1] - 30)),
+            (float(ecl2wl.ports['e1'].center[0] + 105), float(ecl2wl.ports['e1'].center[1] - 30)),
+            (float(ecl2wl.ports['e1'].center[0] + 105), float(bpads[15].ports['e2'].center[1] + 90)),
+            (float(bpads[15].ports['e2'].center[0]), float(bpads[15].ports['e2'].center[1] + 90)),
+        ],
+    )
+    gf.routing.route_single(
+        c,
+        port1 = ecl2wl.ports['e2'],
+        port2 = bpads[16].ports['e2'],
+        cross_section = 'metal_routing',
+        waypoints = [
+            (float(ecl2wl.ports['e2'].center[0]), float(ecl2wl.ports['e2'].center[1] - 90)),
+            (float(bpads[16].ports['e2'].center[0]), float(ecl2wl.ports['e2'].center[1] - 90)),
+        ],
     )
 
     gf.routing.route_single(
@@ -248,11 +280,31 @@ def Main_v2() -> gf.Component:
         ],   
     )
 
-    gf.routing.route_bundle(
+    # gf.routing.route_bundle(
+    #     c,
+    #     ports1 = [ecl2wl.ports['e5'], ecl2wl.ports['e6']],
+    #     ports2 = [bpads[19].ports['e2'], bpads[20].ports['e2']],
+    #     cross_section= 'metal_routing',   
+    # )
+    gf.routing.route_single(
         c,
-        ports1 = [ecl2wl.ports['e5'], ecl2wl.ports['e6']],
-        ports2 = [bpads[19].ports['e2'], bpads[20].ports['e2']],
-        cross_section= 'metal_routing',   
+        port1 = ecl2wl.ports['e5'],
+        port2 = bpads[19].ports['e2'],
+        cross_section = 'metal_routing',
+        waypoints = [
+            (float(ecl2wl.ports['e5'].center[0]), float(ecl2wl.ports['e5'].center[1] - 110)),
+            (float(bpads[19].ports['e2'].center[0]), float(ecl2wl.ports['e5'].center[1] - 110)),
+        ],
+    )
+    gf.routing.route_single(
+        c,
+        port1 = ecl2wl.ports['e6'],
+        port2 = bpads[20].ports['e2'],
+        cross_section = 'metal_routing',
+        waypoints = [
+            (float(ecl2wl.ports['e6'].center[0]), float(ecl2wl.ports['e6'].center[1] - 110)),
+            (float(bpads[20].ports['e6'].center[0] if False else bpads[20].ports['e2'].center[0]), float(ecl2wl.ports['e6'].center[1] - 110)),
+        ],
     )
   
     # ECL 3 to ECL to WL
@@ -283,6 +335,7 @@ def Main_v2() -> gf.Component:
     #---------------------------------------------------------------------------------------
     spiral = c.add_ref(Delay_Spiral(width = 3, taper_length = 200, min_bend_radius=270*2, separation=6.5, number_of_loops=27, npoints=20000,))
     spiral.mirror_y()
+    # spiral.rotate(180)
     spiral.move((350 , die.ymin - spiral.ymin + 500))  # 200 µm from left edge, vertically centered
     
     gf.routing.route_single(
@@ -335,28 +388,29 @@ def Main_v2() -> gf.Component:
         ports1 = [spiral.ports['e5'], spiral.ports['e6'], spiral.ports['e7']],
         ports2 = [bpads[37].ports['e2'], bpads[38].ports['e2'], bpads[39].ports['e2']],
         cross_section = 'metal_routing',
+        sort_ports = True,
     )
 
-    bpd_spiral = c.add_ref(Balanced_PD(pad_dy=25))
-    bpd_spiral.mirror_y()
+    bpd_spiral = c.add_ref(Balanced_PD(pad_dy=25,bottom=True))
+    # bpd_spiral.mirror_y()
     bpd_spiral.xmin = bpads[42].ports['e1'].center[0]
     bpd_spiral.ymin = bpads[42].ports['e4'].center[1]
 
     gf.routing.route_bundle(
         c,
         ports1 = [spiral.ports['o2'], spiral.ports['o3']],
-        ports2 = [bpd_spiral.ports['o1'], bpd_spiral.ports['o2']],
+        ports2 = [bpd_spiral.ports['o2'], bpd_spiral.ports['o1']],
         cross_section = 'strip',
     )
 
     #----- PDs
-    pd1_spiral = c.add_ref(PD_Single())
-    pd1_spiral.mirror_y()
+    pd1_spiral = c.add_ref(PD_Single(bottom=True))
+    # pd1_spiral.mirror_y()
     pd1_spiral.xmin = bpads[40].ports['e1'].center[0]
     pd1_spiral.ymin = bpads[40].ports['e4'].center[1]
 
-    pd2_spiral = c.add_ref(PD_Single())
-    pd2_spiral.mirror_y()
+    pd2_spiral = c.add_ref(PD_Single(bottom=True))
+    # pd2_spiral.mirror_y()
     pd2_spiral.xmin = bpads[45].ports['e1'].center[0]
     pd2_spiral.ymin = bpads[45].ports['e4'].center[1]
 
@@ -366,7 +420,7 @@ def Main_v2() -> gf.Component:
     tap1_spiral = tap1_spiral.extrude('strip')
     tap1_spiral = c.add_ref(tap1_spiral)
     # tap1_spiral.rotate(90)
-    tap1_spiral.move((bpd_spiral.ports['o1'].center[0] -20 -0.5 -0.16, float(bpd_spiral.ports['o1'].center[1] + 60 )))
+    tap1_spiral.move((bpd_spiral.ports['o1'].center[0] -(20 +0.5 +0.16)-50, float(bpd_spiral.ports['o1'].center[1] + 60-20 )))
 
     term1_spiral = c.add_ref(gf.components.terminator(doping_layers=[]))
     term1_spiral.rotate(90)
@@ -384,7 +438,7 @@ def Main_v2() -> gf.Component:
     tap2_spiral = tap2_spiral.extrude('strip')
     tap2_spiral = c.add_ref(tap2_spiral)
     tap2_spiral.rotate(180)
-    tap2_spiral.move((bpd_spiral.ports['o2'].center[0] + 20 + 0.5 + 0.16, float(bpd_spiral.ports['o2'].center[1] + 100 )))
+    tap2_spiral.move((bpd_spiral.ports['o2'].center[0] + (20 + 0.5 + 0.16)+50, float(bpd_spiral.ports['o2'].center[1] + 100-20 )))
 
     term2_spiral = c.add_ref(gf.components.terminator(doping_layers=[]))
     term2_spiral.rotate(90)
@@ -452,42 +506,42 @@ def Main_v2() -> gf.Component:
         ] 
     )
 
-    bpd_wl_ring = c.add_ref(Balanced_PD(pad_dy=25))
-    bpd_wl_ring.mirror_y()
+    bpd_wl_ring = c.add_ref(Balanced_PD(pad_dy=25,bottom=True))
+    # bpd_wl_ring.mirror_y()
     bpd_wl_ring.xmin = bpads[27].ports['e1'].center[0]
     bpd_wl_ring.ymin = bpads[27].ports['e4'].center[1]
 
     gf.routing.route_single(
         c,
         port1 = wl_ring.ports['o3'],
-        port2 = bpd_wl_ring.ports['o1'],
+        port2 = bpd_wl_ring.ports['o2'],
         cross_section = 'strip',
         waypoints = [
-            (float(wl_ring.ports['o3'].center[0] + 10), float(wl_ring.ports['o3'].center[1])),
-            (float(wl_ring.ports['o3'].center[0] + 10), float(bpd_wl_ring.ports['o1'].center[1] + 100)),
-            (float(bpd_wl_ring.ports['o1'].center[0] ), float(bpd_wl_ring.ports['o1'].center[1] + 100)),
+            (float(wl_ring.ports['o3'].center[0] + 15), float(wl_ring.ports['o3'].center[1])),
+            (float(wl_ring.ports['o3'].center[0] + 15), float(bpd_wl_ring.ports['o2'].center[1] + 100)),
+            (float(bpd_wl_ring.ports['o2'].center[0] ), float(bpd_wl_ring.ports['o2'].center[1] + 100)),
         ],  
     )
     gf.routing.route_single(
         c,
         port1 = wl_ring.ports['o2'],
-        port2 = bpd_wl_ring.ports['o2'],
+        port2 = bpd_wl_ring.ports['o1'],
         cross_section = 'strip',  
         waypoints = [
-            (float(wl_ring.ports['o2'].center[0] + 15), float(wl_ring.ports['o2'].center[1])),
-            (float(wl_ring.ports['o2'].center[0] + 15), float(bpd_wl_ring.ports['o2'].center[1] + 105)),
-            (float(bpd_wl_ring.ports['o2'].center[0] ), float(bpd_wl_ring.ports['o2'].center[1] + 105)),
+            (float(wl_ring.ports['o2'].center[0] + 20), float(wl_ring.ports['o2'].center[1])),
+            (float(wl_ring.ports['o2'].center[0] + 20), float(bpd_wl_ring.ports['o1'].center[1] + 105)),
+            (float(bpd_wl_ring.ports['o1'].center[0] ), float(bpd_wl_ring.ports['o1'].center[1] + 105)),
         ],
     )
 
     #----- PDs
-    pd1 = c.add_ref(PD_Single())
-    pd1.mirror_y()
+    pd1 = c.add_ref(PD_Single(bottom=True))
+    # pd1.mirror_y()
     pd1.xmin = bpads[25].ports['e1'].center[0]
     pd1.ymin = bpads[25].ports['e4'].center[1]
 
-    pd2 = c.add_ref(PD_Single())
-    pd2.mirror_y()
+    pd2 = c.add_ref(PD_Single(bottom=True))
+    # pd2.mirror_y()
     pd2.xmin = bpads[30].ports['e1'].center[0]
     pd2.ymin = bpads[30].ports['e4'].center[1]
 
@@ -538,7 +592,7 @@ def Main_v2() -> gf.Component:
     #---------------------------------------------------------------------------------------
     # Wavemeter
     #---------------------------------------------------------------------------------------
-    wavemeter = c.add_ref(Wavemeter(pad_dy=16))
+    wavemeter = c.add_ref(Wavemeter(pad_dy=16+6.5))
     wavemeter.ymax = die.ymax - 50
     wavemeter.xmin = die.x + 275
 
@@ -651,8 +705,8 @@ def Main_v2() -> gf.Component:
         port2 = refs[8].ports['o1'], 
         cross_section = xs_sin,
         waypoints = [
-            (float(mzi_pack1.ports['o10'].center[0] - 50), float(mzi_pack1.ports['o10'].center[1])),
-            (float(mzi_pack1.ports['o10'].center[0] - 50), mzi_pack1.ymax + 10),
+            (float(mzi_pack1.ports['o10'].center[0] - 48), float(mzi_pack1.ports['o10'].center[1])),
+            (float(mzi_pack1.ports['o10'].center[0] - 48), mzi_pack1.ymax + 10),
             (float(refs[8].ports['o1'].center[0] -100), mzi_pack1.ymax + 10),
             (float(refs[8].ports['o1'].center[0] -100), float(refs[8].ports['o1'].center[1])),
         ],
@@ -678,10 +732,10 @@ def Main_v2() -> gf.Component:
         cross_section = 'strip',
         waypoints = [
             (float(ecl2.ports['o1'].center[0]) - 510, float(ecl2.ports['o1'].center[1])),
-            (float(ecl2.ports['o1'].center[0]) - 510, float(bpads[0].ports['e1'].center[1] + 60)),
-            (float(mzi_pack1.ports['o2'].center[0]) + 100, float(bpads[0].ports['e1'].center[1] + 60)),
-            (float(mzi_pack1.ports['o2'].center[0]) + 100, float(mzi_pack1.ports['o2'].center[1]) + 60),
-            (float(mzi_pack1.ports['o2'].center[0]) + -20, float(mzi_pack1.ports['o2'].center[1]) + 60),
+            (float(ecl2.ports['o1'].center[0]) - 510, float(bpads[0].ports['e1'].center[1] + 60+5)),
+            (float(mzi_pack1.ports['o2'].center[0]) + 100, float(bpads[0].ports['e1'].center[1] + 60+5)),
+            (float(mzi_pack1.ports['o2'].center[0]) + 100, float(mzi_pack1.ports['o2'].center[1]) - 30+0),
+            (float(mzi_pack1.ports['o2'].center[0]) + -20, float(mzi_pack1.ports['o2'].center[1]) - 30+0),
             (float(mzi_pack1.ports['o2'].center[0]) + -20, float(mzi_pack1.ports['o2'].center[1])),
         ]
     )
@@ -747,8 +801,8 @@ def Main_v2() -> gf.Component:
             (float(mzi_pack4.ports['o1'].center[0]) + 50, float(mzi_pack4.ports['o1'].center[1])),
             (float(mzi_pack4.ports['o1'].center[0]) + 50, float(die.ymax) - 350),
             (float(mzi_pack4.ports['o1'].center[0]) + 500, float(die.ymax) - 350),
-            (float(mzi_pack4.ports['o1'].center[0]) + 500, float(die.ymax) - 460),
-            (float(refs[14].ports['o1'].center[0]) -140, float(die.ymax) - 460),
+            (float(mzi_pack4.ports['o1'].center[0]) + 500, float(die.ymax) - 463),
+            (float(refs[14].ports['o1'].center[0]) -140, float(die.ymax) - 463),
             (float(refs[14].ports['o1'].center[0]) -140, float(refs[14].ports['o1'].center[1])),
         ]
     )
@@ -847,7 +901,8 @@ def Main_v2() -> gf.Component:
     )
 
     external_wl_via = c.add_ref(ssc_via())
-    external_wl_via.mirror_x()
+    # external_wl_via.mirror_x()
+    external_wl_via.rotate(180)
     external_wl_via.xmax = ecl2wl.ports['o6'].center[0] - 100
     external_wl_via.ymin = ecl2wl.ports['o6'].center[1] + 50
     gf.routing.route_single(
@@ -900,7 +955,7 @@ def Main_v2() -> gf.Component:
 
     
     #---------------------------------------------------------------------------------------
-    # Shahab bulshit
+    # Shahab bulshit ;)
     #---------------------------------------------------------------------------------------
     current_mirror = c.add_ref(gf.import_gds("/workspace/myamf/gds/CurrentMirror_5.gds", skip_new_cells=True))
     current_mirror.rotate(-90)
@@ -909,12 +964,13 @@ def Main_v2() -> gf.Component:
     #---------------------------------------------------------------------------------------
     # Logo
     #---------------------------------------------------------------------------------------
-    logo_gds = gf.import_gds("/workspace/myamf/gds/quiet_logo.gds", skip_new_cells=True)
+    logo_gds = gf.import_gds("/workspace/myamf/gds/quiet_logo_2p2um.gds", skip_new_cells=True)
     logo_gds.remap_layers({(1, 0): (125, 0)})  # move to Metal 2 layer
     logo = c.add_ref(logo_gds)
+    # logo.dmagnification = 3 
     # logo.xmax =  250
     # logo.ymax = die.ymax - 1400
-    logo.move((520, 920))
-
+    logo.move((770, 910))
+ 
 
     return c

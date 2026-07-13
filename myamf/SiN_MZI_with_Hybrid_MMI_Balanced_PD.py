@@ -17,7 +17,8 @@ def SiN_MZI_with_Hybrid_MMI_Balanced_PD(
     via_top1 = c.add_ref(ssc_via())
     via_top1.move((-70, 38))
     via_top2 = c.add_ref(ssc_via())
-    via_top2.mirror_x()
+    # via_top2.mirror_x()
+    via_top2.rotate(180)
     via_top2.move((70+242, 38))
 
     via_bottom1 = c.add_ref(ssc_via())

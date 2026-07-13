@@ -24,7 +24,7 @@ def ECL3() -> gf.Component:
     c = gf.Component()
     pdk = get_active_pdk()
 
-    die = c.add_ref(gf.components.rectangle(size=DIE_SIZE, layer = LAYER.MARKER))
+    die = c.add_ref(gf.components.rectangle(size=DIE_SIZE, layer = LAYER.FLOORPLAN))
     die.move((-3700, -1500))
 
     N_bPADS = 20
@@ -57,13 +57,13 @@ def ECL3() -> gf.Component:
     ecl3.add_port(name="e4",  center=(-184.893,  104.699), width=20, orientation=270, layer="MT2", port_type="electrical")
     ecl3.add_port(name="e5",  center=( 135.04, -119.885), width=20, orientation=270, layer="MT2", port_type="electrical")
     ecl3.add_port(name="e6",  center=( 202.81, -119.955), width=20, orientation=270, layer="MT2", port_type="electrical")
-    ecl3.add_port(name="e7",  center=( 468.828,  108.585), width=20, orientation=0,  layer="MT2", port_type="electrical")
+    ecl3.add_port(name="e7",  center=( 468.828,  108.585-15.2), width=20, orientation=0,  layer="MT2", port_type="electrical")
     ecl3.add_port(name="e8",  center=( 451.428,  209.815), width=20, orientation=0,  layer="MT2", port_type="electrical")
     ecl3.add_port(name="e9",  center=( 247.859,  353.055), width=20, orientation=90, layer="MT2", port_type="electrical")
     ecl3.add_port(name="e10", center=(-92.141,  415.645), width=20, orientation=90, layer="MT2", port_type="electrical")
 
     ecl3 = c.add_ref(ecl3)
-    ecl3.xmin = die.xmin -5.5
+    ecl3.xmin = die.xmin -0.11*0
     ecl3.ymin = die.ymin + 380
 
     #---------------------------------------------------------------------------------------
@@ -131,13 +131,13 @@ def ECL3() -> gf.Component:
     #---------------------------------------------------------------------------------------
     # Balanced PDs
     #---------------------------------------------------------------------------------------
-    bpd12 = c.add_ref(Balanced_PD(pad_dy=25))
-    bpd12.mirror_y()
+    bpd12 = c.add_ref(Balanced_PD(pad_dy=25,bottom=True))
+    # bpd12.mirror_y()
     bpd12.ymin = bpads[9].ports['e4'].center[1]
     bpd12.xmin = bpads[9].ports['e1'].center[0]
 
-    bpd34 = c.add_ref(Balanced_PD(pad_dy=25))
-    bpd34.mirror_y()
+    bpd34 = c.add_ref(Balanced_PD(pad_dy=25,bottom=True))
+    # bpd34.mirror_y()
     bpd34.ymin = bpads[12].ports['e4'].center[1]
     bpd34.xmin = bpads[12].ports['e1'].center[0]
 
@@ -154,12 +154,14 @@ def ECL3() -> gf.Component:
     via4_o1_x = via3_xmin + 121  # same xmin
 
     via3 = c.add_ref(ssc_via())
-    via3.mirror_x()
+    # via3.mirror_x()
+    via3.rotate(180)
     via3.xmin = via3_xmin
     via3.movey(via3_y)
 
     via4 = c.add_ref(ssc_via())
-    via4.mirror_x()
+    # via4.mirror_x()
+    via4.rotate(180)
     via4.xmin = via3_xmin
     via4.movey(via4_y)
 
@@ -185,7 +187,8 @@ def ECL3() -> gf.Component:
     mmi4.move((via4_o1_x, via4_y))
 
     mmi5 = c.add_ref(mmi_1x2())
-    mmi5.mirror_x()
+    # mmi5.mirror_x()
+    mmi5.rotate(180)
     mmi5.xmin = via3_xmin
     mmi5.ymax = via3_y - 40
 
@@ -212,30 +215,30 @@ def ECL3() -> gf.Component:
             (float(ecl3.ports['o4'].center[0] - 25), float(mmi2.ports['o1'].center[1])),
         ],
     )
-    gf.routing.route_single(c, port1=mmi1.ports['o2'], port2=bpd12.ports['o1'], cross_section='strip')
-    gf.routing.route_single(c, port1=mmi2.ports['o3'], port2=bpd12.ports['o2'], cross_section='strip')
-    gf.routing.route_single(c, port1=mmi2.ports['o2'], port2=mmi5.ports['o3'], cross_section='strip')
-    gf.routing.route_single(c, port1=mmi5.ports['o2'], port2=mmi3.ports['o3'], cross_section='strip')
+    gf.routing.route_single(c, port1=mmi1.ports['o2'], port2=bpd12.ports['o2'], cross_section='strip')
+    gf.routing.route_single(c, port1=mmi2.ports['o3'], port2=bpd12.ports['o1'], cross_section='strip')
+    gf.routing.route_single(c, port1=mmi2.ports['o2'], port2=mmi5.ports['o2'], cross_section='strip')
+    gf.routing.route_single(c, port1=mmi5.ports['o3'], port2=mmi3.ports['o3'], cross_section='strip')
     gf.routing.route_single(
         c,
         port1=mmi3.ports['o2'],
-        port2=bpd34.ports['o1'],
+        port2=bpd34.ports['o2'],
         cross_section='strip',
         waypoints=[
             (float(mmi3.ports['o2'].center[0] + 15), float(mmi3.ports['o2'].center[1])),
-            (float(mmi3.ports['o2'].center[0] + 15), float(bpd34.ports['o1'].center[1] + 10)),
-            (float(bpd34.ports['o1'].center[0]),     float(bpd34.ports['o1'].center[1] + 10)),
+            (float(mmi3.ports['o2'].center[0] + 15), float(bpd34.ports['o2'].center[1] + 10)),
+            (float(bpd34.ports['o2'].center[0]),     float(bpd34.ports['o2'].center[1] + 10)),
         ],
     )
     gf.routing.route_single(
         c,
         port1=mmi4.ports['o3'],
-        port2=bpd34.ports['o2'],
+        port2=bpd34.ports['o1'],
         cross_section='strip',
         waypoints=[
             (float(mmi4.ports['o3'].center[0] + 20), float(mmi4.ports['o3'].center[1])),
-            (float(mmi4.ports['o3'].center[0] + 20), float(bpd34.ports['o2'].center[1] + 15)),
-            (float(bpd34.ports['o2'].center[0]),      float(bpd34.ports['o2'].center[1] + 15)),
+            (float(mmi4.ports['o3'].center[0] + 20), float(bpd34.ports['o1'].center[1] + 15)),
+            (float(bpd34.ports['o1'].center[0]),      float(bpd34.ports['o1'].center[1] + 15)),
         ],
     )
 

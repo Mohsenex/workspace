@@ -113,7 +113,7 @@ def Tunable_Coupler(
     #----------------------------------------------------------------------
     htr = c.add_ref(gf.components.rectangle(size = (htr_length, 5), layer = LAYER.HTR))
     htr.xmin = splitter.xmax + 20
-    htr.ymin = splitter.ports['o4'].center[1] - 32.5
+    htr.ymin = splitter.ports['o4'].center[1] + 32.5-3.666
 
     htr_patch_right = c.add_ref(gf.components.rectangle(size=(6, 6), layer=LAYER.HTR))
     htr_patch_right.xmax= htr.xmax

@@ -27,7 +27,7 @@ def ECL1() -> gf.Component:
     c = gf.Component()
     pdk = get_active_pdk()
 
-    die = c.add_ref(gf.components.rectangle(size=DIE_SIZE, layer = LAYER.MARKER))
+    die = c.add_ref(gf.components.rectangle(size=DIE_SIZE, layer = LAYER.FLOORPLAN))
     die.move((-3700, -1500))
 
     
@@ -82,13 +82,13 @@ def ECL1() -> gf.Component:
     # ecl1.add_port(name="e12", center=(372.69, 419.283), width=20, orientation=90,  layer="MT2", port_type="electrical")
     ecl1.add_port(name="e13", center=(118.359, 327.934), width=20, orientation=90,  layer="MT2", port_type="electrical")
     ecl1.add_port(name="e14", center=(458.359, 346.114), width=20, orientation=90,  layer="MT2", port_type="electrical")
-    ecl1.add_port(name="e15", center=(606.054, -169.658), width=20, orientation=270,  layer="MT2", port_type="electrical")
-    ecl1.add_port(name="e16", center=(718.554, -187.658), width=20, orientation=270,  layer="MT2", port_type="electrical")
+    ecl1.add_port(name="e15", center=(606.054-0.5, -169.658), width=13, orientation=270,  layer="MT2", port_type="electrical")
+    ecl1.add_port(name="e16", center=(718.554, -187.658), width=13, orientation=270,  layer="MT2", port_type="electrical")
     ecl1.add_port(name="e17", center=(249.66, -138.869), width=20, orientation=270,  layer="MT2", port_type="electrical")
     ecl1.add_port(name="e18", center=(183.43, -138.179), width=20, orientation=270,  layer="MT2", port_type="electrical")
 
     ecl1 = c.add_ref(ecl1)
-    ecl1.xmin = die.xmin-5.5
+    ecl1.xmin = die.xmin-0.11*0
     ecl1.movey(600)
 
     #----------Metal Routing ---------------------
@@ -142,8 +142,8 @@ def ECL1() -> gf.Component:
         port2 = pads[10].ports['e4'],
         cross_section = 'metal_routing',
         waypoints = [
-            (float(ecl1.ports['e10'].center[0]), float(ecl1.ports['e9'].center[1]) + 50),
-            (float(pads[10].ports['e4'].center[0]), float(ecl1.ports['e9'].center[1]) + 50),
+            (float(ecl1.ports['e10'].center[0]), float(ecl1.ports['e9'].center[1]) + 30), # for metal below SSC and SiN
+            (float(pads[10].ports['e4'].center[0]), float(ecl1.ports['e9'].center[1]) + 30),
         ],
     )
 
@@ -406,7 +406,7 @@ def ECL1() -> gf.Component:
     via3 = c.add_ref(ssc_via()) ##via3 = c.add_ref(ssc_via())
     via3.rotate(90)
     via3.x = ecl1.ports['o5'].center[0] 
-    via3.ymin = ecl1.ports['o5'].center[1] + 78.5
+    via3.ymin = ecl1.ports['o5'].center[1] + 78.5-10
 
     gf.routing.route_single(
         c,

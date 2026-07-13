@@ -26,7 +26,7 @@ def ECL2() -> gf.Component:
     c = gf.Component()
     pdk = get_active_pdk()
 
-    die = c.add_ref(gf.components.rectangle(size=DIE_SIZE, layer = LAYER.MARKER))
+    die = c.add_ref(gf.components.rectangle(size=DIE_SIZE, layer = LAYER.FLOORPLAN))
     die.move((-3700, -1500))
 
     
@@ -79,7 +79,7 @@ def ECL2() -> gf.Component:
     ecl2.add_port(name="e8", center=(-303.29, 20.07), width=20, orientation=0,  layer="MT2", port_type="electrical")
 
     ecl2 = c.add_ref(ecl2)
-    ecl2.xmin = die.xmin -5.5
+    ecl2.xmin = die.xmin -0.11*0
     ecl2.movey(0)
 
     #----- Heaters Electrical Routing----------
@@ -207,35 +207,40 @@ def ECL2() -> gf.Component:
 
     # ------------- Optical routings---------------
     ecl2_via1 = c.add_ref(ssc_via())
-    ecl2_via1.mirror_x()
+    # ecl2_via1.mirror_x()
+    ecl2_via1.rotate(180)
     ecl2_via1.xmin = ecl2.ports['e8'].center[0] + 100
     ecl2_via1.movey(ecl2.ports['o4'].center[1])
     ecl2_via1_mmi = c.add_ref(mmi_1x2())
     ecl2_via1_mmi.move(ecl2_via1.ports['o1'].center)
 
     ecl2_via2 = c.add_ref(ssc_via())
-    ecl2_via2.mirror_x()
+    # ecl2_via2.mirror_x()
+    ecl2_via2.rotate(180)
     ecl2_via2.xmin = ecl2.ports['e8'].center[0] + 100
     ecl2_via2.movey(ecl2.ports['o4'].center[1] - 50)
     ecl2_via2_mmi = c.add_ref(mmi_1x2())
     ecl2_via2_mmi.move(ecl2_via2.ports['o1'].center)
 
     ecl2_via3 = c.add_ref(ssc_via())
-    ecl2_via3.mirror_x()
+    # ecl2_via3.mirror_x()
+    ecl2_via3.rotate(180)
     ecl2_via3.xmin = ecl2.ports['e8'].center[0] + 100
     ecl2_via3.movey(ecl2.ports['o4'].center[1] - 100)
     ecl2_via3_mmi = c.add_ref(mmi_1x2())
     ecl2_via3_mmi.move(ecl2_via3.ports['o1'].center)
 
     ecl2_via4 = c.add_ref(ssc_via())
-    ecl2_via4.mirror_x()
+    # ecl2_via4.mirror_x()
+    ecl2_via4.rotate(180)
     ecl2_via4.xmin = ecl2.ports['e8'].center[0] + 100
     ecl2_via4.movey(ecl2.ports['o4'].center[1] - 150)
     ecl2_via4_mmi = c.add_ref(mmi_1x2())
     ecl2_via4_mmi.move(ecl2_via4.ports['o1'].center)
 
     ecl2_combiner1 = c.add_ref(mmi_1x2())
-    ecl2_combiner1.mirror_x()
+    # ecl2_combiner1.mirror_x()
+    ecl2_combiner1.rotate(180)
     ecl2_combiner1.xmin = ecl2_via1_mmi.xmax + 20
     ecl2_combiner1.ymax = ecl2_via1_mmi.ymin - 15
 
@@ -291,20 +296,20 @@ def ECL2() -> gf.Component:
     gf.routing.route_single(
         c,
         port1 = ecl2_via1_mmi.ports['o3'],
-        port2 = ecl2_combiner1.ports['o2'],
+        port2 = ecl2_combiner1.ports['o3'],
         cross_section = 'strip',
     )
 
     gf.routing.route_single(
         c,
         port1 = ecl2_via4_mmi.ports['o2'],
-        port2 = ecl2_combiner1.ports['o3'],
+        port2 = ecl2_combiner1.ports['o2'],
         cross_section = 'strip',
         waypoints = [
             (float(ecl2_via4_mmi.ports['o2'].center[0] + 10), float(ecl2_via4_mmi.ports['o2'].center[1])),
             (float(ecl2_via4_mmi.ports['o2'].center[0] + 10), float(ecl2_via4_mmi.ports['o2'].center[1] + 20)),
             (float(ecl2_via4.ports['o2'].center[0] - 40), float(ecl2_via4_mmi.ports['o2'].center[1] + 20)),
-            (float(ecl2_via4.ports['o2'].center[0] - 40), float(ecl2_combiner1.ports['o3'].center[1])),
+            (float(ecl2_via4.ports['o2'].center[0] - 40), float(ecl2_combiner1.ports['o2'].center[1])),
         ],
     )
 

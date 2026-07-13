@@ -79,8 +79,34 @@ def Hybrid_MMI()->gf.Component:
         cross_section='strip',        
         )
 
+    # term = c.add_ref(gf.components.terminator(doping_layers=[]))
+    # term.connect('o1', mmi221.ports['o4'])
+
+    # 500 nm single-mode lead: east 130 µm, then north 30 µm into open space,
+    # so the terminator's delocalized tip is far from neighboring guides.
+    term_str1 = c.add_ref(gf.components.straight(length=180, cross_section='strip'))
+    term_str1.connect('o1', mmi221.ports['o4'])
+
+    term_bend = c.add_ref(gf.components.bend_euler(angle=90, cross_section='strip'))
+    term_bend.connect('o1', term_str1.ports['o2'])
+
+    term_str2 = c.add_ref(gf.components.straight(length=30, cross_section='strip'))
+    term_str2.connect('o1', term_bend.ports['o2'])
+
+    term_bend2 = c.add_ref(gf.components.bend_euler(angle=90, cross_section='strip'))
+    term_bend2.connect('o1', term_str2.ports['o2'])
+
+    term_str3 = c.add_ref(gf.components.straight(length=100, cross_section='strip'))
+    term_str3.connect('o1', term_bend2.ports['o2'])
+
+    term_bend3 = c.add_ref(gf.components.bend_euler(angle=-90, cross_section='strip'))
+    term_bend3.connect('o1', term_str3.ports['o2'])
+
+    term_str4 = c.add_ref(gf.components.straight(length=2, cross_section='strip'))
+    term_str4.connect('o1', term_bend3.ports['o2'])
+
     term = c.add_ref(gf.components.terminator(doping_layers=[]))
-    term.connect('o1', mmi221.ports['o4'])
+    term.connect('o1', term_str4.ports['o2'])
 
     c.add_port("o1", port=mmi12.ports["o1"]) 
     c.add_port("o2", port=mmi221.ports["o3"])

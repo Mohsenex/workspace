@@ -37,11 +37,12 @@ def SiN_MZI(
     # MMI placement                                                        #
     # ------------------------------------------------------------------ #
     splitter = c.add_ref(mmi_1x2())
-    combiner = c.add_ref(mmi_2x2())
-
+    # combiner = c.add_ref(mmi_2x2())
+    combiner = c.add_ref(mmi_1x2())
+    combiner.rotate(180)
     # Place combiner gap µm east of splitter (port face to port face)
     combiner.movex(
-        splitter.ports["o2"].center[0] + gap - combiner.ports["o1"].center[0]
+        splitter.ports["o2"].center[0] + gap - combiner.ports["o3"].center[0]+10
     )
 
     #-------------------------------------------------------
@@ -51,7 +52,8 @@ def SiN_MZI(
     via_up1.move([55 + 2*R, 2*R + 0.9])
 
     via_up2 = c.add_ref(ssc_via())
-    via_up2.mirror_x()
+    # via_up2.mirror_x()
+    via_up2.rotate(180)
     via_up2.move([242 + 55 + 2*R, 2*R + 0.9])
 
 
@@ -59,7 +61,8 @@ def SiN_MZI(
     via_bottom1.move([55 + 2*R, - (2*R + 0.9) - dl/2])
 
     via_bottom2 = c.add_ref(ssc_via())
-    via_bottom2.mirror_x()
+    # via_bottom2.mirror_x()
+    via_bottom2.rotate(180)
     via_bottom2.move([242 + 55 + 2*R + dl, -(2*R + 0.9) - dl/2])
 
     #---------------------------------------------------------------------
@@ -75,7 +78,7 @@ def SiN_MZI(
     r2 = gf.routing.route_single(
         c,
         port1=via_up2.ports["o1"],
-        port2=combiner.ports["o2"],
+        port2=combiner.ports["o3"],
         cross_section=cross_section,
     )
 
@@ -89,7 +92,7 @@ def SiN_MZI(
     r4 = gf.routing.route_single(
         c,
         port1=via_bottom2.ports["o1"],
-        port2=combiner.ports["o1"],
+        port2=combiner.ports["o2"],
         cross_section=cross_section,
     )
 
@@ -102,10 +105,10 @@ def SiN_MZI(
     )
 
     #----- Ports----------------------
-    term = c.add_ref(gf.components.terminator(doping_layers=[]))
-    term.connect('o1', combiner.ports['o3'])
+    # term = c.add_ref(gf.components.terminator(doping_layers=[]))
+    # term.connect('o1', combiner.ports['o3'])
 
     c.add_port('o1', port = splitter.ports['o1'])
-    c.add_port('o2', port = combiner.ports['o4'])
+    c.add_port('o2', port = combiner.ports['o1'])
 
     return c

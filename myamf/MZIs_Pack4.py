@@ -37,85 +37,104 @@ def MZIs_Pack4()->gf.Component:
     via.y = via.y + 150
 
     splitter0 = c.add_ref(mmi_1x2())
-    splitter0.mirror_x()
+    # splitter0.mirror_x()
+    splitter0.rotate(180)
     splitter0.connect('o1', via.ports['o1'])
 
     splitter1 = c.add_ref(mmi_1x2())
-    splitter1.mirror_x()
+    # splitter1.mirror_x()
+    splitter1.rotate(180)
     splitter1.xmax = splitter0.xmin - 25
     splitter1.ymin = splitter0.ymin - 25
 
     splitter2 = c.add_ref(mmi_1x2())
-    splitter2.mirror_x()
+    # splitter2.mirror_x()
+    splitter2.rotate(180)
     splitter2.xmax = splitter1.xmin - 25
     splitter2.ymin = splitter1.ymax + 25
 
     splitter3 = c.add_ref(mmi_1x2())
-    splitter3.mirror_x()
+    # splitter3.mirror_x()
+    splitter3.rotate(180)
     splitter3.xmax = splitter1.xmin - 25
     splitter3.ymin = splitter1.ymin - 25
 
     term1 = c.add_ref(gf.components.terminator(doping_layers=[]))
     term1.connect('o1', mzi1.ports['o2'])
-    term2 = c.add_ref(gf.components.terminator(doping_layers=[]))
-    term2.connect('o1', mzi1.ports['o3'])
+    # term2 = c.add_ref(gf.components.terminator(doping_layers=[]))
+    # term2.connect('o1', mzi1.ports['o3'])
     term3 = c.add_ref(gf.components.terminator(doping_layers=[]))
     term3.connect('o1', mzi2.ports['o2'])
-    term4 = c.add_ref(gf.components.terminator(doping_layers=[]))
-    term4.connect('o1', mzi2.ports['o3'])
+    # term4 = c.add_ref(gf.components.terminator(doping_layers=[]))
+    # term4.connect('o1', mzi2.ports['o3'])
+
+    # east-facing (output side)
+    def lead_and_terminate(port, run=10, up=5, angle=90):
+        s1 = c.add_ref(gf.components.straight(length=run, cross_section='strip'))
+        s1.connect('o1', port)
+        b = c.add_ref(gf.components.bend_euler(angle=angle, cross_section='strip'))
+        b.connect('o1', s1.ports['o2'])
+        s2 = c.add_ref(gf.components.straight(length=up, cross_section='strip'))
+        s2.connect('o1', b.ports['o2'])
+        t = c.add_ref(gf.components.terminator(doping_layers=[]))
+        t.connect('o1', s2.ports['o2'])
+        return t
+
+    term2 = lead_and_terminate(mzi1.ports['o3'])
+    term4 = lead_and_terminate(mzi2.ports['o3'])
 
     gf.routing.route_single(
         c,
-        port1 = splitter3.ports['o3'],
+        port1 = splitter3.ports['o2'],
         port2 = mzi1.ports['o1'],
         cross_section = 'strip',
         waypoints = [
-            (term1.xmin - 10, float(splitter3.ports['o3'].center[1])),
+            (term1.xmin - 10, float(splitter3.ports['o2'].center[1])),
             (term1.xmin - 10, float(mzi1.ports['o1'].center[1])),
         ]
     )
     gf.routing.route_single(
         c,
-        port1 = splitter3.ports['o2'],
+        port1 = splitter3.ports['o3'],
         port2 = mzi2.ports['o1'],
         cross_section = 'strip',
         waypoints = [
-            (term1.xmin - 15, float(splitter3.ports['o2'].center[1])),
+            (term1.xmin - 15, float(splitter3.ports['o3'].center[1])),
             (term1.xmin - 15, float(mzi2.ports['o1'].center[1])),
         ]
     )
 
     gf.routing.route_single(
         c,
-        port1 = splitter2.ports['o3'],
+        port1 = splitter2.ports['o2'],
         port2 = via_mzi.ports['o1'],
         cross_section = 'strip',
         waypoints = [
-            (term1.xmin - 20, float(splitter2.ports['o3'].center[1])),
+            (term1.xmin - 20, float(splitter2.ports['o2'].center[1])),
             (term1.xmin - 20, float(via_mzi.ports['o1'].center[1])),
         ]
     )
     gf.routing.route_single(
         c,
-        port1 = splitter2.ports['o2'],
+        port1 = splitter2.ports['o3'],
         port2 = sin_mzi.ports['o1'],
         cross_section = 'strip',
         waypoints = [
-            (term1.xmin - 25, float(splitter2.ports['o2'].center[1])),
+            (term1.xmin - 25, float(splitter2.ports['o3'].center[1])),
             (term1.xmin - 25, float(sin_mzi.ports['o1'].center[1])),
         ]
     )
 
     gf.routing.route_bundle(
         c,
-        ports1 = [splitter1.ports['o2'], splitter1.ports['o3']],
+        ports1 = [splitter1.ports['o3'], splitter1.ports['o2']],
         ports2 = [splitter2.ports['o1'], splitter3.ports['o1']],
         cross_section = 'strip',
     )
 
     gf.routing.route_single(
         c,
-        port1 = splitter0.ports['o3'],
+        port1 = splitter0.ports['o2'],
         port2 = splitter1.ports['o1'],
         cross_section = 'strip',
     )
@@ -123,13 +142,14 @@ def MZIs_Pack4()->gf.Component:
 
     #--------- second via ------------------
     via2 = c.add_ref(ssc_via())
-    via2.mirror_x()
+    # via2.mirror_x()
+    via2.rotate(180)
     via2.x = mzi1.xmin + 20
     via2.y = via.y + 30
 
     gf.routing.route_single(
         c,
-        port1 = splitter0.ports['o2'],
+        port1 = splitter0.ports['o3'],
         port2 = via2.ports['o1'],
         cross_section = 'strip',
     )

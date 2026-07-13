@@ -67,7 +67,8 @@ def SiN_1250_MZI(
 
 
     via_up2 = c.add_ref(ssc_via())
-    via_up2.mirror_x()
+    # via_up2.mirror_x()
+    via_up2.rotate(180)
     via_up2.move([242 + 55 + 2*R + 2*taper_length, 2*R + 0.9])
 
 
@@ -92,7 +93,8 @@ def SiN_1250_MZI(
     taper_bottom2.move([55 + 2*R + 121 + dl + 2*taper_length, -(2*R + 0.9) - dl/2])
 
     via_bottom2 = c.add_ref(ssc_via())
-    via_bottom2.mirror_x()
+    # via_bottom2.mirror_x()
+    via_bottom2.rotate(180)
     via_bottom2.move([242 + 55 + 2*R + dl + 2*taper_length, -(2*R + 0.9) - dl/2])
 
     #---------------------------------------------------------------------

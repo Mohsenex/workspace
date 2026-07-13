@@ -70,8 +70,8 @@ def via_MZI(
 
     # via_rev: mirror of via_fwd so its SiN port faces West (touching via_fwd.o2)
     via_rev = c.add_ref(ssc_via())
-    via_rev.mirror_x()  # flip horizontally: o2(SiN) is now on the West side
-
+    # via_rev.mirror_x()  # flip horizontally: o2(SiN) is now on the West side
+    via_rev.rotate(180)
     # Connect SiN ports: move via_rev so its o2 coincides with via_fwd.o2
     fwd_o2 = via_fwd.ports["o2"].center
     rev_o2 = via_rev.ports["o2"].center

@@ -71,9 +71,11 @@ def Delay_Spiral(
     # Splitter and combiner
     #-------------------------------------------------------------------------------
     splitter = c.add_ref(mmi_1x2())
+    splitter.mirror_y()
     splitter.move([-spiral_half_height, spiral_half_height + 0.9])
 
     via1 = c.add_ref(ssc_via())
+    via1.mirror_y()
     via1.move([-spiral_half_height + 80, spiral_half_height])
 
     taper1 = c.add_ref(gf.components.taper(
@@ -85,6 +87,7 @@ def Delay_Spiral(
     taper1.move([-spiral_half_height + 80 + 121, spiral_half_height])
 
     via2 = c.add_ref(ssc_via())
+    via2.mirror_y()
     via2.move([1.5 * spiral_half_height , spiral_half_height + 10])
 
     taper2 = c.add_ref(gf.components.taper(
@@ -101,12 +104,13 @@ def Delay_Spiral(
 
     combiner = c.add_ref(mmi_2x2())
     combiner.rotate(90)
-    combiner.move([spiral_half_height + 310/2 + 40, spiral_half_height+ 30 ])
+    combiner.mirror_y()
+    combiner.move([spiral_half_height + 310/2 + 40, spiral_half_height+ 100 ])
 
 
     gf.routing.route_single(
         c,
-        port1 = splitter.ports['o3'],
+        port1 = splitter.ports['o2'],
         port2 = via1.ports['o1'],
         cross_section = 'strip',
     )
@@ -119,14 +123,14 @@ def Delay_Spiral(
 
     gf.routing.route_single(
         c,
-        port1 = splitter.ports['o2'],
+        port1 = splitter.ports['o3'],
         port2 = voa.ports['o1'],
         cross_section = 'strip',
         waypoints=[
-            (splitter.ports["o2"].center[0] + 20, splitter.ports["o2"].center[1]),
-            (splitter.ports["o2"].center[0] + 20, splitter.ports["o2"].center[1] +20),
-            (splitter.ports["o2"].center[0] + 20 + 1.2 * spiral_half_height, splitter.ports["o2"].center[1] +20),
-            (splitter.ports["o2"].center[0] + 20 + 1.2 * spiral_half_height, splitter.ports["o2"].center[1] ),
+            (splitter.ports["o3"].center[0] + 20, splitter.ports["o3"].center[1]),
+            (splitter.ports["o3"].center[0] + 20, splitter.ports["o3"].center[1] +20),
+            (splitter.ports["o3"].center[0] + 20 + 1.2 * spiral_half_height, splitter.ports["o3"].center[1] +20),
+            (splitter.ports["o3"].center[0] + 20 + 1.2 * spiral_half_height, splitter.ports["o3"].center[1] ),
         ],
     )
 
@@ -144,14 +148,14 @@ def Delay_Spiral(
     gf.routing.route_single(
         c,
         port1 = via2.ports['o1'],
-        port2 = combiner.ports['o1'],
+        port2 = combiner.ports['o4'],
         cross_section = 'strip',
     )
 
     gf.routing.route_single(
         c,
         port1 = voa.ports['o2'],
-        port2 = combiner.ports['o2'],
+        port2 = combiner.ports['o3'],
         cross_section = 'strip',
     )
 
@@ -214,8 +218,8 @@ def Delay_Spiral(
 
     #--------------- Adding Ports-------------------------
     c.add_port('o1', port = splitter.ports['o1'])
-    c.add_port('o2', port = combiner.ports['o3'])
-    c.add_port('o3', port = combiner.ports['o4'])
+    c.add_port('o2', port = combiner.ports['o2'])
+    c.add_port('o3', port = combiner.ports['o1'])
 
     c.add_port('e1', port = spiral_mt_patch_right.ports['e2'])
     c.add_port('e2', port = spiral_mt_patch_left.ports['e2'])

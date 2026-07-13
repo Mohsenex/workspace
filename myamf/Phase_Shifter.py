@@ -42,6 +42,12 @@ def Phase_Shifter(
     )
 
     #---------- Dopings ---------------
+    w_oximp=8
+    oximp = c.add_ref(gf.components.rectangle(size = (l+2, w_oximp), layer = LAYER.OXIMP))
+    oximp.xmin = strip2rib_1.xmax
+    oximp.movey(-w_oximp/2)
+    oximp.movex(-1)
+    
     p_plus = c.add_ref(gf.components.rectangle(size = (l, 2.3), layer = LAYER.IPD))
     p_plus.xmin = strip2rib_1.xmax
     p_plus.movey(strip_width/2 + 0.7)
@@ -66,31 +72,31 @@ def Phase_Shifter(
     via1_low.center = n_plus2.center
 
 #---------- Metal1 ---------------
-    mt1_up = c.add_ref(gf.components.rectangle(size = (l + 4, 8), layer = LAYER.MT1))
+    mt1_up = c.add_ref(gf.components.rectangle(size = (l + 4, 14), layer = LAYER.MT1))
     mt1_up.xmin = strip2rib_1.xmax - 2
     mt1_up.ymin = via1_up.ymin - 0.5
 
-    mt1_low = c.add_ref(gf.components.rectangle(size = (l + 4, 8), layer = LAYER.MT1))
+    mt1_low = c.add_ref(gf.components.rectangle(size = (l + 4, 14), layer = LAYER.MT1))
     mt1_low.xmin = strip2rib_1.xmax - 2
     mt1_low.ymax = via1_low.ymax + 0.5
     
 
     #---------- Via2 ---------------
-    via2_up = c.add_ref(gf.components.rectangle(size = (l, 2), layer = LAYER.VIA2))
+    via2_up = c.add_ref(gf.components.rectangle(size = (l, 3.5), layer = LAYER.VIA2))
     via2_up.xmin = strip2rib_1.xmax
-    via2_up.ymin = via1_up.ymax + 2
+    via2_up.ymin = via1_up.ymax + 6
 
-    via2_low = c.add_ref(gf.components.rectangle(size = (l, 2), layer = LAYER.VIA2))
+    via2_low = c.add_ref(gf.components.rectangle(size = (l, 3.5), layer = LAYER.VIA2))
     via2_low.xmin = strip2rib_1.xmax
-    via2_low.ymax = via1_low.ymin - 2
+    via2_low.ymax = via1_low.ymin - 6
     
 
     #---------- Metal2 ---------------
-    mt2_up = c.add_ref(gf.components.rectangle(size = (l+4, 6), layer = LAYER.MT2))
+    mt2_up = c.add_ref(gf.components.rectangle(size = (l+4, 8.5), layer = LAYER.MT2))
     mt2_up.xmin = strip2rib_1.xmax - 2
     mt2_up.ymax = mt1_up.ymax
 
-    mt2_low = c.add_ref(gf.components.rectangle(size = (l+4, 6), layer = LAYER.MT2))
+    mt2_low = c.add_ref(gf.components.rectangle(size = (l+4, 8.5), layer = LAYER.MT2))
     mt2_low.xmin = strip2rib_1.xmax - 2
     mt2_low.ymin = mt1_low.ymin
 

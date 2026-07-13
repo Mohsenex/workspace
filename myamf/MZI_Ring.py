@@ -11,7 +11,7 @@ from amf.import_gds import import_gds
 @gf.cell
 def MZI_Ring(
     l: float = 800, # distance between splitter and combiner
-    gap: float = 0.35,
+    gap: float = 0.4,
     coupling_length: float = 21, 
     coupling_radius: float = 100,
     wg_width: float = 1.25,
@@ -37,7 +37,8 @@ def MZI_Ring(
     via1.movey(splitter.ports['o2'].center[1] + 25)
 
     via2 = c.add_ref(ssc_via())
-    via2.mirror_x()
+    # via2.mirror_x()
+    via2.rotate(180)
     via2.xmax = combiner.xmin - 40 - htr_length
     via2.movey(splitter.ports['o2'].center[1] + 25)
 
@@ -65,7 +66,8 @@ def MZI_Ring(
     via3.movey(splitter.ports['o3'].center[1] - 25)
 
     via4 = c.add_ref(ssc_via())
-    via4.mirror_x()
+    # via4.mirror_x()
+    via4.rotate(180)
     via4.xmax = combiner.xmin - 40 - htr_length
     via4.movey(splitter.ports['o3'].center[1] - 25)
 

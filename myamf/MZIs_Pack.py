@@ -38,22 +38,26 @@ def MZIs_Pack()->gf.Component:
     #---------Combiners ------------------
 
     combiner1 = c.add_ref(mmi_1x2())
-    combiner1.mirror_x()
+    # combiner1.mirror_x()
+    combiner1.rotate(180)
     combiner1.xmin = sin_1250_mzi.ports['o2'].center[0] + 30
     combiner1.ymax = sin_1250_mzi.ports['o2'].center[1] - 30
 
     combiner2 = c.add_ref(mmi_1x2())
-    combiner2.mirror_x()
+    # combiner2.mirror_x()
+    combiner2.rotate(180)
     combiner2.xmin = sin_mzi.ports['o2'].center[0] + 30
     combiner2.ymax = sin_mzi.ports['o2'].center[1] - 30
 
     combiner3 = c.add_ref(mmi_1x2())
-    combiner3.mirror_x()
+    # combiner3.mirror_x()
+    combiner3.rotate(180)
     combiner3.xmin = via_mzi.ports['o2'].center[0] + 30
     combiner3.ymax = via_mzi.ports['o2'].center[1] - 30
 
     combiner4 = c.add_ref(mmi_1x2())
-    combiner4.mirror_x()
+    # combiner4.mirror_x()
+    combiner4.rotate(180)
     combiner4.xmin = strip_mzi.ports['o2'].center[0] + 30
     combiner4.ymax = strip_mzi.ports['o2'].center[1] - 30
 
@@ -77,7 +81,8 @@ def MZIs_Pack()->gf.Component:
     splitter1.ymin = sin_1250_mzi.ymin - 110
 
     via0 = c.add_ref(ssc_via())
-    via0.mirror_x()
+    # via0.mirror_x()
+    via0.rotate(180)
     via0.connect('o1', splitter1.ports['o1'])
 
     splitter2 = c.add_ref(mmi_1x2())
@@ -112,35 +117,35 @@ def MZIs_Pack()->gf.Component:
     gf.routing.route_single(
         c,
         port1 = sin_1250_mzi.ports['o2'],
-        port2 = combiner1.ports['o2'],
+        port2 = combiner1.ports['o3'],
         cross_section = 'strip'
     )
     gf.routing.route_single(
         c,
         port1 = sin_mzi.ports['o2'],
-        port2 = combiner2.ports['o2'],
+        port2 = combiner2.ports['o3'],
         cross_section = 'strip'
     )
     gf.routing.route_single(
         c,
         port1 = via_mzi.ports['o2'],
-        port2 = combiner3.ports['o2'],
+        port2 = combiner3.ports['o3'],
         cross_section = 'strip'
     )
     gf.routing.route_single(
         c,
         port1 = strip_mzi.ports['o2'],
-        port2 = combiner4.ports['o2'],
+        port2 = combiner4.ports['o3'],
         cross_section = 'strip'
     )
 
 
     #------- Ports-----------------------------
     c.add_port('o1', port = splitter1.ports['o1'])
-    c.add_port('o2', port = combiner1.ports['o3'])
-    c.add_port('o3', port = combiner2.ports['o3'])
-    c.add_port('o4', port = combiner3.ports['o3'])
-    c.add_port('o5', port = combiner4.ports['o3'])
+    c.add_port('o2', port = combiner1.ports['o2'])
+    c.add_port('o3', port = combiner2.ports['o2'])
+    c.add_port('o4', port = combiner3.ports['o2'])
+    c.add_port('o5', port = combiner4.ports['o2'])
 
     c.add_port('o6', port = via1.ports['o2'])
     c.add_port('o7', port = via2.ports['o2'])
