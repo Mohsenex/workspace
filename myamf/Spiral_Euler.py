@@ -1,8 +1,12 @@
 """Euler-inner-bend spiral PCell for AMF CHiP PDK.
 
-Two mirrored Archimedean spiral arms are joined at the centre by a 180°
-U-turn made from two back-to-back 90° Euler bends so that the minimum-
-radius section has continuous curvature throughout.
+The inner section of the double spiral is two mirrored S-connectors (top and
+bottom half-circles), each made from two 90° bends.  Across all four bends:
+
+  Q1 (arm1 side, outer) – circular   ← arm connects here
+  Q2 (centre seam)      – Euler      ← curvature-transition point
+  Q3 (centre seam)      – Euler      ← curvature-transition point (mirrored)
+  Q4 (arm2 side, outer) – circular   ← arm connects here
 
 Default parameters match the requested spec:
   - inner bend radius : 270 µm
@@ -28,13 +32,14 @@ def spiral_euler(
     width: float = 3.0,
     npoints: int = 10000,
 ) -> gf.Component:
-    """Archimedean double spiral with Euler inner bends.
+    """Archimedean double spiral with mixed circular/Euler inner bends.
 
-    The inner 180° U-turn is formed by two back-to-back 90° Euler bends,
-    giving continuous curvature at the tightest point of the spiral.
+    The inner S-connector uses four 90° bends across the two half-circles:
+      - Q1, Q4 (outer, where spiral arms attach) are plain circular bends.
+      - Q2, Q3 (inner, at the curvature-reversal seam)  are Euler bends.
 
     Args:
-        min_bend_radius: Minimum bend radius of the inner Euler turn (µm).
+        min_bend_radius: Radius of the inner bends (µm).
         separation: Centre-to-centre gap between adjacent spiral arms (µm).
         number_of_loops: Number of loops in each half of the double spiral.
         width: Waveguide width (µm).
@@ -44,27 +49,22 @@ def spiral_euler(
         Component with ports o1 and o2 at the outer ends of the spiral.
     """
     xs = gf.cross_section.strip(width=width, layer=LAYER.WG)
+    r = min_bend_radius / 2
 
-    # 90° Euler bend — two of these form the inner 180° U-turn.
-    # radius=min_bend_radius/2 so the outer edge reaches min_bend_radius.
-    bend_90 = gf.get_component(
-        "bend_euler",
-        radius=min_bend_radius / 2,
-        angle=90,
-        cross_section=xs,
-    )
+    circ = gf.get_component(gf.components.bend_circular, radius=r, angle=90, cross_section=xs)
+    euler = gf.get_component("bend_euler", radius=r, angle=90, p=1.0, cross_section=xs)
 
     component = gf.Component()
 
-    bend1 = component.add_ref(bend_90)
-    bend2 = component.add_ref(bend_90)
-
-    # Place bend2 mirrored and rotated to form the 180° U-turn with bend1.
-    # After connecting: o1(bend1) → spiral-arm-1, o2(bend2) → spiral-arm-2.
+    # bend1: circular — arm1 attaches here (outer/entry)
+    # bend2: Euler    — sits at the centre seam (inner)
+    # bend2 is mirrored and its tip (o2) meets bend1's tip (o2) at the seam.
+    bend1 = component.add_ref(circ)
+    bend2 = component.add_ref(euler)
     bend2.mirror()
     bend2.connect("o2", bend1.ports["o2"])
 
-    # Archimedean spiral arms (same path, mirrored for the return arm)
+    # Archimedean spiral arms
     path = spiral_archimedean(
         min_bend_radius=min_bend_radius,
         separation=separation,
@@ -86,8 +86,8 @@ def spiral_euler(
     component.add_port("o1", port=arm1.ports["o2"])
     component.add_port("o2", port=arm2.ports["o2"])
 
-    bend_length = bend_90.info.get("length", 0)
     arm_length = path.length()
+    bend_length = circ.info.get("length", 0) + euler.info.get("length", 0)
     total_length = (arm_length + bend_length) * 2
     component.info["length_um"] = float(total_length)
     component.info["length_mm"] = float(total_length / 1000)
